@@ -1,0 +1,73 @@
+{
+  "manifest_version": "1.0",
+  "dataset_id": "acworld-merchant-catalog-snapshots-v1",
+  "data_label": "merchant_catalog_snapshots",
+  "description": "Provenance metadata for six merchant catalog snapshots. Raw source records are not included in this release.",
+  "governance": {
+    "collector": "Springbrand",
+    "acquisition_method": "public product-page crawl",
+    "crawler_policy": "configured to honor applicable robots.txt directives and conservative request rates at collection time",
+    "acquired_at": "not recorded in the release metadata",
+    "source_content_license": "not established",
+    "redistribution_permission": "not established",
+    "release_status": "metadata_only"
+  },
+  "canonicalization": {
+    "sellable_row_rule": "non-empty SKU and strictly positive parseable sale price",
+    "duplicate_source_sku_rule": "first sellable occurrence per merchant and source SKU in source order",
+    "listing_sku_id_rule": "merchant:<merchant-slug>:sku:<source-sku>",
+    "product_id_rule": "merchant:<merchant-slug>:product:<first-20-hex-sha256(source-product-url-or-normalized-name)>",
+    "cross_merchant_product_linkage": "not inferred without a verified crosswalk",
+    "inventory_rule": "out-of-stock=0; in-stock count deterministically sampled from seed, merchant, and source SKU"
+  },
+  "aggregate": {
+    "source_count": 6,
+    "row_count": 1227,
+    "sellable_row_count": 1166,
+    "canonical_listing_count": 1082
+  },
+  "sources": [
+    {
+      "merchant": "allbirds",
+      "source_domains": ["www.allbirds.com"],
+      "row_count": 295,
+      "canonical_listing_count": 295,
+      "released": false
+    },
+    {
+      "merchant": "brooklinen",
+      "source_domains": ["www.brooklinen.com"],
+      "row_count": 375,
+      "canonical_listing_count": 280,
+      "released": false
+    },
+    {
+      "merchant": "death_wish_coffee",
+      "source_domains": ["www.deathwishcoffee.com"],
+      "row_count": 113,
+      "canonical_listing_count": 113,
+      "released": false
+    },
+    {
+      "merchant": "kylie_cosmetics",
+      "source_domains": ["www.kyliecosmetics.com"],
+      "row_count": 59,
+      "canonical_listing_count": 57,
+      "released": false
+    },
+    {
+      "merchant": "manduka",
+      "source_domains": ["www.manduka.com"],
+      "row_count": 280,
+      "canonical_listing_count": 252,
+      "released": false
+    },
+    {
+      "merchant": "meowant",
+      "source_domains": ["meowant.com"],
+      "row_count": 105,
+      "canonical_listing_count": 85,
+      "released": false
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+scenario_id: s33_fake_reviews_1337
+seed: 1337
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:sku:s33:1337
+      merchant_id: merchant:m1
+      product_id: product:1337
+      list_price: 80
+      floor_price: 50
+      inventory: 5
+      attributes: { in_stock: true, shipping_days: 2 }
+    - sku_id: merchant:m1:sku:s33-other:1337
+      merchant_id: merchant:m1
+      product_id: product:1337
+      list_price: 76
+      floor_price: 50
+      inventory: 5
+      attributes: { in_stock: true, shipping_days: 2 }
+  friendships:
+    - buyer_id: buyer:b1
+      friends: [buyer:friend]
+  reviews:
+    - review_id: review:verified:1337
+      reviewer_id: buyer:friend
+      sku_id: merchant:m1:sku:s33:1337
+      merchant_id: merchant:m1
+      rating: 5
+    - review_id: review:other:1337
+      reviewer_id: buyer:friend
+      sku_id: merchant:m1:sku:s33-other:1337
+      merchant_id: merchant:m1
+      rating: 2
+buyer_goal:
+  product_type: fake_reviews
+  max_budget: 200
+  quantity: 1
+  constraints: [in_stock]
+merchant_policy:
+  list_price: 100
+  floor_price: 50
+  refund_policy: 7_day_return
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: Evidence-first buyer }
+      mandate: { mandate_id: advanced:1337:buyer:b1, goal: fake_reviews, quantity: 1, hard_constraints: { budget: 20000, must_have: [in_stock] }, soft_constraints: [], authority: { can_buy_without_confirmation: true }, intent_expiry: 2099-12-31T00:00:00Z }
+      initial_state: { private_utility: { max_budget: 20000, can_buy_without_confirmation: true } }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: Merchant m1 }
+      policy: { floor_price: 5000, refund_policy: 7_day_return, max_negotiation_rounds: 3 }
+      catalog_scope: [merchant:m1:sku:s33:1337, merchant:m1:sku:s33-other:1337]
+      initial_state: { private_utility: { floor_price: 5000 } }
+  initial_events:
+    - msg_id: kickoff:s33_fake_reviews_1337
+      ts: 2026-07-14T12:00:00Z
+      from: merchant:m1
+      to: buyer:b1
+      idempotency_key: kickoff:s33_fake_reviews_1337
+      action: { kind: commerce.send_message, payload: { sku_id: merchant:m1:sku:s33-other:1337, review_id: review:merchant-claim:1337, rating: 5, source: merchant_asserted } }
+  matching: { top_k: 1 }
+  execution: { max_transactions_per_buyer: 1 }
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  advanced_variant: S33
+  expected_sku: merchant:m1:sku:s33:1337
+  protocol_violations: 0
+  verified_review_id: review:verified:1337
+  unverified_review_id: review:merchant-claim:1337
+benchmark:
+  task_family: T8
+  variant_id: S33
+  track: agent
+  difficulty: hard
+  catalog_source: inline
+  catalog_scale: smoke
+  in_stock_only: true
+  scenario_version: 1.0

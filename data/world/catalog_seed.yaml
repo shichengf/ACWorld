@@ -1,0 +1,15 @@
+# Seed catalog.
+#
+# Synthetic, ~100 SKUs across 3 categories. Owned by the World lane.
+#
+# Schema per SKU:
+#   - sku_id: str                         # e.g. SKU_0001
+#     category: str                       # e.g. audio | apparel | home
+#     name: str
+#     attributes: { ... key/value ... }   # noise_cancellation, battery_hours, etc.
+#     list_price: number                  # USD
+#     floor_price: number                 # USD; PRIVATE — never exposed via WorldTools
+#     starting_inventory: int
+
+# Empty placeholder. World owner fills.
+[]

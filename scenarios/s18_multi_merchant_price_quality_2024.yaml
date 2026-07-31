@@ -1,0 +1,72 @@
+scenario_id: s18_multi_merchant_price_quality_2024
+seed: 2024
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:travel-mug
+      merchant_id: merchant:m1
+      product_id: product:insulated-travel-mug
+      list_price: 49
+      floor_price: 36
+      inventory: 4
+      attributes: { product_type: insulated travel mug, authenticity_verified: true, shipping_days: 3, merchant_reputation_bps: 470, return_window_days: 30 }
+    - sku_id: merchant:m2:travel-mug
+      merchant_id: merchant:m2
+      product_id: product:insulated-travel-mug
+      list_price: 58
+      floor_price: 42
+      inventory: 4
+      attributes: { product_type: insulated travel mug, authenticity_verified: true, shipping_days: 1, merchant_reputation_bps: 490, return_window_days: 45 }
+    - sku_id: merchant:m3:travel-mug
+      merchant_id: merchant:m3
+      product_id: product:insulated-travel-mug
+      list_price: 42
+      floor_price: 30
+      inventory: 4
+      attributes: { product_type: insulated travel mug, authenticity_verified: true, shipping_days: 2, merchant_reputation_bps: 380, return_window_days: 30 }
+buyer_goal:
+  product_type: insulated travel mug
+  max_budget: 65
+  quantity: 1
+  constraints: [authenticity_verified, shipping_within_4_days]
+merchant_policy:
+  list_price: 49
+  floor_price: 30
+  refund_policy: 30_day_return
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: Comparison buyer }
+      mandate: { mandate_id: s18_multi_merchant_price_quality_2024, goal: insulated travel mug, quantity: 1, hard_constraints: { budget: 6500, must_have: [authenticity_verified], delivery_days: 4, min_merchant_reputation_bps: 450, min_return_window_days: 30 }, soft_constraints: [], soft_preferences: { style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: Merchant 1 }
+      policy: { floor_price: 3600, refund_policy: 30_day_return, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m1:travel-mug]
+    - merchant_id: merchant:m2
+      persona: { name: Merchant 2 }
+      policy: { floor_price: 4200, refund_policy: 45_day_return, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m2:travel-mug]
+    - merchant_id: merchant:m3
+      persona: { name: Merchant 3 }
+      policy: { floor_price: 3000, refund_policy: 30_day_return, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m3:travel-mug]
+  matching: { top_k: 3 }
+  execution: { max_transactions_per_buyer: 1 }
+allowed_actions: [search, get_sku, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  product_match: true
+  expected_sku: merchant:m1:travel-mug
+  final_price_lte: 65
+  merchant_margin_gte: 0
+  inventory_decrement: 1
+  ledger_entry_created: true
+  protocol_violations: 0
+benchmark:
+  task_family: T8
+  variant_id: S18
+  track: agent
+  difficulty: hard
+  catalog_source: inline
+  catalog_scale: smoke
+  scenario_version: 1.0

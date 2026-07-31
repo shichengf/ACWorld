@@ -1,0 +1,46 @@
+scenario_id: s7_soft_compromise_2024
+seed: 2024
+initial_state:
+  catalog:
+    - sku_id: SKU_0002
+      list_price: 57
+      floor_price: 40
+      inventory: 7
+      attributes: { waterproof: true, bluetooth: false, lightweight: true, shipping_days: 1 }
+    - sku_id: SKU_0001
+      list_price: 57
+      floor_price: 40
+      inventory: 7
+      attributes: { waterproof: true, bluetooth: true, lightweight: false, shipping_days: 1 }
+buyer_goal:
+  product_type: outdoor speaker
+  max_budget: 67
+  quantity: 1
+  constraints: [waterproof, shipping_within_3_days]
+  soft_constraints:
+    - feature: bluetooth
+      importance: 3
+    - feature: lightweight
+      importance: 2
+merchant_policy:
+  list_price: 57
+  floor_price: 40
+  refund_policy: 30_day_return
+  claim_aggressiveness: neutral
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  product_match: true
+  expected_sku: SKU_0001
+  final_price_lte: 67
+  merchant_margin_gte: 0
+  inventory_decrement: 1
+  ledger_entry_created: true
+  protocol_violations: 0
+benchmark:
+  task_family: T3
+  variant_id: S7
+  track: agent
+  difficulty: medium
+  catalog_source: inline
+  catalog_scale: smoke
+  scenario_version: 1.0

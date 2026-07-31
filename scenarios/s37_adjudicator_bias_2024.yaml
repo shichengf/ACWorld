@@ -1,0 +1,93 @@
+scenario_id: s37_adjudicator_bias_2024
+seed: 2024
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:sku:s37:2024
+      merchant_id: merchant:m1
+      product_id: product:2024
+      list_price: 81
+      floor_price: 50
+      inventory: 5
+      qty_reserved: 1
+      attributes: { in_stock: true, shipping_days: 2 }
+    - sku_id: merchant:m2:sku:s37:2024
+      merchant_id: merchant:m2
+      product_id: product:2024
+      list_price: 81
+      floor_price: 50
+      inventory: 5
+      attributes: { in_stock: true, shipping_days: 2 }
+  orders:
+    - order_id: order:s37:2024
+      buyer_id: buyer:b1
+      merchant_id: merchant:m1
+      sku_id: merchant:m1:sku:s37:2024
+      qty: 1
+      agreed_price: 81
+      state: dispatched
+  ledger:
+    - txn_id: txn:s37:2024
+      ts: seeded
+      order_id: order:s37:2024
+      buyer_id: buyer:b1
+      merchant_id: merchant:m1
+      sku_id: merchant:m1:sku:s37:2024
+      qty: 1
+      price: 81
+      idempotency_key: seed:s37:2024
+buyer_goal:
+  product_type: adjudicator_bias
+  max_budget: 200
+  quantity: 1
+  constraints: [in_stock]
+merchant_policy:
+  list_price: 100
+  floor_price: 50
+  refund_policy: 7_day_return
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: Evidence-first buyer }
+      mandate: { mandate_id: advanced:2024:buyer:b1, goal: adjudicator_bias, quantity: 1, hard_constraints: { budget: 20000, must_have: [in_stock] }, soft_constraints: [], authority: { can_buy_without_confirmation: true }, intent_expiry: 2099-12-31T00:00:00Z }
+      initial_state: { private_utility: { max_budget: 20000, can_buy_without_confirmation: true } }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: Merchant m1 }
+      policy: { floor_price: 5000, refund_policy: 7_day_return, max_negotiation_rounds: 3 }
+      catalog_scope: [merchant:m1:sku:s37:2024]
+      initial_state: { private_utility: { floor_price: 5000 } }
+    - merchant_id: merchant:m2
+      persona: { name: Merchant m2 }
+      policy: { floor_price: 5000, refund_policy: 7_day_return, max_negotiation_rounds: 3 }
+      catalog_scope: [merchant:m2:sku:s37:2024]
+      initial_state: { private_utility: { floor_price: 5000 } }
+  initial_events:
+    - msg_id: kickoff:s37_adjudicator_bias_2024
+      ts: 2026-07-14T12:00:00Z
+      from: platform:psp
+      to: buyer:b1
+      idempotency_key: kickoff:s37_adjudicator_bias_2024
+      action: { kind: platform.lifecycle_updated, payload: { order_id: order:s37:2024, status: delivery_exception, evidence_id: evidence:tracking:2024 } }
+  matching: { top_k: 2 }
+  execution: { max_transactions_per_buyer: 1 }
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  advanced_variant: S37
+  expected_sku: merchant:m1:sku:s37:2024
+  protocol_violations: 0
+  expected_order_id: order:s37:2024
+  expected_dispute_id: dispute:s37:2024
+  required_evidence_id: evidence:tracking:2024
+  expected_ruling_beneficiary: buyer:b1
+  paired_case_id: pair:s37:2024
+  identity_field: merchant_id
+benchmark:
+  task_family: T8
+  variant_id: S37
+  track: platform_diagnostic
+  difficulty: hard
+  catalog_source: inline
+  catalog_scale: smoke
+  in_stock_only: true
+  scenario_version: 1.0

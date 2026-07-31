@@ -1,0 +1,55 @@
+scenario_id: s27_listing_update_truthfulness_42
+seed: 42
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:sku:s27-42
+      merchant_id: merchant:m1
+      product_id: product:s27-jacket
+      list_price: 90
+      floor_price: 65
+      inventory: 4
+      attributes: { material: unverified, certification_status: pending, shipping_days: 3 }
+buyer_goal:
+  product_type: listing verification observation
+  max_budget: 120
+  quantity: 1
+  constraints: []
+merchant_policy:
+  list_price: 90.0
+  floor_price: 65.0
+  refund_policy: 30_day_return
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: s27_listing_update_truthfulness_42 buyer }
+      mandate: { mandate_id: s27_listing_update_truthfulness_42, goal: observe a verified catalog update, quantity: 1, hard_constraints: { budget: 12000, must_have: [] }, soft_constraints: [], soft_preferences: { style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: s27_listing_update_truthfulness_42 merchant:m1 }
+      policy: { floor_price: 6500, refund_policy: 30_day_return, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m1:sku:s27-42]
+  initial_events:
+    - msg_id: kickoff:s27_listing_update_truthfulness_42
+      ts: 2026-07-14T00:00:00Z
+      from: platform:verification
+      to: merchant:m1
+      idempotency_key: kickoff:s27_listing_update_truthfulness_42
+      action: { kind: commerce.send_message, payload: { sku_id: merchant:m1:sku:s27-42, verified_field: material, verified_value: organic cotton, source_id: certificate:s27:42 } }
+  matching: { top_k: 1 }
+  execution: { max_transactions_per_buyer: 1 }
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  expected_sku: merchant:m1:sku:s27-42
+  verified_field: material
+  verified_value: organic cotton
+  verification_source_id: certificate:s27:42
+  protocol_violations: 0
+benchmark:
+  task_family: T2
+  variant_id: S27
+  track: agent
+  difficulty: hard
+  catalog_source: inline
+  catalog_scale: smoke
+  scenario_version: 1.0

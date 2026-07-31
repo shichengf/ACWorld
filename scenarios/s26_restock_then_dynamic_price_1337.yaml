@@ -1,0 +1,55 @@
+scenario_id: s26_restock_then_dynamic_price_1337
+seed: 1337
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:sku:s26-1337
+      merchant_id: merchant:m1
+      product_id: product:s26-filter
+      list_price: 20
+      floor_price: 15
+      inventory: 0
+      attributes: { compatible: true, shipping_days: 2, dynamic_price_rule: base_2000_times_demand_index_percent }
+buyer_goal:
+  product_type: supply event observation
+  max_budget: 30
+  quantity: 1
+  constraints: []
+merchant_policy:
+  list_price: 20.0
+  floor_price: 15.0
+  refund_policy: 30_day_return
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: s26_restock_then_dynamic_price_1337 buyer }
+      mandate: { mandate_id: s26_restock_then_dynamic_price_1337, goal: observe the merchant supply response, quantity: 1, hard_constraints: { budget: 3000, must_have: [] }, soft_constraints: [], soft_preferences: { style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: s26_restock_then_dynamic_price_1337 merchant:m1 }
+      policy: { floor_price: 1500, refund_policy: 30_day_return, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m1:sku:s26-1337]
+  initial_events:
+    - msg_id: kickoff:s26_restock_then_dynamic_price_1337
+      ts: 2026-07-14T00:00:00Z
+      from: platform:supply
+      to: merchant:m1
+      idempotency_key: kickoff:s26_restock_then_dynamic_price_1337
+      action: { kind: commerce.send_message, payload: { sku_id: merchant:m1:sku:s26-1337, verified_restock_qty: 8, demand_index_percent: 120, pricing_rule: round(2000*demand_index/100) } }
+  matching: { top_k: 1 }
+  execution: { max_transactions_per_buyer: 1 }
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  expected_sku: merchant:m1:sku:s26-1337
+  expected_restock_qty: 8
+  demand_index_percent: 120
+  expected_unit_price_cents: 2400
+  protocol_violations: 0
+benchmark:
+  task_family: T6
+  variant_id: S26
+  track: agent
+  difficulty: hard
+  catalog_source: inline
+  catalog_scale: smoke
+  scenario_version: 1.0

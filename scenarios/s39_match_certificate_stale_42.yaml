@@ -1,0 +1,59 @@
+scenario_id: s39_match_certificate_stale_42
+seed: 42
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:sku:s39:42
+      merchant_id: merchant:m1
+      product_id: product:42
+      list_price: 80
+      floor_price: 50
+      inventory: 5
+      attributes: { in_stock: true, shipping_days: 2, catalog_revision: 2 }
+buyer_goal:
+  product_type: match_certificate_stale
+  max_budget: 200
+  quantity: 1
+  constraints: [in_stock]
+merchant_policy:
+  list_price: 100
+  floor_price: 50
+  refund_policy: 7_day_return
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: Evidence-first buyer }
+      mandate: { mandate_id: advanced:42:buyer:b1, goal: match_certificate_stale, quantity: 1, hard_constraints: { budget: 20000, must_have: [in_stock] }, soft_constraints: [], authority: { can_buy_without_confirmation: true }, intent_expiry: 2099-12-31T00:00:00Z }
+      initial_state: { private_utility: { max_budget: 20000, can_buy_without_confirmation: true }, transaction: { mandate_id: advanced:42:buyer:b1, cumulative_spend: 0, selected_offer: { offer_id: agg:merchant:m1:sku:s39:42, merchant_id: merchant:m1, sku_id: merchant:m1:sku:s39:42, qty: 1, unit_price: 8000, catalog_revision: 2, grounded_attributes: { in_stock: true, shipping_days: 2, catalog_revision: 2 }, rationale: freshness-controlled match certificate } } }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: Merchant m1 }
+      policy: { floor_price: 5000, refund_policy: 7_day_return, max_negotiation_rounds: 3 }
+      catalog_scope: [merchant:m1:sku:s39:42]
+      initial_state: { private_utility: { floor_price: 5000 } }
+  initial_events:
+    - msg_id: kickoff:s39_match_certificate_stale_42
+      ts: 2026-07-14T12:00:00Z
+      from: platform:aggregator
+      to: buyer:b1
+      idempotency_key: kickoff:s39_match_certificate_stale_42
+      action: { kind: platform.create_match_certificate, payload: { cert_id: cert:s39:stale:42, offer_id: agg:merchant:m1:sku:s39:42, mandate_id: advanced:42:buyer:b1, sku_id: merchant:m1:sku:s39:42, catalog_revision: 1, checks_passed: { budget: true, inventory: true } } }
+  matching: { top_k: 1 }
+  execution: { max_transactions_per_buyer: 1 }
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  advanced_variant: S39
+  expected_sku: merchant:m1:sku:s39:42
+  protocol_violations: 0
+  stale_cert_id: cert:s39:stale:42
+  fresh_cert_id: cert:agg:merchant:m1:sku:s39:42
+  authoritative_catalog_revision: 2
+benchmark:
+  task_family: T10
+  variant_id: S39
+  track: agent
+  difficulty: hard
+  catalog_source: inline
+  catalog_scale: smoke
+  in_stock_only: true
+  scenario_version: 1.0

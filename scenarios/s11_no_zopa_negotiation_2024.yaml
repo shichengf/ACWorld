@@ -1,0 +1,31 @@
+scenario_id: s11_no_zopa_negotiation_2024
+seed: 2024
+initial_state:
+  catalog:
+    - sku_id: SKU_NO_ZOPA_A
+      list_price: 140
+      floor_price: 110
+      inventory: 5
+      attributes: { adjustable: true, shipping_days: 2 }
+    - sku_id: SKU_NO_ZOPA_B
+      list_price: 155
+      floor_price: 115
+      inventory: 5
+      attributes: { adjustable: true, shipping_days: 2 }
+buyer_goal:
+  product_type: standing desk
+  max_budget: 100
+  quantity: 1
+  constraints: [adjustable, shipping_within_3_days]
+merchant_policy:
+  list_price: 140
+  floor_price: 110
+  refund_policy: 30_day_return
+  claim_aggressiveness: neutral
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  purchase_expected: false
+  no_purchase_reason: no_zopa
+  inventory_decrement: 0
+  ledger_entry_created: false
+  protocol_violations: 0

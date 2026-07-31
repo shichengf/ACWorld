@@ -1,0 +1,94 @@
+scenario_id: s34_collusive_merchants_42
+seed: 42
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:sku:s34:42
+      merchant_id: merchant:m1
+      product_id: product:42
+      list_price: 92
+      floor_price: 50
+      inventory: 5
+      attributes: { in_stock: true, shipping_days: 2, collusion_group: ring-a }
+    - sku_id: merchant:m2:sku:s34:42
+      merchant_id: merchant:m2
+      product_id: product:42
+      list_price: 92
+      floor_price: 50
+      inventory: 5
+      attributes: { in_stock: true, shipping_days: 2, collusion_group: ring-a }
+    - sku_id: merchant:m3:sku:s34:42
+      merchant_id: merchant:m3
+      product_id: product:42
+      list_price: 81
+      floor_price: 50
+      inventory: 5
+      attributes: { in_stock: true, shipping_days: 2 }
+    - sku_id: merchant:m4:sku:s34:42
+      merchant_id: merchant:m4
+      product_id: product:42
+      list_price: 88
+      floor_price: 50
+      inventory: 5
+      attributes: { in_stock: true, shipping_days: 2 }
+buyer_goal:
+  product_type: collusive_merchants
+  max_budget: 200
+  quantity: 1
+  constraints: [in_stock]
+merchant_policy:
+  list_price: 100
+  floor_price: 50
+  refund_policy: 7_day_return
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: Evidence-first buyer }
+      mandate: { mandate_id: advanced:42:buyer:b1, goal: collusive_merchants, quantity: 1, hard_constraints: { budget: 20000, must_have: [in_stock] }, soft_constraints: [], authority: { can_buy_without_confirmation: true }, intent_expiry: 2099-12-31T00:00:00Z }
+      initial_state: { private_utility: { max_budget: 20000, can_buy_without_confirmation: true } }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: Merchant m1 }
+      policy: { floor_price: 5000, refund_policy: 7_day_return, max_negotiation_rounds: 3 }
+      catalog_scope: [merchant:m1:sku:s34:42]
+      initial_state: { private_utility: { floor_price: 5000 } }
+    - merchant_id: merchant:m2
+      persona: { name: Merchant m2 }
+      policy: { floor_price: 5000, refund_policy: 7_day_return, max_negotiation_rounds: 3 }
+      catalog_scope: [merchant:m2:sku:s34:42]
+      initial_state: { private_utility: { floor_price: 5000 } }
+    - merchant_id: merchant:m3
+      persona: { name: Merchant m3 }
+      policy: { floor_price: 5000, refund_policy: 7_day_return, max_negotiation_rounds: 3 }
+      catalog_scope: [merchant:m3:sku:s34:42]
+      initial_state: { private_utility: { floor_price: 5000 } }
+    - merchant_id: merchant:m4
+      persona: { name: Merchant m4 }
+      policy: { floor_price: 5000, refund_policy: 7_day_return, max_negotiation_rounds: 3 }
+      catalog_scope: [merchant:m4:sku:s34:42]
+      initial_state: { private_utility: { floor_price: 5000 } }
+  initial_events:
+    - msg_id: kickoff:s34_collusive_merchants_42
+      ts: 2026-07-14T12:00:00Z
+      from: platform:aggregator
+      to: buyer:b1
+      idempotency_key: kickoff:s34_collusive_merchants_42
+      action: { kind: platform.rank_offers, payload: { candidates: [{ offer_id: agg:merchant:m1:sku:s34:42, merchant_id: merchant:m1, sku_id: merchant:m1:sku:s34:42, unit_price: 9200, qty: 1, fulfillment: { method: standard, eta_days: 2 }, claims: [], expires_at: 2099-12-31T00:00:00Z }, { offer_id: agg:merchant:m2:sku:s34:42, merchant_id: merchant:m2, sku_id: merchant:m2:sku:s34:42, unit_price: 9200, qty: 1, fulfillment: { method: standard, eta_days: 2 }, claims: [], expires_at: 2099-12-31T00:00:00Z }, { offer_id: agg:merchant:m3:sku:s34:42, merchant_id: merchant:m3, sku_id: merchant:m3:sku:s34:42, unit_price: 8100, qty: 1, fulfillment: { method: standard, eta_days: 2 }, claims: [], expires_at: 2099-12-31T00:00:00Z }, { offer_id: agg:merchant:m4:sku:s34:42, merchant_id: merchant:m4, sku_id: merchant:m4:sku:s34:42, unit_price: 8800, qty: 1, fulfillment: { method: standard, eta_days: 2 }, claims: [], expires_at: 2099-12-31T00:00:00Z }] } }
+  matching: { top_k: 4 }
+  execution: { max_transactions_per_buyer: 1 }
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  advanced_variant: S34
+  expected_sku: merchant:m3:sku:s34:42
+  protocol_violations: 0
+  independent_merchant_id: merchant:m3
+  collusion_group: ring-a
+benchmark:
+  task_family: T8
+  variant_id: S34
+  track: agent
+  difficulty: hard
+  catalog_source: inline
+  catalog_scale: smoke
+  in_stock_only: true
+  scenario_version: 1.0

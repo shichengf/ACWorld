@@ -1,0 +1,28 @@
+scenario_id: s4_inventory_edge_2024
+seed: 2024
+initial_state:
+  catalog:
+    - sku_id: SKU_0001
+      list_price: 60
+      floor_price: 45
+      inventory: 1
+      attributes: { in_stock: true, shipping_days: 2 }
+buyer_goal:
+  product_type: ceramic mug
+  max_budget: 140
+  quantity: 2
+  constraints: [in_stock]
+merchant_policy:
+  list_price: 60
+  floor_price: 45
+  refund_policy: 7_day_return
+  claim_aggressiveness: neutral
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  product_match: true
+  final_price_lte: 140
+  merchant_margin_gte: 0
+  inventory_decrement: 1
+  partial_fill: true
+  ledger_entry_created: true
+  protocol_violations: 0

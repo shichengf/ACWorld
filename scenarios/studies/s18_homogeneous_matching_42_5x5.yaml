@@ -1,0 +1,108 @@
+scenario_id: s18_homogeneous_matching_42_5x5
+seed: 42
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:sku:homogeneous:42:m1
+      merchant_id: merchant:m1
+      product_id: product:shared-electric-standing-desk
+      list_price: 110
+      floor_price: 76
+      inventory: 1
+      attributes: { product_type: electric standing desk, in_stock: true, quality_score: 85, shipping_days: 2, preference_profiles: studio executive, warranty_years: 5 }
+    - sku_id: merchant:m2:sku:homogeneous:42:m2
+      merchant_id: merchant:m2
+      product_id: product:shared-electric-standing-desk
+      list_price: 104
+      floor_price: 72
+      inventory: 1
+      attributes: { product_type: electric standing desk, in_stock: true, quality_score: 78, shipping_days: 1, preference_profiles: commuter planner, warranty_years: 3 }
+    - sku_id: merchant:m3:sku:homogeneous:42:m3
+      merchant_id: merchant:m3
+      product_id: product:shared-electric-standing-desk
+      list_price: 122
+      floor_price: 90
+      inventory: 1
+      attributes: { product_type: electric standing desk, in_stock: true, quality_score: 94, shipping_days: 3, preference_profiles: studio creator, warranty_years: 7 }
+    - sku_id: merchant:m4:sku:homogeneous:42:m4
+      merchant_id: merchant:m4
+      product_id: product:shared-electric-standing-desk
+      list_price: 96
+      floor_price: 67
+      inventory: 1
+      attributes: { product_type: electric standing desk, in_stock: true, quality_score: 72, shipping_days: 2, preference_profiles: planner executive, warranty_years: 2 }
+    - sku_id: merchant:m5:sku:homogeneous:42:m5
+      merchant_id: merchant:m5
+      product_id: product:shared-electric-standing-desk
+      list_price: 114
+      floor_price: 82
+      inventory: 1
+      attributes: { product_type: electric standing desk, in_stock: true, quality_score: 88, shipping_days: 1, preference_profiles: commuter creator, warranty_years: 4 }
+buyer_goal:
+  product_type: electric standing desk studio
+  max_budget: 145
+  quantity: 1
+  constraints: [in_stock, shipping_within_4_days]
+merchant_policy:
+  list_price: 122
+  floor_price: 90
+  refund_policy: 30_day_return
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: market study buyer b1, preference_profile: studio }
+      mandate: { mandate_id: study:matching:buyer:b1, goal: electric standing desk studio, quantity: 1, hard_constraints: { budget: 14500, must_have: [in_stock], delivery_days: 4 }, soft_constraints: [], soft_preferences: { profile: studio, priority: "balanced price, quality, and delivery", ranking_rule: balanced_value, style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+    - buyer_id: buyer:b2
+      persona: { name: market study buyer b2, preference_profile: commuter }
+      mandate: { mandate_id: study:matching:buyer:b2, goal: electric standing desk commuter, quantity: 1, hard_constraints: { budget: 14200, must_have: [in_stock], delivery_days: 2 }, soft_constraints: [], soft_preferences: { profile: commuter, priority: "fast delivery, then price", ranking_rule: shipping_then_price, style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+    - buyer_id: buyer:b3
+      persona: { name: market study buyer b3, preference_profile: creator }
+      mandate: { mandate_id: study:matching:buyer:b3, goal: electric standing desk creator, quantity: 1, hard_constraints: { budget: 15200, must_have: [in_stock], delivery_days: 4 }, soft_constraints: [], soft_preferences: { profile: creator, priority: "quality, then delivery", ranking_rule: quality_then_shipping, style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+    - buyer_id: buyer:b4
+      persona: { name: market study buyer b4, preference_profile: planner }
+      mandate: { mandate_id: study:matching:buyer:b4, goal: electric standing desk planner, quantity: 1, hard_constraints: { budget: 14000, must_have: [in_stock], delivery_days: 3 }, soft_constraints: [], soft_preferences: { profile: planner, priority: "price, then delivery", ranking_rule: price_then_shipping, style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+    - buyer_id: buyer:b5
+      persona: { name: market study buyer b5, preference_profile: executive }
+      mandate: { mandate_id: study:matching:buyer:b5, goal: electric standing desk executive, quantity: 1, hard_constraints: { budget: 14600, must_have: [in_stock], delivery_days: 3 }, soft_constraints: [], soft_preferences: { profile: executive, priority: "quality, then warranty", ranking_rule: quality_then_warranty, style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: market study merchant m1 }
+      policy: { floor_price: 7600, quote_price: 11000, refund_policy: 30_day_return, max_negotiation_rounds: 0, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m1:sku:homogeneous:42:m1]
+    - merchant_id: merchant:m2
+      persona: { name: market study merchant m2 }
+      policy: { floor_price: 7200, quote_price: 10400, refund_policy: 30_day_return, max_negotiation_rounds: 0, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m2:sku:homogeneous:42:m2]
+    - merchant_id: merchant:m3
+      persona: { name: market study merchant m3 }
+      policy: { floor_price: 9000, quote_price: 12200, refund_policy: 30_day_return, max_negotiation_rounds: 0, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m3:sku:homogeneous:42:m3]
+    - merchant_id: merchant:m4
+      persona: { name: market study merchant m4 }
+      policy: { floor_price: 6700, quote_price: 9600, refund_policy: 30_day_return, max_negotiation_rounds: 0, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m4:sku:homogeneous:42:m4]
+    - merchant_id: merchant:m5
+      persona: { name: market study merchant m5 }
+      policy: { floor_price: 8200, quote_price: 11400, refund_policy: 30_day_return, max_negotiation_rounds: 0, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m5:sku:homogeneous:42:m5]
+  matching: { top_k: 2 }
+  execution: { max_transactions_per_buyer: 1 }
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  expected_sku: merchant:m3:sku:homogeneous:42:m3
+  product_match: true
+  final_price_lte: 145
+  merchant_margin_gte: 0
+  inventory_decrement: 1
+  ledger_entry_created: true
+  protocol_violations: 0
+  market_oracle: { schema_version: cwe.market-oracle.v1, buyer_valuations: [{ buyer_id: buyer:b1, merchant_id: merchant:m1, listing_id: merchant:m1:sku:homogeneous:42:m1, unit_value_minor: 13600 }, { buyer_id: buyer:b1, merchant_id: merchant:m2, listing_id: merchant:m2:sku:homogeneous:42:m2, unit_value_minor: 13200 }, { buyer_id: buyer:b1, merchant_id: merchant:m3, listing_id: merchant:m3:sku:homogeneous:42:m3, unit_value_minor: 14200 }, { buyer_id: buyer:b1, merchant_id: merchant:m4, listing_id: merchant:m4:sku:homogeneous:42:m4, unit_value_minor: 11200 }, { buyer_id: buyer:b1, merchant_id: merchant:m5, listing_id: merchant:m5:sku:homogeneous:42:m5, unit_value_minor: 13000 }, { buyer_id: buyer:b2, merchant_id: merchant:m1, listing_id: merchant:m1:sku:homogeneous:42:m1, unit_value_minor: 12000 }, { buyer_id: buyer:b2, merchant_id: merchant:m2, listing_id: merchant:m2:sku:homogeneous:42:m2, unit_value_minor: 13500 }, { buyer_id: buyer:b2, merchant_id: merchant:m3, listing_id: merchant:m3:sku:homogeneous:42:m3, unit_value_minor: 12400 }, { buyer_id: buyer:b2, merchant_id: merchant:m4, listing_id: merchant:m4:sku:homogeneous:42:m4, unit_value_minor: 11800 }, { buyer_id: buyer:b2, merchant_id: merchant:m5, listing_id: merchant:m5:sku:homogeneous:42:m5, unit_value_minor: 14000 }, { buyer_id: buyer:b3, merchant_id: merchant:m1, listing_id: merchant:m1:sku:homogeneous:42:m1, unit_value_minor: 13200 }, { buyer_id: buyer:b3, merchant_id: merchant:m2, listing_id: merchant:m2:sku:homogeneous:42:m2, unit_value_minor: 12800 }, { buyer_id: buyer:b3, merchant_id: merchant:m3, listing_id: merchant:m3:sku:homogeneous:42:m3, unit_value_minor: 15000 }, { buyer_id: buyer:b3, merchant_id: merchant:m4, listing_id: merchant:m4:sku:homogeneous:42:m4, unit_value_minor: 12000 }, { buyer_id: buyer:b3, merchant_id: merchant:m5, listing_id: merchant:m5:sku:homogeneous:42:m5, unit_value_minor: 13800 }, { buyer_id: buyer:b4, merchant_id: merchant:m1, listing_id: merchant:m1:sku:homogeneous:42:m1, unit_value_minor: 11900 }, { buyer_id: buyer:b4, merchant_id: merchant:m2, listing_id: merchant:m2:sku:homogeneous:42:m2, unit_value_minor: 13300 }, { buyer_id: buyer:b4, merchant_id: merchant:m3, listing_id: merchant:m3:sku:homogeneous:42:m3, unit_value_minor: 12700 }, { buyer_id: buyer:b4, merchant_id: merchant:m4, listing_id: merchant:m4:sku:homogeneous:42:m4, unit_value_minor: 13900 }, { buyer_id: buyer:b4, merchant_id: merchant:m5, listing_id: merchant:m5:sku:homogeneous:42:m5, unit_value_minor: 13200 }, { buyer_id: buyer:b5, merchant_id: merchant:m1, listing_id: merchant:m1:sku:homogeneous:42:m1, unit_value_minor: 14500 }, { buyer_id: buyer:b5, merchant_id: merchant:m2, listing_id: merchant:m2:sku:homogeneous:42:m2, unit_value_minor: 13100 }, { buyer_id: buyer:b5, merchant_id: merchant:m3, listing_id: merchant:m3:sku:homogeneous:42:m3, unit_value_minor: 13600 }, { buyer_id: buyer:b5, merchant_id: merchant:m4, listing_id: merchant:m4:sku:homogeneous:42:m4, unit_value_minor: 12600 }, { buyer_id: buyer:b5, merchant_id: merchant:m5, listing_id: merchant:m5:sku:homogeneous:42:m5, unit_value_minor: 13400 }], merchant_floors: [{ merchant_id: merchant:m1, listing_id: merchant:m1:sku:homogeneous:42:m1, unit_floor_minor: 7600, capacity: 1 }, { merchant_id: merchant:m2, listing_id: merchant:m2:sku:homogeneous:42:m2, unit_floor_minor: 7200, capacity: 1 }, { merchant_id: merchant:m3, listing_id: merchant:m3:sku:homogeneous:42:m3, unit_floor_minor: 9000, capacity: 1 }, { merchant_id: merchant:m4, listing_id: merchant:m4:sku:homogeneous:42:m4, unit_floor_minor: 6700, capacity: 1 }, { merchant_id: merchant:m5, listing_id: merchant:m5:sku:homogeneous:42:m5, unit_floor_minor: 8200, capacity: 1 }], allocation_oracle: { optimal_social_welfare_minor: 31900, oracle_id: homogeneous-study-exact-5x5-global-v1 } }
+  market_study: { schema_version: cwe.homogeneous-market-study.v1, result_scope: environment_composition_case_study_not_benchmark, protocol: merchant_quotes_then_top2_then_buyer_rank_then_clear_settle, buyer_id_prefix: buyer:, candidate_policy: public_profile_filter_then_role_local_ranking_rule_then_listing_id, candidate_sets: { b1: [merchant:m1:sku:homogeneous:42:m1, merchant:m3:sku:homogeneous:42:m3], b2: [merchant:m2:sku:homogeneous:42:m2, merchant:m5:sku:homogeneous:42:m5], b3: [merchant:m3:sku:homogeneous:42:m3, merchant:m5:sku:homogeneous:42:m5], b4: [merchant:m4:sku:homogeneous:42:m4, merchant:m2:sku:homogeneous:42:m2], b5: [merchant:m1:sku:homogeneous:42:m1, merchant:m4:sku:homogeneous:42:m4] }, reference_quotes: [{ merchant_id: merchant:m1, listing_id: merchant:m1:sku:homogeneous:42:m1, unit_price_minor: 11000, quantity: 1 }, { merchant_id: merchant:m2, listing_id: merchant:m2:sku:homogeneous:42:m2, unit_price_minor: 10400, quantity: 1 }, { merchant_id: merchant:m3, listing_id: merchant:m3:sku:homogeneous:42:m3, unit_price_minor: 12200, quantity: 1 }, { merchant_id: merchant:m4, listing_id: merchant:m4:sku:homogeneous:42:m4, unit_price_minor: 9600, quantity: 1 }, { merchant_id: merchant:m5, listing_id: merchant:m5:sku:homogeneous:42:m5, unit_price_minor: 11400, quantity: 1 }], reference_buyer_ranked_choices: { b1: [merchant:m1:sku:homogeneous:42:m1, merchant:m3:sku:homogeneous:42:m3], b2: [merchant:m2:sku:homogeneous:42:m2, merchant:m5:sku:homogeneous:42:m5], b3: [merchant:m3:sku:homogeneous:42:m3, merchant:m5:sku:homogeneous:42:m5], b4: [merchant:m4:sku:homogeneous:42:m4, merchant:m2:sku:homogeneous:42:m2], b5: [merchant:m1:sku:homogeneous:42:m1, merchant:m4:sku:homogeneous:42:m4] }, reference_allocation: [{ buyer_id: buyer:b1, merchant_id: merchant:m3, listing_id: merchant:m3:sku:homogeneous:42:m3, unit_price_minor: 12200, quantity: 1 }, { buyer_id: buyer:b2, merchant_id: merchant:m2, listing_id: merchant:m2:sku:homogeneous:42:m2, unit_price_minor: 10400, quantity: 1 }, { buyer_id: buyer:b3, merchant_id: merchant:m5, listing_id: merchant:m5:sku:homogeneous:42:m5, unit_price_minor: 11400, quantity: 1 }, { buyer_id: buyer:b4, merchant_id: merchant:m4, listing_id: merchant:m4:sku:homogeneous:42:m4, unit_price_minor: 9600, quantity: 1 }, { buyer_id: buyer:b5, merchant_id: merchant:m1, listing_id: merchant:m1:sku:homogeneous:42:m1, unit_price_minor: 11000, quantity: 1 }], clearing_policy: maximize_trade_count_then_first_choice_satisfaction_then_social_welfare_then_lexicographic, top_choice_contention: { listing_id: merchant:m1:sku:homogeneous:42:m1, buyer_ids: [buyer:b1, buyer:b5] }, global_optimal_welfare_minor: 31900, top_k_reachable_optimal_welfare_minor: 31200, unique_global_optimum: true, unique_top_k_optimum: true }
+benchmark:
+  task_family: T8
+  variant_id: S18
+  track: agent
+  difficulty: hard
+  catalog_source: inline
+  catalog_scale: smoke
+  scenario_version: environment-study-1.0
