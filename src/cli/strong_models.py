@@ -16,6 +16,7 @@ from experiments.benchmark_plan import (
 )
 from experiments.strong_model_runner import (
     DEFAULT_MAX_WORKERS,
+    MAX_WORKERS_V2,
     DEFAULT_MULTI_ITEM_OUTPUT_ROOT,
     DEFAULT_OUTPUT_ROOT,
     MULTI_ITEM_RERUN_MODELS,
@@ -75,7 +76,8 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument(
         "--workers",
         type=int,
-        choices=range(1, DEFAULT_MAX_WORKERS + 1),
+        choices=range(1, MAX_WORKERS_V2 + 1),
+        metavar=f"{{1..{MAX_WORKERS_V2}}}",
         default=DEFAULT_MAX_WORKERS,
     )
     run.add_argument(
@@ -115,7 +117,8 @@ def build_parser() -> argparse.ArgumentParser:
     multi_item.add_argument(
         "--workers",
         type=int,
-        choices=range(1, DEFAULT_MAX_WORKERS + 1),
+        choices=range(1, MAX_WORKERS_V2 + 1),
+        metavar=f"{{1..{MAX_WORKERS_V2}}}",
         default=DEFAULT_MAX_WORKERS,
     )
     multi_item.add_argument(

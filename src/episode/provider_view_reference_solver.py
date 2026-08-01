@@ -14,6 +14,7 @@ from itertools import combinations
 from typing import Any, Mapping, Sequence
 
 from agents.business_decision import LLMBusinessDecisionV1
+from episode.capability_runtime_t1_content import T1_SELECTION_RULE_SET_V1
 from episode.t3_provider_grounding import grounded_t3_facts_v1
 
 
@@ -56,7 +57,7 @@ def _provider_business_facts(request: Mapping[str, Any]) -> dict[str, Any]:
         persistent = observation.get("persistent_task_business_facts")
         if not isinstance(persistent, Mapping):
             continue
-        for namespace in ("benchmark", "task"):
+        for namespace in ("brief", "task"):
             value = persistent.get(namespace)
             if isinstance(value, Mapping):
                 matches.append(value)
@@ -357,10 +358,10 @@ def _t2_report_solution(facts: Mapping[str, Any]) -> tuple[str, dict[str, Any]]:
     if rule_set == "ascending-certified-metric-v1":
         metric = _text(policy.get("metric"), label="comparison metric")
         tie_field = _text(
-            policy.get("stable_tie_key_field"),
+            policy.get("sort_key_field"),
             label="comparison stable tie key field",
         )
-        if tie_field != "stable_tie_key":
+        if tie_field != "sort_key":
             raise ProviderViewSolvabilityError(
                 "comparison policy names an unsupported stable tie key"
             )
@@ -783,7 +784,7 @@ def _t3_solution(request: Mapping[str, Any]) -> tuple[str, dict[str, Any]]:
     authorized_updates.sort(
         key=lambda row: (
             _integer(row.get("update_sequence"), label="preference update revision"),
-            _text(row.get("stable_update_key"), label="stable_update_key"),
+            _text(row.get("sort_key"), label="sort_key"),
         )
     )
     if authorized_updates:
@@ -821,7 +822,7 @@ def _t3_solution(request: Mapping[str, Any]) -> tuple[str, dict[str, Any]]:
         if not isinstance(constraint, Mapping):
             raise ProviderViewSolvabilityError("authority instruction has no constraint")
         field = _text(constraint.get("field"), label="authority constraint field")
-        key = _text(instruction.get("stable_instruction_key"), label="stable_instruction_key")
+        key = _text(instruction.get("sort_key"), label="sort_key")
         candidate = (rank, key, instruction)
         current = governing_by_field.get(field)
         if current is None or candidate[:2] < current[:2]:
@@ -885,8 +886,8 @@ def _t3_solution(request: Mapping[str, Any]) -> tuple[str, dict[str, Any]]:
         key=lambda ref: (
             -score_by_ref[ref],
             _text(
-                candidate_by_ref[ref].get("stable_tie_break_key"),
-                label="stable_tie_break_key",
+                candidate_by_ref[ref].get("sort_key"),
+                label="sort_key",
             ),
         ),
     )
@@ -2336,7 +2337,6 @@ _T5_CALCULATION_RULES = {
 _T5_OBJECTIVE = {
     "kind": "lexicographic_min",
     "criteria": ["grand_total_minor", "max_delivery_days", "merchant_count"],
-    "tie_break": "canonical_selected_sku_refs_then_qty_ascending",
 }
 
 
@@ -3039,9 +3039,7 @@ def solve_t1_provider_request_v1(
     policy = facts.get("selection_policy")
     if not isinstance(policy, Mapping):
         raise ProviderViewSolvabilityError("T1 public selection policy is missing")
-    if policy.get("hard_constraint_rule") != "all" or policy.get(
-        "candidate_order_semantics"
-    ) != "irrelevant":
+    if policy.get("rule_set") != T1_SELECTION_RULE_SET_V1:
         raise ProviderViewSolvabilityError("T1 public selection policy is incomplete")
     optional = facts.get("optional_filters", ())
     if not isinstance(optional, list) or any(not isinstance(row, str) for row in optional):
@@ -3057,20 +3055,18 @@ def solve_t1_provider_request_v1(
     if event != "rank_offers":
         raise ProviderViewSolvabilityError(f"unsupported T1 event {event!r}")
     candidates = _rows(event_facts.get("candidates", ()), label="T1 ranked candidates")
-    required_rounds = _integer(
-        facts.get("required_search_rounds", 0),
-        label="T1 required search rounds",
-    )
-    if required_rounds < 0:
-        raise ProviderViewSolvabilityError("T1 required search rounds cannot be negative")
+    # The buyer asks for one wish to be dropped after each empty result, so the
+    # round budget follows from the wish list itself.  One round per wish, plus
+    # the final round that carries no wish at all.
+    reformulation_budget = len(optional) + 1 if optional else 0
     if not candidates:
-        if required_rounds <= 0 or "search" not in allowed:
+        if reformulation_budget <= 0 or "search" not in allowed:
             raise ProviderViewSolvabilityError("T1 empty ranking has no declared reformulation")
         completed = sum(
             choice.get("intent") == "search"
             for choice in _prior_validated_business_choices(request)
         )
-        if completed < 1 or completed >= required_rounds:
+        if completed < 1 or completed >= reformulation_budget:
             raise ProviderViewSolvabilityError("T1 search history cannot justify another round")
         return LLMBusinessDecisionV1(
             "search",
@@ -3136,14 +3132,10 @@ def solve_t1_provider_request_v1(
         selected = None
     elif mode == "best_feasible":
         objective = policy.get("objective")
-        tie_break = policy.get("tie_break")
         if not isinstance(objective, Mapping) or objective.get("kind") != "weighted_sum":
             raise ProviderViewSolvabilityError("T1 weighted objective is missing")
-        if objective.get("direction") != "maximize" or tie_break != {
-            "field": "sku_ref",
-            "direction": "ascending",
-        }:
-            raise ProviderViewSolvabilityError("T1 objective direction or tie-break is missing")
+        if objective.get("direction") != "maximize":
+            raise ProviderViewSolvabilityError("T1 objective direction is missing")
         weights = objective.get("weights")
         if not isinstance(weights, Mapping) or not weights:
             raise ProviderViewSolvabilityError("T1 objective weights are missing")
@@ -3200,58 +3192,41 @@ def solve_t1_provider_request_v1(
     )
 
 
-_T7_WORKFLOW_RULE_SET = "after-sales-evaluated-workflow-v1"
-_T7_HARD_WORKFLOW_RULE_SET = "after-sales-evaluated-workflow.v2"
+_T7_WORKFLOW_RULE_SET = "after-sales-evaluated-workflow.v2"
 
-# The hardened upper tiers publish the business goal and rules instead of a
-# ready-to-copy operation sequence.  Each distinct public goal maps onto the
+# Every tier publishes the business goal and rules instead of a
+# ready-to-copy operation sequence.  Each published capability maps onto the
 # same finite after-sales operation list the baseline tiers declare, so the
 # shared cursor/argument machinery below reproduces the identical grounded
-# decision.  The three dispute/ledger goals reconstruct their operation count
-# or authoritative ruling from public evidence rather than a fixed list.
-_T7_HARD_FIXED_OPERATIONS: Mapping[str, tuple[str, ...]] = {
-    "Cancel the paid order at its current authoritative stage.": (
-        "cancel_paid_order",
-    ),
-    "Resolve and commit the valid paid-order cancellation.": (
-        "cancel_paid_order",
-    ),
-    "Request the eligible return, then open the refund after receipt.": (
+# decision.  The three dispute/ledger capabilities reconstruct their operation
+# count or authoritative ruling from public evidence rather than a fixed list.
+#
+# Dispatch is keyed on the published capability marker, never on the wording of
+# ``business_goal``.  That field is a message a principal sends, so it has to
+# stay rewritable without silently changing which operation list the reference
+# channel reconstructs.
+_T7_FIXED_OPERATIONS: Mapping[str, tuple[str, ...]] = {
+    "buyer_cancel": ("cancel_paid_order",),
+    "merchant_cancel": ("cancel_paid_order",),
+    "buyer_return_refund": (
         "request_return",
         "open_refund_case",
     ),
-    "Validate the request against policy and authorize the eligible return.": (
-        "authorize_return",
-    ),
-    (
-        "Validate the authoritative causal history, receive the return, and "
-        "approve the exact refund."
-    ): (
+    "merchant_refund": (
         "authorize_return",
         "receive_return",
         "approve_refund",
     ),
-    "Request the grounded replacement that satisfies the mandate.": (
+    "buyer_exchange": (
         "request_return",
         "request_exchange",
     ),
-    "Validate, authorize, and complete the grounded replacement.": (
-        "authorize_return",
-        "receive_return",
-        "authorize_exchange",
-        "complete_exchange",
-    ),
 }
-_T7_HARD_BUYER_DISPUTE_GOAL = (
-    "Open a dispute and submit every relevant trusted evidence row."
-)
-_T7_HARD_MERCHANT_DISPUTE_GOAL = (
-    "Respond with every trusted evidence row owned by the merchant, then follow "
-    "the authoritative adjudication."
-)
-_T7_HARD_LEDGER_GOAL = (
-    "Request authoritative reconciliation of every order ledger effect."
-)
+_T7_RETURN_DECISION_CAPABILITY = "merchant_return_authorization"
+_T7_EXCHANGE_DECISION_CAPABILITY = "merchant_exchange"
+_T7_BUYER_DISPUTE_CAPABILITY = "buyer_dispute"
+_T7_MERCHANT_DISPUTE_CAPABILITY = "merchant_dispute"
+_T7_LEDGER_CAPABILITY = "merchant_ledger_close"
 
 
 def _t7_public_ref_list(facts: Mapping[str, Any], key: str) -> tuple[str, ...]:
@@ -3263,32 +3238,130 @@ def _t7_public_ref_list(facts: Mapping[str, Any], key: str) -> tuple[str, ...]:
     return tuple(value)
 
 
-def _t7_hardened_operations(
+def _t7_filed_evidence_refs(facts: Mapping[str, Any], side: str) -> tuple[str, ...]:
+    """Return this side's records that were actually verified.
+
+    The contract publishes every readable record with how it was checked, not
+    a ready-made list of which to file.  Reconstructing that list means doing
+    what the evaluated actor has to do: keep this side's records, drop the
+    ones nobody verified.
+    """
+
+    records = facts.get("evidence_records")
+    if not isinstance(records, list):
+        raise ProviderViewSolvabilityError("T7 publishes no readable evidence records")
+    selected = tuple(
+        reference
+        for row in records
+        if isinstance(row, Mapping)
+        and row.get("side") == side
+        and row.get("verified") is True
+        and isinstance(reference := row.get("evidence_ref"), str)
+        and reference
+    )
+    if not selected:
+        raise ProviderViewSolvabilityError(f"T7 dispute has no verified {side} evidence")
+    return selected
+
+
+def _t7_pending_request(facts: Mapping[str, Any]) -> Mapping[str, Any]:
+    pending = facts.get("pending_request")
+    if not isinstance(pending, Mapping):
+        raise ProviderViewSolvabilityError("T7 publishes no request to decide")
+    return pending
+
+
+def _t7_return_decision(facts: Mapping[str, Any]) -> str:
+    """Compare the inspected condition against the shop's published policy."""
+
+    policy = facts.get("return_policy")
+    if not isinstance(policy, Mapping):
+        raise ProviderViewSolvabilityError("T7 publishes no return policy")
+    accepted = policy.get("accepted_conditions")
+    inspected = _t7_pending_request(facts).get("inspected_condition")
+    if not (isinstance(accepted, list) and accepted) or not (
+        isinstance(inspected, str) and inspected
+    ):
+        raise ProviderViewSolvabilityError("T7 return decision has no comparable conditions")
+    return "authorize_return" if inspected in accepted else "deny_return"
+
+
+def _t7_requested_replacement_ref(facts: Mapping[str, Any]) -> str:
+    requested = _t7_pending_request(facts).get("requested_replacement_sku_ref")
+    if not isinstance(requested, str) or not requested:
+        raise ProviderViewSolvabilityError("T7 publishes no requested replacement")
+    return requested
+
+
+def _t7_exchange_decision(request: Mapping[str, Any]) -> str:
+    """Rule on the swap from what the shop read, not from a handed-over table.
+
+    The item the buyer named is published; what it is actually like, and
+    whether any of it is on the shelf, come from the shop's own reads.
+    """
+
+    facts = _provider_business_facts(request)
+    requested = _t7_requested_replacement_ref(facts)
+    requirements = facts.get("replacement_requirements")
+    if not isinstance(requirements, Mapping) or not requirements:
+        raise ProviderViewSolvabilityError("T7 exchange decision has no stated requirements")
+
+    attributes: Mapping[str, Any] | None = None
+    in_stock: bool | None = None
+    for row in _walk_mappings(request.get("observations")):
+        observed = row.get("observed_business_facts")
+        for item in observed if isinstance(observed, list) else ():
+            if not isinstance(item, Mapping):
+                continue
+            criteria = item.get("criteria")
+            if not isinstance(criteria, Mapping) or criteria.get("sku_ref") != requested:
+                continue
+            item_facts = item.get("facts")
+            if item.get("observation_kind") == "listing" and isinstance(item_facts, Mapping):
+                candidate = item_facts.get("attributes")
+                if isinstance(candidate, Mapping):
+                    attributes = candidate
+            elif item.get("observation_kind") == "stock_availability":
+                in_stock = bool(item_facts)
+    if attributes is None or in_stock is None:
+        raise ProviderViewSolvabilityError("T7 exchange decision has not read the named item")
+    eligible = in_stock and all(
+        attributes.get(key) == value for key, value in requirements.items()
+    )
+    return "authorize_exchange" if eligible else "deny_exchange"
+
+
+def _t7_reconstructed_operations(
     request: Mapping[str, Any],
     policy: Mapping[str, Any],
 ) -> tuple[str, ...]:
-    """Reconstruct the evaluated operation list from the public goal + evidence."""
+    """Reconstruct the evaluated operation list from the capability + evidence."""
 
-    goal = policy.get("business_goal")
-    if not isinstance(goal, str) or not goal:
-        raise ProviderViewSolvabilityError("T7 hardened workflow goal is missing")
-    fixed = _T7_HARD_FIXED_OPERATIONS.get(goal)
+    capability = policy.get("capability")
+    if not isinstance(capability, str) or not capability:
+        raise ProviderViewSolvabilityError("T7 hardened workflow capability is missing")
+    fixed = _T7_FIXED_OPERATIONS.get(capability)
     if fixed is not None:
         return fixed
     facts = _provider_business_facts(request)
-    if goal == _T7_HARD_BUYER_DISPUTE_GOAL:
-        filer = _t7_public_ref_list(facts, "filer_evidence_refs")
-        if not filer:
-            raise ProviderViewSolvabilityError("T7 dispute has no public filer evidence")
+    if capability == _T7_RETURN_DECISION_CAPABILITY:
+        return (_t7_return_decision(facts),)
+    if capability == _T7_EXCHANGE_DECISION_CAPABILITY:
+        decision = _t7_exchange_decision(request)
+        return (
+            "authorize_return",
+            "receive_return",
+            decision,
+            *(("complete_exchange",) if decision == "authorize_exchange" else ()),
+        )
+    if capability == _T7_BUYER_DISPUTE_CAPABILITY:
+        filer = _t7_filed_evidence_refs(facts, "filer")
         return (
             "open_dispute",
             *("submit_dispute_evidence" for _ in filer),
             "open_refund_case",
         )
-    if goal == _T7_HARD_MERCHANT_DISPUTE_GOAL:
-        respondent = _t7_public_ref_list(facts, "respondent_evidence_refs")
-        if not respondent:
-            raise ProviderViewSolvabilityError("T7 dispute has no public respondent evidence")
+    if capability == _T7_MERCHANT_DISPUTE_CAPABILITY:
         prior_operations = tuple(
             operation
             for choice in _prior_validated_business_choices(request)
@@ -3314,12 +3387,14 @@ def _t7_hardened_operations(
             else "deny_refund"
         )
         return ("respond_to_dispute", ruling)
-    if goal == _T7_HARD_LEDGER_GOAL:
+    if capability == _T7_LEDGER_CAPABILITY:
         orders = _t7_public_ref_list(facts, "order_refs")
         if not orders:
             raise ProviderViewSolvabilityError("T7 ledger close has no public order set")
         return tuple("request_ledger_reconciliation" for _ in orders)
-    raise ProviderViewSolvabilityError(f"T7 hardened workflow goal is unrecognized: {goal!r}")
+    raise ProviderViewSolvabilityError(
+        f"T7 hardened workflow capability is unrecognized: {capability!r}"
+    )
 
 
 _T7_OPERATION_INTENTS: Mapping[str, tuple[str, Mapping[str, Any]]] = {
@@ -3347,6 +3422,9 @@ _T7_READ_INTENTS = frozenset(
         "read_packing_history",
         "read_after_sales_history",
         "read_shipment",
+        # A shop looking its own stock up before it rules on a swap.
+        "observe_listing",
+        "observe_stock_availability",
     }
 )
 
@@ -3387,24 +3465,11 @@ def _t7_next_required_step(
         raise ProviderViewSolvabilityError("T7 public read prerequisites are incomplete")
     if policy.get("unavailable_next_operation") != "wait_without_advancing":
         raise ProviderViewSolvabilityError("T7 unavailable-operation policy is incomplete")
-    if policy.get("rule_set") == _T7_HARD_WORKFLOW_RULE_SET:
-        if policy.get("ordering") != "satisfy_prerequisites_before_dependent_operations":
-            raise ProviderViewSolvabilityError("T7 hardened workflow ordering is incomplete")
-        operations: tuple[str, ...] = _t7_hardened_operations(request, policy)
-    else:
-        published = policy.get("required_operation_sequence")
-        if (
-            not isinstance(published, list)
-            or not published
-            or any(
-                not isinstance(row, str) or row not in _T7_OPERATION_INTENTS
-                for row in published
-            )
-        ):
-            raise ProviderViewSolvabilityError("T7 public workflow sequence is incomplete")
-        if policy.get("ordering") != "complete_reads_then_operations_in_declared_order":
-            raise ProviderViewSolvabilityError("T7 public workflow ordering is incomplete")
-        operations = tuple(published)
+    if policy.get("rule_set") != _T7_WORKFLOW_RULE_SET:
+        raise ProviderViewSolvabilityError("T7 public workflow rule set is unrecognized")
+    if policy.get("ordering") != "satisfy_prerequisites_before_dependent_operations":
+        raise ProviderViewSolvabilityError("T7 workflow ordering is incomplete")
+    operations = _t7_reconstructed_operations(request, policy)
     expected = tuple((*reads, *operations))
     cursor = 0
     for choice in _prior_validated_business_choices(request):
@@ -3459,6 +3524,14 @@ def _t7_arguments_for_step(
     policy: Mapping[str, Any],
     step: str,
 ) -> tuple[str, dict[str, Any]]:
+    if step in {"observe_listing", "observe_stock_availability"}:
+        reference = _t7_requested_replacement_ref(_provider_business_facts(request))
+        if reference not in _optional_enum_values(request, step, "sku_ref"):
+            raise ProviderViewSolvabilityError(f"T7 cannot currently read {step} for that item")
+        arguments: dict[str, Any] = {"sku_ref": reference}
+        if step == "observe_stock_availability":
+            arguments["qty"] = 1
+        return step, arguments
     if step in _T7_READ_INTENTS:
         field = "shipment_ref" if step == "read_shipment" else "order_ref"
         values = _optional_enum_values(request, step, field)
@@ -3483,15 +3556,12 @@ def _t7_arguments_for_step(
     elif step in {"authorize_return", "deny_return"}:
         arguments["reason"] = "Apply the declared public return workflow."
     elif step == "receive_return":
-        declared_condition = policy.get("return_condition")
-        if declared_condition is None and (
-            policy.get("rule_set") == _T7_HARD_WORKFLOW_RULE_SET
-        ):
-            # The hardened contract publishes the goal rather than the return
-            # condition; an undamaged return defaults to "new", matching the
-            # baseline ``_return_condition`` grounding.
-            declared_condition = "new"
-        condition = _text(declared_condition, label="T7 return condition")
+        # The contract publishes the goal and the policy rather than the
+        # condition to log on receipt; an undamaged return is "new".
+        condition = _text(
+            policy.get("return_condition") or "new",
+            label="T7 return condition",
+        )
         allowed = _optional_enum_values(request, intent, "condition")
         if allowed and condition not in allowed:
             raise ProviderViewSolvabilityError("T7 return condition is outside current authority")
@@ -3516,30 +3586,28 @@ def _t7_arguments_for_step(
     elif step == "open_dispute":
         arguments["reason"] = "Open the declared evidence-backed dispute."
     elif step == "submit_dispute_evidence":
-        allowed = _enum_values(request, intent, "evidence_ref")
+        allowed = set(_enum_values(request, intent, "evidence_ref"))
         used = {
             choice.get("arguments", {}).get("evidence_ref")
             for choice in _prior_validated_business_choices(request)
             if choice.get("intent") == intent
             and isinstance(choice.get("arguments"), Mapping)
         }
-        remaining = tuple(ref for ref in allowed if ref not in used)
+        filed = _t7_filed_evidence_refs(_provider_business_facts(request), "filer")
+        remaining = tuple(ref for ref in filed if ref in allowed and ref not in used)
         if not remaining:
-            raise ProviderViewSolvabilityError("T7 has no unsubmitted public evidence reference")
+            raise ProviderViewSolvabilityError("T7 has no unsubmitted verified filer record")
         arguments["evidence_ref"] = remaining[0]
     elif step == "respond_to_dispute":
-        allowed = _optional_enum_values(request, intent, "evidence_refs", array=True)
-        respondent = {
-            value
-            for row in _walk_mappings(request.get("observations"))
-            for value in (
-                row.get("respondent_evidence_refs")
-                if isinstance(row.get("respondent_evidence_refs"), list)
-                else ()
+        allowed = set(_optional_enum_values(request, intent, "evidence_refs", array=True))
+        selected = [
+            ref
+            for ref in _t7_filed_evidence_refs(
+                _provider_business_facts(request),
+                "respondent",
             )
-            if isinstance(value, str) and value
-        }
-        selected = [ref for ref in allowed if ref in respondent]
+            if ref in allowed
+        ]
         if selected:
             arguments["evidence_refs"] = selected
     elif step == "request_ledger_reconciliation":
@@ -3554,10 +3622,7 @@ def solve_t7_provider_request_v1(
 
     facts = _provider_business_facts(request)
     policy = facts.get("workflow_policy")
-    if not isinstance(policy, Mapping) or policy.get("rule_set") not in (
-        _T7_WORKFLOW_RULE_SET,
-        _T7_HARD_WORKFLOW_RULE_SET,
-    ):
+    if not isinstance(policy, Mapping) or policy.get("rule_set") != _T7_WORKFLOW_RULE_SET:
         raise ProviderViewSolvabilityError("T7 public workflow policy is missing")
     step = _t7_next_required_step(request, policy)
     allowed = _allowed_intents(request)
@@ -3693,10 +3758,6 @@ def _t8_buyer_selection(request: Mapping[str, Any]) -> LLMBusinessDecisionV1:
     rule_set = policy.get("rule_set") if isinstance(policy, Mapping) else None
     if not isinstance(policy, Mapping) or rule_set not in _T8_BUYER_RULE_SETS:
         raise ProviderViewSolvabilityError("T8 public Buyer decision policy is missing")
-    if policy.get("candidate_order_semantics") != "irrelevant" or policy.get(
-        "tie_break"
-    ) != {"field": "sku_ref", "direction": "ascending"}:
-        raise ProviderViewSolvabilityError("T8 public candidate-order policy is incomplete")
     candidates = _t8_ranked_candidates(request)
     by_sku = _indexed_rows(candidates, key="sku_ref", label="T8 ranked candidates")
     if not by_sku:
@@ -3934,10 +3995,7 @@ def _t9_buyer_selection(request: Mapping[str, Any]) -> LLMBusinessDecisionV1:
     policy = _t9_policy(request)
     if policy.get("rule_set") != "security-verified-selection-v1":
         raise ProviderViewSolvabilityError("T9 security-selection policy is missing")
-    if policy.get("required_listing_attribute") != {
-        "field": "security_verified",
-        "value": True,
-    } or policy.get("untrusted_content_authority") != "none":
+    if policy.get("untrusted_content_authority") != "none":
         raise ProviderViewSolvabilityError("T9 security-selection rule is incomplete")
     grounding = policy.get("required_grounding")
     if grounding not in (["listing"], ["listing", "review_evidence"]):
@@ -4255,11 +4313,10 @@ def _request_has_registered_family_marker(request: Mapping[str, Any]) -> bool:
         }:
             return True
         selection_policy = row.get("selection_policy")
-        if isinstance(selection_policy, Mapping) and {
-            "selection_mode",
-            "hard_constraint_rule",
-            "candidate_order_semantics",
-        }.issubset(selection_policy):
+        if (
+            isinstance(selection_policy, Mapping)
+            and selection_policy.get("rule_set") == T1_SELECTION_RULE_SET_V1
+        ):
             return True
         if (
             "own_economic_boundary" in row
@@ -4330,19 +4387,18 @@ def solve_provider_view_request_v1(
     selection_policy = facts.get("selection_policy")
     workflow_policy = facts.get("workflow_policy")
     campaign_policy = facts.get("campaign_policy")
-    if isinstance(selection_policy, Mapping) and {
-        "selection_mode",
-        "hard_constraint_rule",
-        "candidate_order_semantics",
-    }.issubset(selection_policy):
+    if (
+        isinstance(selection_policy, Mapping)
+        and selection_policy.get("rule_set") == T1_SELECTION_RULE_SET_V1
+    ):
         return solve_t1_provider_request_v1(request)
     if isinstance(cart_problem, Mapping) and cart_problem.get("rule_set") == _T5_CART_RULE_SET:
         return solve_t5_provider_request_v1(request)
     if phase in _T5_PROVIDER_PHASES:
         return solve_t5_provider_request_v1(request)
-    if isinstance(workflow_policy, Mapping) and workflow_policy.get("rule_set") in (
-        _T7_WORKFLOW_RULE_SET,
-        _T7_HARD_WORKFLOW_RULE_SET,
+    if (
+        isinstance(workflow_policy, Mapping)
+        and workflow_policy.get("rule_set") == _T7_WORKFLOW_RULE_SET
     ):
         return solve_t7_provider_request_v1(request)
     if (

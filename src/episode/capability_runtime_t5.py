@@ -30,7 +30,6 @@ from episode.capability_runtime import (
     RuntimeRubricCheckV2,
     RuntimeTaskBundleV2,
     RuntimeTaskScoreV3,
-    attested_world_catalog_reads_v2,
     canonical_sha256,
     renormalize_capability_checks_v2,
     require_runtime_benchmark_integrity_v2,
@@ -248,7 +247,6 @@ _T5_CALCULATION_RULES: dict[str, str] = {
 _T5_OBJECTIVE: dict[str, Any] = {
     "kind": "lexicographic_min",
     "criteria": ["grand_total_minor", "max_delivery_days", "merchant_count"],
-    "tie_break": "canonical_selected_sku_refs_then_qty_ascending",
 }
 
 
@@ -767,16 +765,16 @@ def _case_for_t5(task_id: str) -> _CaseT5:
 def _public_contract(case: _CaseT5) -> dict[str, Any]:
     if case.definition.evaluated_role == "buyer":
         instruction = (
-            "Select the lexicographically best feasible cart from the complete public "
-            "offer set. Read every selected listing to ground its current terms; the "
-            "cart-quote action becomes available after those reads. Then request its "
-            "World-authoritative quote and settle by quote reference."
+            "Put together the basket that covers everything I need at the best "
+            "total. Check the current terms on every item you plan to buy "
+            "before you commit to it. Then get a firm quote for the whole "
+            "basket and pay against that quote."
         )
         lines: list[dict[str, Any]] | None = None
     else:
         instruction = (
-            "Apply the public pricing rules to the inbound requested lines and issue one "
-            "World-authoritative quote."
+            "A customer has asked for these items. Price them by your published "
+            "terms and send back one firm quote."
         )
         lines = [{"sku_id": sku_id, "qty": qty} for sku_id, qty in case.merchant_requested_lines]
     return {
@@ -1029,14 +1027,15 @@ def scenario_for_t5(task_id: str) -> ScenarioSpec:
         )
         delivery_days = int(case.buyer_problem["hard_constraints"]["max_delivery_days"])
         buyer_goal = (
-            "Choose the unique lexicographic optimum among the declared feasible carts "
-            "using all public prices, tiers, bundles, charges, inventory, ETA, and relations."
+            "Pick the best basket for me. Take the listed prices into account "
+            "along with any tier or bundle discount, the added charges, what is "
+            "actually in stock, and how soon each option arrives."
         )
         expected_line_count = len(case.buyer_oracle.optimum)
     else:
         mandate_quantity = sum(qty for _, qty in case.merchant_requested_lines)
         delivery_days = 30
-        buyer_goal = "complete the authoritative multi-line cart contract"
+        buyer_goal = "get everything on my list in one order"
         expected_line_count = len(case.merchant_requested_lines)
     buyer = BuyerSpec(
         buyer_id=_BUYER_ID,
@@ -1526,10 +1525,6 @@ def _request_lines(payload: Mapping[str, Any]) -> tuple[tuple[str, int], ...]:
         except (KeyError, TypeError, ValueError):
             return ()
     return tuple(output)
-
-
-def _grounded_skus(evidence: RuntimeEvidenceBundleV2, actor_id: str) -> frozenset[str]:
-    return frozenset(attested_world_catalog_reads_v2(evidence, actor_id=actor_id))
 
 
 def _canonical_text(value: Mapping[str, Any]) -> str:
@@ -2277,9 +2272,6 @@ def _score_t5(case: _CaseT5, evidence: RuntimeEvidenceBundleV2) -> RuntimeTaskSc
         and evidence.evidence_manifest.get("execution_backend") == COMMERCEWORLD_EPISODE_BACKEND_V2
     )
 
-    grounded = _grounded_skus(evidence, case.evaluated_actor_id)
-    grounding_credit = len(grounded.intersection(case.required_skus)) / len(case.required_skus)
-
     quote_math_ok = bool(quote and group) and _quote_math_valid(quote, group, orders, ledger)
 
     checkout_writes = (
@@ -2355,16 +2347,6 @@ def _score_t5(case: _CaseT5, evidence: RuntimeEvidenceBundleV2) -> RuntimeTaskSc
         raise RuntimeBenchmarkIntegrityError(
             "T5 scripted buyer did not complete checkout after the merchant's verified quote"
         )
-    grounding_check = RuntimeRubricCheckV2(
-        "cart_evidence_coverage",
-        0.20,
-        grounding_credit,
-        {
-            "required_skus": list(case.required_skus),
-            "grounded_skus": sorted(grounded),
-            "model_observation_intent_required": True,
-        },
-    )
     if case.definition.evaluated_role == "buyer":
         if case.buyer_problem is None or case.buyer_oracle is None:
             raise RuntimeBenchmarkIntegrityError("T5 Buyer planning oracle is missing")
@@ -2455,9 +2437,11 @@ def _score_t5(case: _CaseT5, evidence: RuntimeEvidenceBundleV2) -> RuntimeTaskSc
         )
         # Buyer authorization, World quote generation, and scripted checkout
         # are validity prerequisites only. Merchant credit comes exclusively
-        # from its exact-joined typed business choice and public evidence read.
+        # from its exact-joined typed business choice, which the checks below
+        # compare line by line against the World-authoritative quote.  The
+        # Agent still withholds the quote action until the Merchant has read
+        # the World, so grounding stays a precondition rather than a score.
         checks = (
-            grounding_check,
             *_merchant_quote_checks(
                 case,
                 choice=model_quote,

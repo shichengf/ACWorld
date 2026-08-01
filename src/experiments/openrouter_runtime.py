@@ -23,6 +23,7 @@ from experiments.benchmark_plan import MAIN_MODELS_V2
 
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 OPENROUTER_TIMEOUT_SECONDS = 240.0
+MAX_SUPPORTED_WORKERS = 8
 FATAL_RUN_ERRORS = (
     "BenchmarkChannelContractError",
     "PreProviderCallAccountingError",
@@ -247,6 +248,7 @@ __all__ = [
     "BenchmarkRunError",
     "ClassifiedTransportError",
     "FATAL_RUN_ERRORS",
+    "MAX_SUPPORTED_WORKERS",
     "OPENROUTER_BASE_URL",
     "OPENROUTER_TIMEOUT_SECONDS",
     "openrouter_channel_factory",

@@ -19,6 +19,7 @@ from episode.capability_runtime_registry import runtime_bundle_v2
 from experiments.benchmark_executor import BenchmarkExecutor
 from experiments.openrouter_runtime import (
     FATAL_RUN_ERRORS,
+    MAX_SUPPORTED_WORKERS,
     openrouter_channel_factory,
     require_business_decision_executor,
 )
@@ -43,7 +44,12 @@ from experiments.benchmark_results import (
 OPENROUTER_MODELS_ENDPOINT = "https://openrouter.ai/api/v1/models"
 DEFAULT_OUTPUT_ROOT = Path("output/benchmark")
 DEFAULT_MULTI_ITEM_OUTPUT_ROOT = Path("output/multi-item-rerun")
+# What a run uses unless asked otherwise, and the ceiling it may be raised to.
+# Tasks are scored in isolation, so the worker count does not change any task's
+# score; the ceiling exists because a higher rate of provider calls is more
+# likely to be throttled, and a throttled task is dropped rather than scored.
 DEFAULT_MAX_WORKERS = 2
+MAX_WORKERS_V2 = MAX_SUPPORTED_WORKERS
 LIVE_SMOKE_TASK_ID = "CWV2-T01-07"
 MULTI_ITEM_TASK_IDS = tuple(f"CWV2-T05-{index:02d}" for index in range(1, 21))
 MULTI_ITEM_RERUN_MODELS = (
@@ -219,8 +225,10 @@ def execute_resumable_plan(
 ) -> ExecutionSummaryV2:
     """Run missing rows and skip successful rows already present on disk."""
 
-    if not 1 <= max_workers <= DEFAULT_MAX_WORKERS:
-        raise StrongModelRunError("strong-model concurrency must be one or two")
+    if not 1 <= max_workers <= MAX_WORKERS_V2:
+        raise StrongModelRunError(
+            f"strong-model concurrency must be a whole number from 1 to {MAX_WORKERS_V2}"
+        )
     store = ResultStoreV2(result_root)
     return ExperimentRunnerV2(store).run_parallel(
         plan,
@@ -274,8 +282,10 @@ def run_openrouter_model(
         raise StrongModelRunError(f"unsupported benchmark model: {model_id!r}")
     if not api_key:
         raise StrongModelRunError("OpenRouter API key is required")
-    if not 1 <= max_workers <= DEFAULT_MAX_WORKERS:
-        raise StrongModelRunError("strong-model concurrency must be one or two")
+    if not 1 <= max_workers <= MAX_WORKERS_V2:
+        raise StrongModelRunError(
+            f"strong-model concurrency must be a whole number from 1 to {MAX_WORKERS_V2}"
+        )
 
     plan = build_strong_model_benchmark_plan((model_id,))
     model_root = Path(output_root) / safe_model_slug(model_id)
@@ -384,8 +394,10 @@ def run_openrouter_multi_item(
         )
     if not api_key:
         raise StrongModelRunError("OpenRouter API key is required")
-    if not 1 <= max_workers <= DEFAULT_MAX_WORKERS:
-        raise StrongModelRunError("strong-model concurrency must be one or two")
+    if not 1 <= max_workers <= MAX_WORKERS_V2:
+        raise StrongModelRunError(
+            f"strong-model concurrency must be a whole number from 1 to {MAX_WORKERS_V2}"
+        )
 
     full_plan = build_strong_model_benchmark_plan((model_id,))
     task_ids = MULTI_ITEM_TASK_IDS[:1] if one_task_smoke else MULTI_ITEM_TASK_IDS
@@ -705,6 +717,7 @@ def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
 
 __all__ = [
     "DEFAULT_MAX_WORKERS",
+    "MAX_WORKERS_V2",
     "DEFAULT_MULTI_ITEM_OUTPUT_ROOT",
     "DEFAULT_OUTPUT_ROOT",
     "MULTI_ITEM_RERUN_MODELS",

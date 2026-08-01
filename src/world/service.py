@@ -734,16 +734,19 @@ class WorldService:
             tools = WorldTools(self._world, caller_id=caller)
             if kind == "world.read_friends":
                 return list(tools.get_friends())
-            reviews = tools.get_friend_reviews(
+            if kind == "world.read_review_evidence":
+                # Call the facade instead of rebuilding its response here.  The
+                # second copy of this shape drifted from the first and reported
+                # a blank ``sku_id`` for an unfiltered read, which the Agent
+                # rejects as a malformed business reference and which aborts the
+                # episode as an environment defect.
+                return tools.get_review_evidence(
+                    sku_id=payload.get("sku_id"),
+                    merchant_id=payload.get("merchant_id"),
+                )
+            return tools.get_friend_reviews(
                 sku_id=payload.get("sku_id"), merchant_id=payload.get("merchant_id")
             )
-            if kind == "world.read_review_evidence":
-                return {
-                    "sku_id": str(payload.get("sku_id", "")),
-                    "review_ids": [str(review.review_id) for review in reviews],
-                    "reviews": reviews,
-                }
-            return reviews
         return None
 
     def _read_after_sales_resource(

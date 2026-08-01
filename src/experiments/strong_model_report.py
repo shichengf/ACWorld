@@ -42,7 +42,6 @@ PREDICATE_CATEGORY = {
     "authority_records_inspected": "evidence",
     "authorization_records_inspected": "evidence",
     "candidate_evidence_coverage": "evidence",
-    "cart_evidence_coverage": "evidence",
     "complete_candidate_comparison": "evidence",
     "complete_world_grounding": "evidence",
     "difficulty_evidence_grounded": "evidence",

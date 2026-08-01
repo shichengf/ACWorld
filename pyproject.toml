@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "acworld"
-version = "1.0.0"
+version = "1.1.0"
 description = "Agentic Commerce World: an auditable and verifiable environment for vibe commerce."
 readme = "README.md"
 requires-python = ">=3.11"

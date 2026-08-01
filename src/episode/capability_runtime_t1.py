@@ -24,6 +24,7 @@ from episode.capability_runtime_t1_content import (
     RuntimeTaskContentT1,
     T1_PUBLIC_OBJECTIVE_WEIGHTS,
     T1_PUBLIC_TIE_BREAK_FIELD,
+    T1_SELECTION_RULE_SET_V1,
     T1_RUNTIME_TASKS,
 )
 from episode.capability_runtime import (
@@ -94,9 +95,8 @@ def _visible_constraint_payload(rule: HardConstraintT1) -> dict[str, Any]:
 
 def _public_selection_policy(task: RuntimeTaskContentT1) -> dict[str, Any]:
     policy: dict[str, Any] = {
+        "rule_set": T1_SELECTION_RULE_SET_V1,
         "selection_mode": task.selection_mode,
-        "hard_constraint_rule": "all",
-        "candidate_order_semantics": "irrelevant",
     }
     if task.selection_mode == "best_feasible":
         policy["objective"] = {
@@ -108,6 +108,19 @@ def _public_selection_policy(task: RuntimeTaskContentT1) -> dict[str, Any]:
             "field": T1_PUBLIC_TIE_BREAK_FIELD,
             "direction": "ascending",
         }
+    return policy
+
+
+def _preference_model_for_model_view(task: RuntimeTaskContentT1) -> dict[str, Any]:
+    """Project the Agent-held preference model without evaluation metadata.
+
+    Every T1 optimum is unique, so the ascending-reference tie-break never
+    decides an answer.  It stays in the oracle and is withheld from the model
+    view, where it would only read as grading detail.
+    """
+
+    policy = _public_selection_policy(task)
+    policy.pop("tie_break", None)
     return policy
 
 
@@ -247,14 +260,14 @@ def scenario_for_t1(task_id: str) -> ScenarioSpec:
         },
         "intent_expiry": "2099-12-31T00:00:00Z",
         "task_context": _public_task_context(task),
+        # The Agent-held view of the mandate.  ``goal`` already carries the
+        # buyer's own words, so the instruction is not repeated here.
         "benchmark_contract": {
             "schema_version": T1_RUNTIME_SCHEMA_V2,
             "task_id": task.task_id,
-            "instruction": task.prompt,
             "constraints": [_visible_constraint_payload(rule) for rule in task.hard_constraints],
-            "selection_policy": _public_selection_policy(task),
+            "selection_policy": _preference_model_for_model_view(task),
             "optional_filters": list(task.soft_preferences),
-            "required_search_rounds": task.required_search_rounds,
         },
     }
     floor = max(1, min(candidate.price_cents for candidate in task.candidates) // 2)
@@ -412,7 +425,7 @@ def _persistent_benchmark_facts(request: Mapping[str, Any]) -> dict[str, Any]:
         if not isinstance(observation, Mapping):
             continue
         persistent = observation.get("persistent_task_business_facts")
-        benchmark = persistent.get("benchmark") if isinstance(persistent, Mapping) else None
+        benchmark = persistent.get("brief") if isinstance(persistent, Mapping) else None
         if isinstance(benchmark, Mapping):
             return dict(benchmark)
     raise ValueError("T1 business request has no persistent benchmark facts")
@@ -617,12 +630,8 @@ def _provider_offer_choice(
     if mode == "any_feasible":
         selected = min(feasible, default=None)
     elif mode == "best_feasible":
-        tie = policy.get("tie_break")
-        if not isinstance(tie, Mapping) or tie != {
-            "field": "sku_ref",
-            "direction": "ascending",
-        }:
-            raise ValueError("T1 provider objective lacks the stable public sku_ref tie-break")
+        # The ascending reference order below settles an exact tie on its own,
+        # so no separate tie-break declaration is required from the model view.
         selected = min(
             feasible,
             key=lambda ref: (-_provider_objective_value(attributes_by_sku[ref], policy), ref),
@@ -729,14 +738,10 @@ class _T1BusinessChannel:
 
         offers = _ranked_offer_rows(facts)
         benchmark = _persistent_benchmark_facts(request)
-        required_rounds = benchmark.get("required_search_rounds")
         optional = benchmark.get("optional_filters", [])
-        if (
-            isinstance(required_rounds, int)
-            and required_rounds > 0
-            and not offers
-            and isinstance(optional, list)
-        ):
+        # An empty ranking is the buyer's own trigger to drop one wish and look
+        # again.  No declared round count is needed to decide that.
+        if not offers and isinstance(optional, list) and optional:
             prior_choices = next(
                 (
                     observation.get("prior_validated_business_choices")

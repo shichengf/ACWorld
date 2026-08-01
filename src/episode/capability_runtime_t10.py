@@ -832,9 +832,9 @@ def _buyer_specs(case: _CaseT10) -> tuple[BuyerSpec, ...]:
             mandate={
                 "mandate_id": _mandate_id(case, buyer_id),
                 "goal": (
-                    "Process only current, correctly ordered protocol callbacks. "
-                    "Reject duplicates, expired callbacks, and callbacks for the "
-                    "wrong lifecycle or order."
+                    "Only act on the up-to-date notices that come through in the "
+                    "right order. Turn away anything that is a repeat, out of "
+                    "date, or belongs to a different order."
                 ),
                 "hard_constraints": {"budget": 100_000, "must_have": []},
                 "soft_constraints": [],
@@ -878,8 +878,9 @@ def _merchant_specs(case: _CaseT10) -> tuple[MerchantSpec, ...]:
                 "floor_price": 800,
                 "refund_policy": "30_day_return",
                 "protocol_instruction": (
-                    "Process only current, correctly ordered and order-bound "
-                    "callbacks. Reject duplicates and invalid callbacks."
+                    "Only act on up-to-date notices that arrive in the right "
+                    "order and belong to this order. Turn away repeats and "
+                    "anything that does not check out."
                 ),
                 **(
                     {"task_context": _public_task_context(case)}

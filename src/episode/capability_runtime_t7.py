@@ -14,11 +14,12 @@ import copy
 import hashlib
 import json
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from decimal import Decimal, InvalidOperation
 from functools import lru_cache
 from typing import Any, Callable, Mapping, Sequence
 
+from agents.agent_phase import public_reference_alias_v1
 from agents.business_decision import LLM_BUSINESS_DECISION_SCHEMA_V1
 from agents.inference import BusinessDecisionResponseV1, InferenceChannel
 from episode.capability_benchmark import (
@@ -106,7 +107,15 @@ class _CaseT7:
     initial_payment_stage: str
     initial_packing_stage: str | None
     allowed_return_conditions: tuple[str, ...] = ()
+    # What the inspections actually say the returned item is like.  This is
+    # separate from the policy on purpose: when the two disagree the merchant
+    # is supposed to refuse, and a lane where they can never disagree is a
+    # lane where "approve" is right by construction.
+    attested_return_conditions: tuple[str, ...] = ()
     replacement_requirements: tuple[tuple[str, Scalar], ...] = ()
+    # Which replacement the buyer actually asked for on a merchant-evaluated
+    # exchange.  ``None`` means the buyer picks the eligible one at run time.
+    requested_replacement_sku_id: str | None = None
     trusted_evidence_facts: tuple[tuple[str, str], ...] = ()
     ledger_source_count: int = 0
     prerequisite_causal_layers: tuple[str, ...] = ()
@@ -114,6 +123,24 @@ class _CaseT7:
     @property
     def evaluated_actor_id(self) -> str:
         return _BUYER_ID if self.definition.evaluated_role == "buyer" else _MERCHANT_ID
+
+    @property
+    def entitled(self) -> bool:
+        """Say whether the customer is owed what they have asked for.
+
+        Scorer-side only.  Nothing derived from this reaches the model: the
+        facts that decide it -- the published returns policy against the
+        inspections, the published replacement rules against the item the
+        buyer named -- are all visible, and working out which way they point
+        is the task.
+        """
+
+        if self.lane == "merchant_return_authorization":
+            accepted = _accepted_return_conditions(self)
+            return self.attested_return_conditions[0] in accepted
+        if self.lane == "merchant_exchange" and self.requested_replacement_sku_id is not None:
+            return self.requested_replacement_sku_id == _expected_replacement_sku(self)
+        return True
 
     @property
     def order_ids(self) -> tuple[str, ...]:
@@ -197,6 +224,9 @@ class _CaseT7:
             "after_sales_policy": {
                 "allowed_return_conditions": self.allowed_return_conditions,
             },
+            "attested_return_conditions": self.attested_return_conditions,
+            "requested_replacement_sku_id": self.requested_replacement_sku_id,
+            "entitled": self.entitled,
             "replacement_requirements": dict(self.replacement_requirements),
             "trusted_evidence_facts": self.trusted_evidence_facts,
             "dispute_evidence_counts": {
@@ -233,6 +263,10 @@ def _slug(definition: TaskDefinitionV2) -> str:
     return definition.task_id.casefold().replace("-", "")
 
 
+def _sku_id(definition: TaskDefinitionV2, token: str) -> str:
+    return f"merchant:t7:{_slug(definition)}:{token}"
+
+
 def _product(
     definition: TaskDefinitionV2,
     token: str,
@@ -240,7 +274,7 @@ def _product(
     inventory: int = 10,
     facts: Mapping[str, Scalar] | None = None,
 ) -> _ProductT7:
-    sku_id = f"merchant:t7:{_slug(definition)}:{token}"
+    sku_id = _sku_id(definition, token)
     return _ProductT7(
         sku_id=sku_id,
         product_id=f"product:{_slug(definition)}",
@@ -404,25 +438,61 @@ _SERVICE_OPERATIONS: Mapping[str, tuple[str, ...]] = {
     "merchant_ledger_close": ("complete_ledger_reconciliation",),
 }
 
+# What the customer or the shop owner says.  Each one still names every step
+# the evaluated actor has to take, because these are the task, not decoration.
 _INSTRUCTIONS: Mapping[str, str] = {
-    "buyer_cancel": "Cancel the paid order at its current authoritative stage.",
-    "merchant_cancel": "Resolve and commit the valid paid-order cancellation.",
-    "buyer_return_refund": ("Request the eligible return, then open the refund after receipt."),
+    "buyer_cancel": (
+        "I want to call off this order. It is already paid for, so check where "
+        "it has actually got to and cancel it from there."
+    ),
+    "merchant_cancel": (
+        "A customer wants to call off an order they have already paid for. "
+        "Check that they are entitled to, then put the cancellation through."
+    ),
+    "buyer_return_refund": (
+        "I want to send this back and get my money back. Ask them to take the "
+        "return first, and only put in for the refund once the item is back "
+        "with them."
+    ),
     "merchant_return_authorization": (
-        "Validate the request against policy and authorize the eligible return."
+        "A customer has asked to send something back. Look at what the "
+        "inspection says the item is like, check it against what our returns "
+        "policy actually takes back, and either take the return or turn it "
+        "down. Do not take back something we do not accept."
     ),
     "merchant_refund": (
-        "Validate the authoritative causal history, receive the return, and "
-        "approve the exact refund."
+        "A customer is sending something back for a refund. Go through what "
+        "has actually happened on this order, approve the return, log the item "
+        "as received, then pay back exactly what is owed."
     ),
-    "buyer_exchange": "Request the grounded replacement that satisfies the mandate.",
-    "merchant_exchange": ("Validate, authorize, and complete the grounded replacement."),
-    "buyer_dispute": "Open a dispute and submit every relevant trusted evidence row.",
+    "buyer_exchange": (
+        "I want this swapped for a different one. Arrange to send the original "
+        "back, and make sure the replacement you ask for actually meets what I "
+        "asked for in the first place."
+    ),
+    "merchant_exchange": (
+        "A customer wants to swap an item. Take the return, log the original "
+        "as received, then look at which replacement they have asked for. If "
+        "it is one they are entitled to, approve it and send it out. If it is "
+        "not, turn the swap down — do not send out something that does not "
+        "meet what we said."
+    ),
+    "buyer_dispute": (
+        "This order went wrong and I want it raised formally. Open the case, "
+        "then put in every piece of proof of mine that someone independent "
+        "actually checked. Leave out anything that is only my own say-so — it "
+        "will not hold up and it weakens the rest. Then put in for the refund."
+    ),
     "merchant_dispute": (
-        "Respond with every trusted evidence row owned by the merchant, then follow "
-        "the authoritative adjudication."
+        "A customer has raised a case against us. Reply with every piece of "
+        "proof of ours that someone independent actually checked, and leave "
+        "out anything that is only our own word for it. Then do whatever the "
+        "ruling says, even if it goes against us."
     ),
-    "merchant_ledger_close": ("Request authoritative reconciliation of every order ledger effect."),
+    "merchant_ledger_close": (
+        "Close the books on this. Ask for a proper reconciliation covering "
+        "every order that was affected."
+    ),
 }
 
 
@@ -442,7 +512,9 @@ def _case_for_t7(task_id: str) -> _CaseT7:
     original = _product(definition, "original", facts={"material": "alloy"})
     products: list[_ProductT7] = [original]
     conditions: tuple[str, ...] = ()
+    attested: tuple[str, ...] = ()
     requirements: tuple[tuple[str, Scalar], ...] = ()
+    requested_replacement: str | None = None
     evidence: tuple[tuple[str, str], ...] = ()
     ledger_count = 0
     prerequisite_records: tuple[str, ...] = ()
@@ -451,27 +523,83 @@ def _case_for_t7(task_id: str) -> _CaseT7:
         if not isinstance(axis_value, int):
             raise ValueError(f"{task_id}: return condition count must be integer")
         conditions = ("new", "opened", "damaged")[:axis_value]
+        # One item comes back in one state.  The axis counts how many separate
+        # inspections were run on it, not how many states it is in at once.
+        #
+        # On the lane where the merchant decides, both tiers are handed the
+        # same finding -- the item is damaged -- and differ only in whether
+        # the shop's published policy takes damaged goods back.  So the
+        # decision cannot be read off the finding; the two have to be compared.
+        attested = (
+            ("damaged",)
+            if lane == "merchant_return_authorization"
+            else (conditions[-1],)
+        )
         evidence = _return_evidence(axis_value)
     elif axis_name == "replacement_constraint_count":
         if not isinstance(axis_value, int):
             raise ValueError(f"{task_id}: replacement constraint count must be integer")
         requirements = _requirements(axis_value)
-        products.extend(
-            (
-                _product(
-                    definition,
-                    "replacement-valid",
-                    inventory=5,
-                    facts={"color": "black", "size": "large", "warranty_months": 24},
-                ),
-                _product(
-                    definition,
-                    "replacement-invalid",
-                    inventory=5,
-                    facts={"color": "white", "size": "large", "warranty_months": 24},
-                ),
+        # Exactly one item is both eligible and available.  Every other item
+        # fails on a single point and advertises none of it.  A near miss is
+        # only included once the requirement it breaks is actually in force,
+        # otherwise it would qualify too and the replacement would stop being
+        # unique.
+        eligible_facts = {"color": "black", "size": "large", "warranty_months": 24}
+        products.append(
+            _product(definition, "replacement-valid", inventory=5, facts=eligible_facts)
+        )
+        # Deliberately no out-of-stock look-alike among these.  Such an item
+        # would read as the obvious trap for a model that checks the stated
+        # requirements but not availability, and it would never catch one: the
+        # environment drops out-of-stock SKUs from the exchange enum, so it
+        # could not be selected in the first place.  A candidate that cannot be
+        # chosen is not a distractor.
+        products.append(
+            _product(
+                definition,
+                "replacement-invalid",
+                inventory=5,
+                facts={**eligible_facts, "color": "white"},
             )
         )
+        if axis_value >= 2:
+            products.append(
+                _product(
+                    definition,
+                    "replacement-wrong-size",
+                    inventory=5,
+                    facts={**eligible_facts, "size": "medium"},
+                )
+            )
+        if axis_value >= 3:
+            # Short by a single month, so the warranty has to be read rather
+            # than glanced at.
+            products.append(
+                _product(
+                    definition,
+                    "replacement-short-warranty",
+                    inventory=5,
+                    facts={**eligible_facts, "warranty_months": 23},
+                )
+            )
+        if lane == "merchant_exchange":
+            # The buyer names the item they want and the shop rules on it.
+            #
+            # At the wider tier they name one that breaks a requirement they
+            # were told about, and the shop is supposed to turn it down rather
+            # than wave it through.  The break is deliberately the quiet one:
+            # right colour, right size, warranty short by a single month.  A
+            # wrong colour can be caught at a glance; this has to be compared.
+            #
+            # An out-of-stock item would be sharper still -- right on every
+            # stated point, none on the shelf -- but it cannot be reached: the
+            # environment drops out-of-stock SKUs from the exchange enum, so
+            # nobody can ask for one in the first place.
+            requested_replacement = _sku_id(
+                definition,
+                "replacement-short-warranty" if axis_value >= 3 else "replacement-valid",
+            )
     elif axis_name == "evidence_item_count":
         if not isinstance(axis_value, int):
             raise ValueError(f"{task_id}: evidence count must be integer")
@@ -557,7 +685,7 @@ def _case_for_t7(task_id: str) -> _CaseT7:
         ) * ledger_count
         evaluated_operations = ("request_ledger_reconciliation",) * ledger_count
 
-    return _CaseT7(
+    case = _CaseT7(
         definition=definition,
         lane=lane,
         axis_name=axis_name,
@@ -572,10 +700,32 @@ def _case_for_t7(task_id: str) -> _CaseT7:
             "packed" if packed else "handed_off" if causal_fulfillment else None
         ),
         allowed_return_conditions=conditions,
+        attested_return_conditions=attested,
         replacement_requirements=requirements,
+        requested_replacement_sku_id=requested_replacement,
         trusted_evidence_facts=evidence,
         ledger_source_count=ledger_count,
         prerequisite_causal_layers=prerequisite_records,
+    )
+    if case.entitled:
+        return case
+    # A request policy does not cover ends at the refusal.  Nothing after it is
+    # legitimate work, so neither the lifecycle nor the evaluated operations
+    # continue past that point.
+    granting, denial = (
+        ("authorize_return", "deny_return")
+        if lane == "merchant_return_authorization"
+        else ("authorize_exchange", "deny_exchange")
+    )
+    completed = operation_sequence[: operation_sequence.index(granting)]
+    return replace(
+        case,
+        operation_sequence=(*completed, denial),
+        evaluated_operations=tuple(
+            denial if operation == granting else operation
+            for operation in evaluated_operations
+            if operation in completed or operation == granting
+        ),
     )
 
 
@@ -585,12 +735,20 @@ def t7_runtime_content(task_id: str) -> dict[str, Any]:
     return copy.deepcopy(_case_for_t7(task_id).semantic_contract)
 
 
-def _hard_workflow_policy(
+def _workflow_policy(
     case: _CaseT7,
     *,
     read_prerequisites: Sequence[str],
 ) -> dict[str, Any]:
-    """Publish business rules for hard tiers without serializing the answer."""
+    """Publish the business rules without serializing the answer.
+
+    Every tier gets this form.  The baseline tiers used to publish
+    ``required_operation_sequence`` -- the literal list of operations the
+    scorer expects -- which made the disposition a transcription exercise: a
+    model could execute a return, a denial, or a refund without ever deciding
+    that it was the right one.  What a real after-sales operator is given is
+    the policy and the request, so that is what is published here.
+    """
 
     rules = {
         "buyer_cancel": (
@@ -606,7 +764,8 @@ def _hard_workflow_policy(
             "Open a refund only after the return has been received.",
         ),
         "merchant_return_authorization": (
-            "Authorize only a request whose condition and evidence satisfy policy.",
+            "Authorize only a request whose inspected condition is one the "
+            "published return policy accepts; otherwise deny it.",
             "A denial must leave commercial state unchanged.",
         ),
         "merchant_refund": (
@@ -618,15 +777,19 @@ def _hard_workflow_policy(
             "Choose an in-stock replacement satisfying every declared constraint.",
         ),
         "merchant_exchange": (
-            "Validate and receive the return before authorizing an exchange.",
-            "Complete only the policy-valid replacement.",
+            "Validate and receive the return before deciding the exchange.",
+            "Authorize the exchange only when the replacement the buyer asked "
+            "for meets every stated requirement and is in stock; otherwise "
+            "deny it.",
         ),
         "buyer_dispute": (
             "Open the dispute before submitting evidence.",
-            "Submit every relevant trusted filer record and no unrelated record.",
+            "Submit every verified filer record and nothing that was not "
+            "independently verified.",
         ),
         "merchant_dispute": (
-            "Respond with every relevant trusted respondent record.",
+            "Respond with every verified respondent record and nothing that "
+            "was not independently verified.",
             "Follow the authoritative ruling when approving or denying a refund.",
         ),
         "merchant_ledger_close": (
@@ -636,6 +799,11 @@ def _hard_workflow_policy(
     }[case.lane]
     return {
         "rule_set": "after-sales-evaluated-workflow.v2",
+        # Names which after-sales workflow this is.  The shared provider-view
+        # solver dispatches on this marker so that the wording of
+        # ``business_goal`` stays free to read like a real customer or
+        # merchant message.
+        "capability": case.lane,
         "business_goal": _INSTRUCTIONS[case.lane],
         "business_rules": list(rules),
         "required_read_prerequisites": list(read_prerequisites),
@@ -649,36 +817,42 @@ def _public_contract(case: _CaseT7) -> dict[str, Any]:
 
     evidence_rows = _scenario_evidence_rows(case)
     evidence_ids = [row["record_id"] for row in evidence_rows]
-    filer_evidence_ids = [
-        row["record_id"] for row in evidence_rows if row["facts"].get("side") == "filer"
-    ]
-    respondent_evidence_ids = [
-        row["record_id"] for row in evidence_rows if row["facts"].get("side") == "respondent"
+    # Publish each record with how it was checked, and stop publishing the
+    # pre-filtered "these are the ones to file" lists.  Those lists were the
+    # answer: a model could file exactly them without ever looking at whether
+    # a record stands up.
+    evidence_records = [
+        {
+            "evidence_id": row["record_id"],
+            "kind": row["kind"],
+            "issued_by": row["issuer_id"],
+            "side": row["facts"].get("side"),
+            "verification_method": row.get("trust", {}).get("verification_method"),
+            "verified": row.get("trust", {}).get("verified"),
+        }
+        for row in evidence_rows
     ]
     read_prerequisites: list[str] = []
     if case.lane == "merchant_refund":
         read_prerequisites.extend(("read_payment_history", "read_ledger_history"))
         if case.axis_value == 4:
             read_prerequisites.extend(("read_packing_history", "read_shipment"))
-    workflow_policy = (
-        _hard_workflow_policy(
-            case,
-            read_prerequisites=read_prerequisites,
-        )
-        if is_hardened_task_v2(case.definition)
-        else {
-            "rule_set": "after-sales-evaluated-workflow-v1",
-            "required_operation_sequence": list(case.evaluated_operations),
-            "required_read_prerequisites": read_prerequisites,
-            "return_condition": (
-                case.allowed_return_conditions[0]
-                if case.allowed_return_conditions
-                else "new"
-            ),
-            "ordering": "complete_reads_then_operations_in_declared_order",
-            "unavailable_next_operation": "wait_without_advancing",
-        }
-    )
+    elif case.lane == "merchant_exchange":
+        # The shop can look its own stock up, so it is told which item was
+        # asked for and nothing else about it.  Whether that item meets what
+        # the buyer was promised, and whether any of it is on the shelf, has
+        # to be read rather than handed over.
+        read_prerequisites.extend(("observe_listing", "observe_stock_availability"))
+    workflow_policy = _workflow_policy(case, read_prerequisites=read_prerequisites)
+    # Rotate the published candidate order so the eligible replacement is not
+    # always the first row.  Position is presentation only -- the reference
+    # solver and the scorer both identify the replacement by its requirements
+    # and its stock -- but publishing it first every time let a model take row
+    # one without comparing anything, which made every added near miss inert.
+    replacements = [row for row in case.products if row.sku_id != case.original_sku_id]
+    if replacements:
+        offset = int(case.definition.task_id.rsplit("-", 1)[1]) % len(replacements)
+        replacements = replacements[offset:] + replacements[:offset]
     return {
         "schema_version": T7_RUNTIME_SCHEMA_V2,
         "task_id": case.definition.task_id,
@@ -694,23 +868,45 @@ def _public_contract(case: _CaseT7) -> dict[str, Any]:
         "order_ids": list(case.order_ids),
         "shipment_id": case.shipment_id,
         "original_sku_id": case.original_sku_id,
-        "replacement_sku_ids": [
-            row.sku_id for row in case.products if row.sku_id != case.original_sku_id
-        ],
+        "replacement_sku_ids": [row.sku_id for row in replacements],
+        # A buyer sees what a buyer sees: the catalogue entry, already loaded.
+        # The shop is a different matter -- it can look its own stock up, so it
+        # gets the list of items and has to go and read them.  Handing the shop
+        # a table of attributes and stock levels is what made "approve" a
+        # one-glance answer.
         "replacement_candidates": [
             {
                 "sku_id": row.sku_id,
                 "available_qty": row.inventory,
                 "product_facts": dict(row.product_facts),
             }
-            for row in case.products
-            if row.sku_id != case.original_sku_id
-        ],
+            for row in replacements
+        ]
+        if case.definition.evaluated_role == "buyer"
+        else [],
         "replacement_requirements": dict(case.replacement_requirements),
-        "trusted_evidence_ids": evidence_ids,
-        "filer_evidence_ids": filer_evidence_ids,
-        "respondent_evidence_ids": respondent_evidence_ids,
-        "required_authoritative_reads": list(case.prerequisite_causal_layers),
+        # The two things an after-sales desk has in front of it: the shop's own
+        # published policy, and the request it has been handed.  Whether they
+        # agree is the question the evaluated merchant has to answer, so both
+        # sides are visible and neither states the answer.  Only the parts that
+        # bear on this lane are published -- an empty "we accept nothing" list
+        # would read as a reason to refuse everything.
+        "return_policy": {"accepted_conditions": _accepted_return_conditions(case)},
+        "pending_request": {
+            key: value
+            for key, value in (
+                (
+                    "inspected_condition",
+                    case.attested_return_conditions[0]
+                    if case.attested_return_conditions
+                    else None,
+                ),
+                ("requested_replacement_sku_id", case.requested_replacement_sku_id),
+            )
+            if value
+        },
+        "readable_evidence_ids": evidence_ids,
+        "evidence_records": evidence_records,
         # T7 measures execution of a published after-sales workflow.  The
         # evaluated model must not infer a scorer-private sequence from a lane
         # label, and the Agent must not supply it from hidden channel state.
@@ -1051,7 +1247,7 @@ def _public_task_context(case: _CaseT7) -> dict[str, Any]:
                 if gated:
                     continuation["accepted_reference_gate"] = {
                         "reference_field": "evidence_id",
-                        "required_values": list(_evidence_ids(case, "filer")),
+                        "required_values": list(_verified_evidence_ids(case, "filer")),
                     }
             phase: dict[str, Any] = {
                 "phase_id": f"{role}_{operation}_progress",
@@ -1148,7 +1344,11 @@ def _scenario_evidence_rows(case: _CaseT7) -> list[dict[str, Any]]:
         _MERCHANT_ID,
     )
     if case.axis_name == "return_condition_count":
-        for index, condition in enumerate(case.allowed_return_conditions, start=1):
+        # Several inspections of the same item: each looks at something
+        # different and they agree on what state it came back in.
+        condition = case.attested_return_conditions[0]
+        scopes = ("item identity", "item condition", "returned quantity")
+        for index in range(1, int(case.axis_value) + 1):
             record = build_evidence_record(
                 record_id=f"evidence:{_slug(case.definition)}:return:{index}",
                 kind="inspection_report",
@@ -1156,6 +1356,7 @@ def _scenario_evidence_rows(case: _CaseT7) -> list[dict[str, Any]]:
                 issuer_id="inspector:trusted",
                 facts={
                     "condition": condition,
+                    "inspected": scopes[index - 1],
                     "inspection_reference": (f"inspection:{_slug(case.definition)}:{index}"),
                 },
                 trust={
@@ -1195,15 +1396,44 @@ def _scenario_evidence_rows(case: _CaseT7) -> list[dict[str, Any]]:
                     issued_at_tick=2,
                 )
                 rows.append(evidence_record_to_dict(record))
+            # One record on the same order, owned by the same party, that was
+            # never actually verified.  World will accept it, so nothing stops
+            # a model from filing it; the only reason not to is that it does
+            # not stand up.  Without a row like this the difficulty axis has
+            # nothing to filter -- World already refuses evidence from another
+            # order or from the other party, so every remaining record was
+            # worth filing by construction.
+            record = build_evidence_record(
+                record_id=f"evidence:{_slug(case.definition)}:{side}:unverified",
+                kind="customer_photo",
+                subject_id=case.order_id,
+                issuer_id=owner_id,
+                facts={
+                    "side": side,
+                    "scan_code": "self_reported_condition",
+                    "carrier_reference": "",
+                },
+                trust={
+                    "verification_method": "self_declared",
+                    "verified": False,
+                },
+                version=1,
+                owner_id=owner_id,
+                read_acl=acl,
+                issued_at_tick=2,
+            )
+            rows.append(evidence_record_to_dict(record))
     return rows
 
 
+def _accepted_return_conditions(case: _CaseT7) -> list[str]:
+    """Return the conditions the shop takes back, as World enforces them."""
+
+    return list(case.allowed_return_conditions or ("new", "opened", "damaged"))
+
+
 def _policy(case: _CaseT7) -> dict[str, Any]:
-    allowed_conditions = case.allowed_return_conditions or (
-        "new",
-        "opened",
-        "damaged",
-    )
+    allowed_conditions = tuple(_accepted_return_conditions(case))
     return {
         "policy_id": f"policy:{_slug(case.definition)}",
         "return_window_ticks": 30,
@@ -1543,6 +1773,21 @@ def _walk_mappings(value: Any) -> tuple[Mapping[str, Any], ...]:
     return tuple(rows)
 
 
+def _filed_evidence_refs(request: Mapping[str, Any], side: str) -> tuple[str, ...]:
+    """Return this side's verified records from the published evidence list."""
+
+    return tuple(
+        reference
+        for row in _walk_mappings(request.get("observations"))
+        for record in (row.get("evidence_records") if isinstance(row.get("evidence_records"), list) else ())
+        if isinstance(record, Mapping)
+        and record.get("side") == side
+        and record.get("verified") is True
+        and isinstance(reference := record.get("evidence_ref"), str)
+        and reference
+    )
+
+
 def _replacement_ref(request: Mapping[str, Any]) -> str:
     """Choose the public replacement ref from visible facts and requirements."""
 
@@ -1668,9 +1913,23 @@ class _ScriptedT7Channel:
 
 
 def _evidence_ids(case: _CaseT7, side: str | None = None) -> tuple[str, ...]:
+    """Return every readable record, including the ones not worth filing."""
+
     rows = _scenario_evidence_rows(case)
     return tuple(
         row["record_id"] for row in rows if side is None or row["facts"].get("side") == side
+    )
+
+
+def _verified_evidence_ids(case: _CaseT7, side: str | None = None) -> tuple[str, ...]:
+    """Return the records that actually stand up: the ones to file."""
+
+    rows = _scenario_evidence_rows(case)
+    return tuple(
+        row["record_id"]
+        for row in rows
+        if (side is None or row["facts"].get("side") == side)
+        and row.get("trust", {}).get("verified") is True
     )
 
 
@@ -1691,7 +1950,9 @@ def _expected_replacement_sku(case: _CaseT7) -> str:
 
 
 def _return_condition(case: _CaseT7) -> str:
-    return case.allowed_return_conditions[0] if case.allowed_return_conditions else "new"
+    """Return the condition to log on receipt: what the inspections attest."""
+
+    return case.attested_return_conditions[0] if case.attested_return_conditions else "new"
 
 
 def _buyer_request_return(_case: _CaseT7) -> _T7Decision:
@@ -1808,14 +2069,31 @@ def _merchant_resolve_observed_dispute_refund(_case: _CaseT7) -> _T7Decision:
     return _choice("decide_refund", arguments)
 
 
-def _buyer_request_exchange(_case: _CaseT7) -> _T7Decision:
-    return _choice(
-        "request_exchange",
-        lambda request: {
-            "replacement_sku_ref": _replacement_ref(request),
-            "reason": "The replacement satisfies every stated requirement.",
-        },
-    )
+def _buyer_request_exchange(case: _CaseT7) -> _T7Decision:
+    named = case.requested_replacement_sku_id
+    if named is None:
+        return _choice(
+            "request_exchange",
+            lambda request: {
+                "replacement_sku_ref": _replacement_ref(request),
+                "reason": "The replacement satisfies every stated requirement.",
+            },
+        )
+
+    # On a merchant-evaluated exchange the buyer is the environment, and which
+    # item they ask for is a fixture fact rather than a judgement: it is what
+    # the evaluated merchant then has to rule on.
+    reference = public_reference_alias_v1(named)
+
+    def arguments(request: Mapping[str, Any]) -> Mapping[str, Any]:
+        if reference not in _enum_values(request, "request_exchange", "replacement_sku_ref"):
+            raise ValueError("the requested replacement is not currently offerable")
+        return {
+            "replacement_sku_ref": reference,
+            "reason": "This is the replacement the buyer wants.",
+        }
+
+    return _choice("request_exchange", arguments)
 
 
 def _merchant_authorize_exchange(_case: _CaseT7) -> _T7Decision:
@@ -1824,6 +2102,16 @@ def _merchant_authorize_exchange(_case: _CaseT7) -> _T7Decision:
         {
             "decision": "approve",
             "reason": "Grounded replacement inventory is available.",
+        },
+    )
+
+
+def _merchant_deny_exchange(_case: _CaseT7) -> _T7Decision:
+    return _choice(
+        "decide_exchange",
+        {
+            "decision": "deny",
+            "reason": "The requested replacement does not satisfy the stated requirements.",
         },
     )
 
@@ -1844,12 +2132,19 @@ def _open_dispute(_case: _CaseT7) -> _T7Decision:
 
 def _submit_next_dispute_evidence(_case: _CaseT7) -> _T7Decision:
     def arguments(request: Mapping[str, Any]) -> Mapping[str, Any]:
-        references = _enum_values(
-            request,
-            "submit_dispute_evidence",
-            "evidence_ref",
+        # Still submittable and worth submitting.  A record nobody verified
+        # stays behind, which is the point of the axis.
+        offerable = set(
+            _enum_values(request, "submit_dispute_evidence", "evidence_ref")
         )
-        return {"evidence_ref": references[0]}
+        filed = [
+            reference
+            for reference in _filed_evidence_refs(request, "filer")
+            if reference in offerable
+        ]
+        if not filed:
+            raise ValueError("no verified filer record remains to submit")
+        return {"evidence_ref": filed[0]}
 
     return _choice("submit_dispute_evidence", arguments)
 
@@ -1863,16 +2158,7 @@ def _respond_to_dispute(_case: _CaseT7) -> _T7Decision:
             "evidence_refs",
             array=True,
         )
-        respondent_refs = {
-            value
-            for row in _walk_mappings(request.get("observations"))
-            for value in (
-                row.get("respondent_evidence_refs")
-                if isinstance(row.get("respondent_evidence_refs"), list)
-                else ()
-            )
-            if isinstance(value, str) and value
-        }
+        respondent_refs = _filed_evidence_refs(request, "respondent")
         selected = tuple(value for value in allowed if value in respondent_refs)
         if selected:
             values["evidence_refs"] = list(selected)
@@ -1895,6 +2181,24 @@ def _read_current(intent: str, reference_field: str | None = None) -> _T7Decisio
             return {}
         references = _enum_values(request, intent, field)
         return {field: references[0]} if references else {}
+
+    return _choice(intent, arguments)
+
+
+def _read_current_reference(
+    intent: str,
+    field: str,
+    reference: str,
+) -> _T7Decision:
+    """Read one named business reference rather than whatever comes first."""
+
+    def arguments(request: Mapping[str, Any]) -> Mapping[str, Any]:
+        if reference not in _enum_values(request, intent, field):
+            raise ValueError(f"{intent} cannot currently read {field}")
+        values: dict[str, Any] = {field: reference}
+        if intent == "observe_stock_availability":
+            values["qty"] = 1
+        return values
 
     return _choice(intent, arguments)
 
@@ -1936,10 +2240,19 @@ def _evaluated_steps(case: _CaseT7, *, mutated: bool) -> tuple[_T7Decision, ...]
         decisions = (_buyer_request_return(case), _buyer_open_refund(case))
         return decisions[:1] if mutated else decisions
     if lane == "merchant_return_authorization":
-        decisions = (_merchant_authorize_return(case),)
         if mutated:
-            return (_merchant_deny_return(case),)
-        return decisions
+            # The mutation is always the wrong call on this request, whichever
+            # way the right one goes.
+            return (
+                (_merchant_deny_return(case),)
+                if case.entitled
+                else (_merchant_authorize_return(case),)
+            )
+        return (
+            (_merchant_authorize_return(case),)
+            if case.entitled
+            else (_merchant_deny_return(case),)
+        )
     if lane == "merchant_refund":
         reads: list[_T7Decision] = [
             _read_current("read_payment_history"),
@@ -1963,16 +2276,30 @@ def _evaluated_steps(case: _CaseT7, *, mutated: bool) -> tuple[_T7Decision, ...]
         decisions = (_buyer_request_return(case), _buyer_request_exchange(case))
         return decisions[:1] if mutated else decisions
     if lane == "merchant_exchange":
-        decisions = (
+        requested = public_reference_alias_v1(str(case.requested_replacement_sku_id))
+        opening = (
+            _read_current_reference("observe_listing", "sku_ref", requested),
+            _read_current_reference("observe_stock_availability", "sku_ref", requested),
             _merchant_authorize_return(case),
             _merchant_receive_return(case),
+        )
+        if not case.entitled:
+            # The replacement the buyer named breaks a stated requirement.  The
+            # mutation is the rubber stamp: approve it anyway.
+            return (
+                (*opening, _merchant_authorize_exchange(case))
+                if mutated
+                else (*opening, _merchant_deny_exchange(case))
+            )
+        decisions = (
+            *opening,
             _merchant_authorize_exchange(case),
             _merchant_complete_exchange(case),
         )
         return decisions[:-1] if mutated else decisions
     if lane == "buyer_dispute":
         decisions: list[_T7Decision] = [_open_dispute(case)]
-        decisions.extend(_submit_next_dispute_evidence(case) for _ in _evidence_ids(case, "filer"))
+        decisions.extend(_submit_next_dispute_evidence(case) for _ in _verified_evidence_ids(case, "filer"))
         decisions.extend(
             (
                 _buyer_open_refund(case),
@@ -2039,7 +2366,7 @@ def _counterpart_steps(case: _CaseT7) -> tuple[_T7Decision, ...]:
         )
     if lane == "merchant_dispute":
         decisions: list[_T7Decision] = [_open_dispute(case)]
-        decisions.extend(_submit_next_dispute_evidence(case) for _ in _evidence_ids(case, "filer"))
+        decisions.extend(_submit_next_dispute_evidence(case) for _ in _verified_evidence_ids(case, "filer"))
         decisions.extend(
             (
                 _buyer_open_refund(case),
@@ -2057,8 +2384,14 @@ def _mutation_changed_checks(case: _CaseT7) -> tuple[str, ...]:
         "buyer_exchange",
         "merchant_return_authorization",
         "merchant_ledger_close",
-    }:
+    } or (case.lane == "merchant_exchange" and not case.entitled):
+        # On a refused exchange the mutation is the rubber stamp, so the lane's
+        # decision evidence moves with it; on an allowed one the mutation only
+        # stops short of shipping, which the decision check does not see.
         checks.insert(1, "difficulty_evidence_grounded")
+    # Every mutation stops the lane short of, or diverts it away from, the
+    # disposition the order was owed, so the commercial end state moves too.
+    checks.append("business_outcome_completed")
     return tuple(checks)
 
 
@@ -2140,7 +2473,7 @@ def _counterpart_trigger_groups(case: _CaseT7) -> tuple[tuple[str, ...], ...]:
         # lets prerequisite counting stay value-free.
         return (("respond_to_dispute",), ())
     if case.lane == "merchant_dispute":
-        filer_evidence = ("submit_dispute_evidence",) * len(_evidence_ids(case, "filer"))
+        filer_evidence = ("submit_dispute_evidence",) * len(_verified_evidence_ids(case, "filer"))
         return (("open_dispute", *filer_evidence), ("open_refund_case",))
     return ()
 
@@ -2156,7 +2489,7 @@ def _counterpart_trigger_prerequisites(
             ("request_return", case.evaluated_operations[-1]),
         )
     if case.lane == "buyer_dispute":
-        submitted = ("submit_dispute_evidence",) * len(_evidence_ids(case, "filer"))
+        submitted = ("submit_dispute_evidence",) * len(_verified_evidence_ids(case, "filer"))
         return (
             ("open_dispute", *submitted),
             ("open_dispute", *submitted, "open_refund_case"),
@@ -2228,7 +2561,7 @@ def _required_handoff_requests(
         submitted_ids = tuple(
             record.record_id for row in submissions for record in row.evidence_records
         )
-        expected_ids = _evidence_ids(case, "filer")
+        expected_ids = _verified_evidence_ids(case, "filer")
         if set(submitted_ids) == set(expected_ids) and len(submitted_ids) == len(expected_ids):
             required.append(submissions[-1])
         required.extend(selected(_MERCHANT_ID, "respond_to_dispute"))
@@ -2456,8 +2789,8 @@ def _require_triggered_environment_closure(
     matched_counterpart = list(counterpart_requests)
 
     return_evidence_ids = _evidence_ids(case) if case.axis_name == "return_condition_count" else ()
-    filer_evidence_ids = _evidence_ids(case, "filer")
-    respondent_evidence_ids = _evidence_ids(case, "respondent")
+    filer_evidence_ids = _verified_evidence_ids(case, "filer")
+    respondent_evidence_ids = _verified_evidence_ids(case, "respondent")
     observed_filer_ids = tuple(
         record.record_id
         for row in matched_counterpart
@@ -2472,7 +2805,11 @@ def _require_triggered_environment_closure(
         )
         and (
             row.operation != "request_exchange"
-            or row.intent.get("replacement_sku_id") == _expected_replacement_sku(case)
+            # On a merchant-evaluated exchange the buyer asks for whatever the
+            # fixture says they asked for, which is not always something they
+            # are entitled to -- that is the merchant's problem to catch.
+            or row.intent.get("replacement_sku_id")
+            == (case.requested_replacement_sku_id or _expected_replacement_sku(case))
         )
         and (
             row.operation != "respond_to_dispute"
@@ -3303,10 +3640,14 @@ def _difficulty_evidence(
             for row in actor_requests
             if row.operation in {"authorize_return", "deny_return"}
         )
-        expected_decisions = ("authorize_return",)
+        expected_decisions = (
+            ("authorize_return",) if case.entitled else ("deny_return",)
+        )
         return float(decisions == expected_decisions), {
             "axis": axis,
             "evaluated_actor_id": actor_id,
+            "accepted_return_conditions": list(case.allowed_return_conditions),
+            "inspected_return_conditions": list(case.attested_return_conditions),
             "expected_decisions": list(expected_decisions),
             "observed_decisions": list(decisions),
         }
@@ -3328,17 +3669,21 @@ def _difficulty_evidence(
             for row in actor_requests
             if row.operation in {"authorize_exchange", "deny_exchange"}
         )
-        expected_decisions = ("authorize_exchange",)
+        expected_decisions = (
+            ("authorize_exchange",) if case.entitled else ("deny_exchange",)
+        )
         return float(decisions == expected_decisions), {
             "axis": axis,
             "evaluated_actor_id": actor_id,
+            "eligible_replacement_sku": expected_sku,
+            "requested_replacement_sku": case.requested_replacement_sku_id,
             "expected_decisions": list(expected_decisions),
             "observed_decisions": list(decisions),
         }
 
     if axis == "evidence_item_count":
         side = "filer" if case.definition.evaluated_role == "buyer" else "respondent"
-        expected_ids = set(_evidence_ids(case, side))
+        expected_ids = set(_verified_evidence_ids(case, side))
         accepted = [
             row
             for row in actor_requests
@@ -3349,14 +3694,26 @@ def _difficulty_evidence(
             record.record_id for row in accepted for record in row.evidence_records
         )
         observed_set = set(observed_ids)
-        credit = len(expected_ids & observed_set) / len(expected_ids)
-        if observed_set == expected_ids and len(observed_ids) != len(expected_ids):
-            credit = min(credit, 0.99)
+        # Recall and precision.  World already refuses a record from another
+        # order or from the other party, so the only way to file something
+        # that does not stand up is to file this side's unverified record --
+        # and doing that is a real filing error, not a harmless extra.  The
+        # penalty is scaled by how much of the filing was junk rather than
+        # zeroing an otherwise complete submission.
+        filed_junk = observed_set - expected_ids
+        recall = len(expected_ids & observed_set) / len(expected_ids)
+        precision = len(expected_ids & observed_set) / max(len(observed_set), 1)
+        credit = recall * precision
+        if credit == 1.0 and len(observed_ids) != len(expected_ids):
+            credit = 0.99
         return credit, {
             "axis": axis,
             "side": side,
             "expected_evidence_ids": sorted(expected_ids),
             "handled_evidence_ids": list(observed_ids),
+            "unsupported_evidence_ids": sorted(filed_junk),
+            "recall": recall,
+            "precision": precision,
         }
 
     if axis == "payment_state_depth":
@@ -3608,7 +3965,12 @@ def _return_authorization_outcome(
     clauses: dict[str, bool],
     detail: dict[str, Any],
 ) -> None:
-    terminal = _request_for(verified, "authorize_return", case.order_id)
+    # A correct refusal is a completed disposition, not a failure to reach one.
+    # The lane's terminal operation is therefore whichever decision the request
+    # was actually owed.
+    granted = case.entitled
+    operation = "authorize_return" if granted else "deny_return"
+    terminal = _request_for(verified, operation, case.order_id)
     value = _result_value(terminal)
     initial_payment = _payment_history(evidence, case.order_id, initial=True)[-1]
     expected_tables = (
@@ -3622,10 +3984,15 @@ def _return_authorization_outcome(
         clauses,
         "return_authorization_value_exact",
         value is not None
-        and value.get("outcome") == "authorized"
+        and value.get("outcome") == ("authorized" if granted else "denied")
         and value.get("actor_id") == _MERCHANT_ID
-        and value.get("authorized_qty") == 1
-        and value.get("authorized_amount") == initial_payment.get("captured_amount")
+        and (
+            not granted
+            or (
+                value.get("authorized_qty") == 1
+                and value.get("authorized_amount") == initial_payment.get("captured_amount")
+            )
+        )
         and isinstance(value.get("binding"), Mapping)
         and value["binding"].get("order_id") == case.order_id,
     )
@@ -3757,6 +4124,49 @@ def _full_return_refund_outcome(
     )
 
 
+def _denied_exchange_outcome(
+    case: _CaseT7,
+    evidence: RuntimeEvidenceBundleV2,
+    verified: VerifiedAfterSalesEvidence,
+    clauses: dict[str, bool],
+    detail: dict[str, Any],
+) -> None:
+    """Score a refused swap: the case closes and no replacement ships."""
+
+    terminal = _request_for(verified, "deny_exchange", case.order_id)
+    value = _result_value(terminal)
+    initial_exchanges = _world_rows(evidence, "exchanges", initial=True)
+    final_exchanges = _world_rows(evidence, "exchanges", initial=False)
+    _append_clause(clauses, "exchange_completion_commit_exists", terminal is not None)
+    _append_clause(
+        clauses,
+        "exchange_case_closed_exactly",
+        value is not None
+        and value.get("state") == "denied"
+        and value.get("replacement_sku_id") == case.requested_replacement_sku_id
+        and value.get("completion_order_digest") is None,
+    )
+    # The order came back and stays back.  What must not happen is a second
+    # order, a second SKU leaving stock, or money moving.
+    _append_clause(clauses, "no_replacement_order_created", final_exchanges == initial_exchanges)
+    _append_clause(
+        clauses,
+        "denied_exchange_has_no_payment_or_refund",
+        _same_physical_tables(evidence, ("payment_states", "ledger")),
+    )
+    _append_clause(
+        clauses,
+        "denied_exchange_return_timeline_exact",
+        _timeline_transition_matches(
+            evidence,
+            case.order_id,
+            returned=True,
+            refunded=False,
+        ),
+    )
+    detail.update({"outcome_kind": "refused_replacement_exchange"})
+
+
 def _exchange_outcome(
     case: _CaseT7,
     evidence: RuntimeEvidenceBundleV2,
@@ -3765,9 +4175,14 @@ def _exchange_outcome(
     detail: dict[str, Any],
 ) -> None:
     request = _request_for(verified, "request_exchange", case.order_id)
+    task_expected_sku = _expected_replacement_sku(case)
+    if not case.entitled:
+        _denied_exchange_outcome(case, evidence, verified, clauses, detail)
+        detail["task_expected_replacement_sku"] = task_expected_sku
+        detail["requested_replacement_sku"] = case.requested_replacement_sku_id
+        return
     terminal = _request_for(verified, "complete_exchange", case.order_id)
     value = _result_value(terminal)
-    task_expected_sku = _expected_replacement_sku(case)
     requested_sku = None if request is None else request.intent.get("replacement_sku_id")
     actual_sku = requested_sku if isinstance(requested_sku, str) and requested_sku else None
     initial_orders = _orders(evidence, initial=True)
@@ -4416,12 +4831,12 @@ def score_t7_runtime(
             ) from exc
         difficulty = _check(
             "difficulty_evidence_grounded",
-            0.30,
+            0.35,
             difficulty_credit,
             difficulty_detail,
         )
     try:
-        _commercial_outcome_evidence(
+        outcome_credit, outcome_detail = _commercial_outcome_evidence(
             case,
             evidence,
             verified,
@@ -4430,17 +4845,27 @@ def score_t7_runtime(
         raise RuntimeBenchmarkIntegrityError(
             "T7 terminal commercial evidence is structurally invalid"
         ) from exc
-    # Lifecycle/outcome evidence remains an integrity diagnostic.  Triggered
-    # environment closure is enforced above; untriggered future work is a model
-    # capability omission and must not invalidate the run.
+    # The exact World joins inside the outcome remain hard environment gates --
+    # they raise rather than deduct.  What is scored is whether the lifecycle
+    # actually reached the disposition the order was entitled to: money moved
+    # or did not move, stock returned or did not.  This used to be computed and
+    # then thrown away, which left the two cancellation lanes with no check
+    # beyond "did the actor name the right operation".
 
+    # What the family is for is the disposition, not the typing.  Naming the
+    # operations in the right order is necessary but it is the cheap part, so
+    # it is the minority of the weight; the majority sits on the two checks
+    # that can only be satisfied by having judged the case correctly -- the
+    # lane's own decision evidence and the commercial state it left behind.
     hard_tier = is_hardened_task_v2(case.definition)
-    operation_weight = (
-        0.40 if hard_tier and difficulty is not None
-        else 0.65 if hard_tier
-        else 0.70 if difficulty is not None
-        else 1.0
-    )
+    graded_decision = difficulty is not None
+    outcome_weight = 0.35 if graded_decision else 0.50
+    if hard_tier:
+        operation_weight = 0.20 if graded_decision else 0.35
+        selection_weight = 0.10 if graded_decision else 0.15
+    else:
+        operation_weight = 0.30 if graded_decision else 0.50
+        selection_weight = 0.0
     checks: list[RuntimeRubricCheckV2] = [
         _check(
             "evaluated_operations_completed",
@@ -4463,7 +4888,7 @@ def score_t7_runtime(
         checks.append(
             _check(
                 "operation_selection_coverage",
-                0.30 if difficulty is not None else 0.35,
+                selection_weight,
                 operation_selection_credit,
                 {
                     "expected_operation_counts": dict(expected_operation_counts),
@@ -4475,6 +4900,14 @@ def score_t7_runtime(
         )
     if difficulty is not None:
         checks.append(difficulty)
+    checks.append(
+        _check(
+            "business_outcome_completed",
+            outcome_weight,
+            outcome_credit,
+            outcome_detail,
+        )
+    )
     normalized_checks = renormalize_capability_checks_v2(tuple(checks))
     issues = (
         ()

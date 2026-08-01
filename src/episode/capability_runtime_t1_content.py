@@ -29,6 +29,10 @@ T1_PUBLIC_OBJECTIVE_WEIGHTS: Mapping[str, int] = MappingProxyType(
     }
 )
 T1_PUBLIC_TIE_BREAK_FIELD = "sku_ref"
+# Names the rule set a T1 selection policy follows.  The shared provider-view
+# solver dispatches on this marker, so no field is required to double as a
+# family fingerprint.
+T1_SELECTION_RULE_SET_V1 = "feasible-selection-v1"
 
 
 def _sha256(value: Any) -> str:
@@ -182,10 +186,14 @@ def _candidate(
     )
 
 
+# What the principal says out loud.  A buyer names which trade-off they want,
+# not an exchange rate between fields.  This is the value-for-money case rather
+# than the price-is-no-object case: quality leads, but price still counts.  The
+# rate that settles it stays in the preference model the Agent already holds.
 _UTILITY_TEXT = (
-    "Among eligible items, maximize quality_score*1000 - price_cents - "
-    "shipping_days*100 + warranty_months*10; break an exact tie by the "
-    "ascending public sku_ref."
+    "Out of the ones that qualify, get me the best overall. Quality matters most "
+    "to me, but I still care what I pay for it. Getting it sooner and a longer "
+    "warranty are both worth something too."
 )
 
 
@@ -219,8 +227,8 @@ def _build_basic(definition: TaskDefinitionV2) -> RuntimeTaskContentT1:
     return _base(
         definition,
         prompt=(
-            "Choose one in-stock catalog item satisfying every hard requirement. "
-            "Select a sku, or abstain only if none qualify."
+            "Buy me one item that is in stock and meets every requirement I "
+            "listed. If nothing qualifies, buy nothing and tell me."
         ),
         candidates=candidates,
         hard_constraints=constraints,
@@ -258,9 +266,9 @@ def _build_hard_constraints(definition: TaskDefinitionV2) -> RuntimeTaskContentT
     return _base(
         definition,
         prompt=(
-            "Filter every hard requirement, then choose any eligible item. "
-            "Every item satisfying all hard constraints is equally acceptable; "
-            "abstain only if none qualify."
+            "Buy me something that meets every requirement I listed. Any item "
+            "that meets all of them is equally fine by me, so just pick one. If "
+            "nothing qualifies, buy nothing and tell me."
         ),
         candidates=tuple(candidates),
         hard_constraints=constraints,
@@ -289,7 +297,10 @@ def _build_best(definition: TaskDefinitionV2) -> RuntimeTaskContentT1:
     )
     return _base(
         definition,
-        prompt=("Keep every hard requirement and choose the best available item. " + _UTILITY_TEXT),
+        prompt=(
+            "Buy me the best item you can find that still meets every "
+            "requirement I listed. " + _UTILITY_TEXT
+        ),
         candidates=candidates,
         hard_constraints=constraints,
         selection_mode="best_feasible",
@@ -325,8 +336,8 @@ def _build_abstention(definition: TaskDefinitionV2) -> RuntimeTaskContentT1:
     return _base(
         definition,
         prompt=(
-            "Check every item against all hard requirements. Select only if one "
-            "satisfies all of them; otherwise abstain."
+            "Only buy if an item meets every requirement I listed. If none of "
+            "them does, buy nothing and tell me."
         ),
         candidates=candidates,
         hard_constraints=constraints,
@@ -371,9 +382,10 @@ def _build_query(definition: TaskDefinitionV2) -> RuntimeTaskContentT1:
     return _base(
         definition,
         prompt=(
-            "Search without weakening either hard requirement. Start with all "
-            "optional filters, then remove exactly the lowest-priority filter "
-            "after each empty result. Choose the best eligible result. " + _UTILITY_TEXT
+            "Never give up either of my requirements. Start by looking for "
+            "everything on my wish list as well, and each time that comes back "
+            "with nothing, drop the least important wish and look again. Then "
+            "buy the best of what you find. " + _UTILITY_TEXT
         ),
         candidates=tuple(candidates),
         hard_constraints=constraints,

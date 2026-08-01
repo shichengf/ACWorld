@@ -554,7 +554,9 @@ def public_actor_task_facts(
         phase_id=phase_id,
     )
     if benchmark_facts:
-        output["benchmark"] = benchmark_facts
+        # Model-visible name for the Agent's working brief.  The internal
+        # container keeps its benchmark_ spelling; the model never sees it.
+        output["brief"] = benchmark_facts
     return output
 
 
@@ -634,7 +636,7 @@ def _public_value(
                     phase_id=benchmark_phase_id,
                 )
                 if projected:
-                    output["benchmark_facts"] = projected
+                    output["brief"] = projected
                 continue
             if (
                 normalized in _PRIVATE_KEYS

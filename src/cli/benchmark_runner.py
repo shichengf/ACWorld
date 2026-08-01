@@ -9,10 +9,24 @@ from typing import Sequence
 
 from cli.large_catalog import main as large_catalog_main
 from cli.strong_models import main as core_benchmark_main
+from experiments.openrouter_runtime import MAX_SUPPORTED_WORKERS
 from experiments.benchmark_plan import (
     PAPER_MODELS_V2,
     SUPPORTED_BENCHMARK_MODELS_V2,
 )
+
+
+def _worker_count(value: str) -> int:
+    try:
+        workers = int(value)
+    except ValueError:
+        workers = 0
+    if not 1 <= workers <= MAX_SUPPORTED_WORKERS:
+        raise argparse.ArgumentTypeError(
+            f"--workers must be a whole number from 1 to {MAX_SUPPORTED_WORKERS}. "
+            f"got {value!r}"
+        )
+    return workers
 
 
 DEFAULT_CORE_OUTPUT = Path("output/benchmark")
@@ -48,7 +62,18 @@ def _run_parser() -> argparse.ArgumentParser:
         type=Path,
         help="raw CSV directory; needed only when the large catalog is not prepared",
     )
-    parser.add_argument("--workers", type=int, choices=(1, 2), default=2)
+    parser.add_argument(
+        "--workers",
+        type=_worker_count,
+        default=2,
+        help=(
+            f"concurrent tasks per model, 1 to {MAX_SUPPORTED_WORKERS} "
+            "(default 2). Tasks are scored in isolation, so this does not "
+            "change any task's score, but a higher rate of provider calls is "
+            "more likely to be throttled upstream and a throttled episode is "
+            "dropped rather than scored"
+        ),
+    )
     parser.add_argument("--max-cost-usd", type=float, default=10.0)
     parser.add_argument("--skip-local-smoke", action="store_true")
     parser.add_argument(

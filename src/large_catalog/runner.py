@@ -12,6 +12,7 @@ from statistics import mean
 from typing import Any, Iterable, Mapping, Sequence
 
 from agents.inference import ChannelTransportError, OpenAIChannel
+from experiments.openrouter_runtime import MAX_SUPPORTED_WORKERS
 from experiments.benchmark_plan import PAPER_MODELS_V2
 from large_catalog.database import CatalogDatabase
 from large_catalog.models import LargeCatalogTask, TaskResult
@@ -85,8 +86,14 @@ def run_model_tasks(
         raise LargeCatalogRunError(f"unsupported large-catalog model: {model_id}")
     if not api_key:
         raise LargeCatalogRunError("OpenRouter API key is empty")
-    if max_workers not in {1, 2}:
-        raise LargeCatalogRunError("max_workers must be one or two")
+    if (
+        isinstance(max_workers, bool)
+        or not isinstance(max_workers, int)
+        or not 1 <= max_workers <= MAX_SUPPORTED_WORKERS
+    ):
+        raise LargeCatalogRunError(
+            f"max_workers must be a whole number from 1 to {MAX_SUPPORTED_WORKERS}"
+        )
     if max_cost_usd <= 0:
         raise LargeCatalogRunError("max_cost_usd must be positive")
     by_id = {task.task_id: task for task in tasks}

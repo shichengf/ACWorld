@@ -54,6 +54,14 @@ PUBLIC_REFERENCE_POLICY_V1: Mapping[str, Any] = MappingProxyType(
 
 _INTENT_RE = re.compile(r"^[a-z][a-z0-9_]{0,95}$")
 _ROLE_VALUES = frozenset({"buyer", "merchant"})
+# An opening fence may name its language.  Anything longer is prose rather than
+# a tag, so the text is read as-is instead of being stripped.
+_FENCE_TAG_RE = re.compile(r"[A-Za-z0-9_+-]{0,20}")
+# The advertised response fields.  A model may present additional narration
+# keys alongside them; those carry no action semantics and are dropped before
+# the business contract is checked.
+_DECISION_FIELDS = ("schema_version", "intent", "arguments", "message")
+_REQUIRED_DECISION_FIELDS = frozenset({"intent", "arguments"})
 _FORBIDDEN_PUBLIC_KEYS = frozenset(
     {
         "action_kind",
@@ -313,33 +321,38 @@ class LLMBusinessDecisionV1:
             raise BusinessDecisionContractError("model business decision is empty")
         if len(raw) > _MAX_JSON_CHARS:
             raise BusinessDecisionContractError("model business decision is too large")
-        text = _strip_single_code_fence(raw.strip())
-        try:
-            value = json.loads(
-                text,
-                parse_constant=_reject_constant,
-                object_pairs_hook=_reject_duplicate_keys,
-            )
-        except (json.JSONDecodeError, ValueError, RecursionError) as exc:
-            raise BusinessDecisionContractError(
-                "model business decision is not strict JSON"
-            ) from exc
-        if not isinstance(value, dict):
-            raise BusinessDecisionContractError("model business decision must be one object")
-        if set(value) - {"schema_version", "intent", "arguments", "message"}:
-            raise BusinessDecisionContractError(
-                "model business decision contains unsupported fields"
-            )
-        if set(value) < {"schema_version", "intent", "arguments"}:
+        # Read the decision through widening presentation tolerance.  A fence,
+        # a language tag, and surrounding narration are display choices, so
+        # they never decide whether a business answer is admissible.  Business
+        # semantics, authority, and required arguments stay strict below.
+        text = raw.strip()
+        value = _decode_json_object(text)
+        if value is None:
+            value = _decode_json_object(_strip_code_fence(text))
+        if value is None:
+            objects = _embedded_decision_objects(raw)
+            if len(objects) > 1:
+                raise BusinessDecisionContractError(
+                    "model business decision contains more than one decision object"
+                )
+            if objects:
+                value = objects[0]
+        if value is None:
+            raise BusinessDecisionContractError("model business decision is not strict JSON")
+        if not _REQUIRED_DECISION_FIELDS.issubset(value):
             raise BusinessDecisionContractError(
                 "model business decision is missing required fields"
             )
-        _require_provider_surface_value(value, path="response")
+        advertised = {key: value[key] for key in _DECISION_FIELDS if key in value}
+        _require_provider_surface_value(advertised, path="response")
         decision = cls(
-            schema_version=value["schema_version"],
-            intent=value["intent"],
-            arguments=value["arguments"],
-            message=value.get("message"),
+            schema_version=advertised.get(
+                "schema_version",
+                LLM_BUSINESS_DECISION_SCHEMA_V1,
+            ),
+            intent=advertised["intent"],
+            arguments=advertised["arguments"],
+            message=advertised.get("message"),
         )
         specs = {row.intent: row for row in allowed_intents}
         if decision.intent not in specs:
@@ -984,13 +997,71 @@ def business_repair_error_v1(error: BaseException) -> tuple[str, str]:
     return code, BUSINESS_REPAIR_ERROR_MESSAGES_V1[code]
 
 
-def _strip_single_code_fence(value: str) -> str:
-    if not value.startswith("```"):
-        return value
-    lines = value.splitlines()
-    if len(lines) >= 3 and lines[-1].strip() == "```":
-        return "\n".join(lines[1:-1]).strip()
-    return value
+def _strip_code_fence(value: str) -> str:
+    """Remove one surrounding Markdown fence and its optional language tag.
+
+    The opening fence may carry a short language tag and the closing fence may
+    be followed by trailing prose.  Only the fenced span is returned, because a
+    fence is presentation rather than business content.
+    """
+
+    text = value.strip()
+    if not text.startswith("```"):
+        return text
+    lines = text.splitlines()
+    if len(lines) < 2 or not _FENCE_TAG_RE.fullmatch(lines[0].strip()[3:].strip()):
+        return text
+    for index in range(len(lines) - 1, 0, -1):
+        if lines[index].strip() == "```":
+            return "\n".join(lines[1:index]).strip()
+    return "\n".join(lines[1:]).strip()
+
+
+def _decode_json_object(text: str) -> dict[str, Any] | None:
+    """Decode one complete JSON object, or return ``None`` when it is not one."""
+
+    try:
+        value = json.loads(
+            text,
+            parse_constant=_reject_constant,
+            object_pairs_hook=_reject_duplicate_keys,
+        )
+    except (json.JSONDecodeError, ValueError, RecursionError):
+        return None
+    return value if isinstance(value, dict) else None
+
+
+def _embedded_decision_objects(text: str) -> list[dict[str, Any]]:
+    """Return the outermost embedded objects that carry a business intent.
+
+    Surrounding prose is presentation, so a decision wrapped in explanatory
+    text is read normally.  Nested objects are dropped in favour of the object
+    that contains them, and an ambiguous response with several candidates is
+    left for the caller to reject.
+    """
+
+    decoder = json.JSONDecoder(
+        parse_constant=_reject_constant,
+        object_pairs_hook=_reject_duplicate_keys,
+    )
+    spans: list[tuple[int, int, dict[str, Any]]] = []
+    for start, character in enumerate(text):
+        if character != "{":
+            continue
+        try:
+            value, relative_end = decoder.raw_decode(text[start:])
+        except (json.JSONDecodeError, ValueError, RecursionError):
+            continue
+        if isinstance(value, dict) and "intent" in value:
+            spans.append((start, start + relative_end, value))
+    return [
+        value
+        for start, end, value in spans
+        if not any(
+            outer_start < start and end <= outer_end
+            for outer_start, outer_end, _outer in spans
+        )
+    ]
 
 
 def _reject_constant(value: str) -> None:

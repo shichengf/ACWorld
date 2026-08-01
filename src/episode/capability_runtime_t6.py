@@ -732,8 +732,8 @@ def _public_contract(case: _CaseT6) -> dict[str, Any]:
         "schema_version": T6_RUNTIME_SCHEMA_V2,
         "task_id": case.definition.task_id,
         "instruction": (
-            "Read the authoritative CommerceWorld state through Platform, then "
-            "make exactly one inventory, fulfillment, or shipment decision."
+            "Check the current official record for where things actually stand, "
+            "then make one call on stock, fulfilment, or shipping."
         ),
         "evaluated_role": case.definition.evaluated_role,
         "capability": case.lane,
@@ -1394,7 +1394,7 @@ def _buyer_kickoff(case: _CaseT6) -> dict[str, Any]:
         kind="delegate.create_purchase_mandate",
         payload={
             "mandate_id": case.definition.task_id,
-            "goal": "execute the authoritative supply contract",
+            "goal": "get this order filled",
             "quantity": max(1, case.requested_qty),
             "return_after_purchase": False,
             "hard_constraints": {
@@ -1532,7 +1532,7 @@ def scenario_for_t6(task_id: str) -> ScenarioSpec:
             persona={"name": f"T6 buyer {buyer_id}", "task_family": "T6"},
             mandate={
                 "mandate_id": f"{task_id}:{buyer_id}",
-                "goal": "participate in the authoritative supply contract",
+                "goal": "place my order and see it through",
                 "quantity": max(1, case.requested_qty),
                 "return_after_purchase": False,
                 "hard_constraints": {

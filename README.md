@@ -16,6 +16,32 @@ The released benchmark has two parts:
 The two parts can be run separately or together. They retain separate scores
 because they test different distributions.
 
+## Changes in 1.1.0
+
+Revises the 200-task capability benchmark. The 60-task large-catalog benchmark
+is unchanged.
+
+- Task requests read like real Buyer and Merchant messages rather than
+  evaluation specifications.
+- Internal field and component names no longer appear in what the model sees.
+- Responses are read more tolerantly, so ordinary formatting no longer fails a
+  valid decision.
+- After-sales tasks no longer publish the operations the scorer expects.
+- Refusing a request the published policy does not cover is now sometimes the
+  correct answer, and is scored as one.
+- Credit rests mainly on the disposition reached and the commercial state it
+  left behind rather than on naming operations in order.
+- Facts a party could look up for itself are no longer pre-filtered into the
+  task brief.
+- Comparison candidates are closer, and the correct answer is no longer
+  restricted to the first few positions.
+- `--workers` may be raised above 2, and every run reports how many tasks went
+  unscored; see [Raising `--workers`](#raising---workers).
+
+Business rules and the 200 task definitions are unchanged. Scores are not
+comparable with 1.0.0; rerun a model rather than rescoring its saved 1.0.0
+outputs.
+
 ## Quick start
 
 Requirements:
@@ -159,12 +185,37 @@ predicates only and makes no model calls.
 ## Execution behavior
 
 - Provider-default generation settings are used.
-- At most two model workers run concurrently.
+- `--workers` sets how many tasks run at once, from 1 to 8 (default 2).
 - A transport or provider failure is retried once.
 - A model protocol error or incorrect decision is kept as a scored outcome.
 - Repeating the same command skips completed task files.
 - `--max-cost-usd` sets the reported-cost limit for each large-catalog model
   run.
+
+### Raising `--workers`
+
+Tasks are scored in isolation, so the worker count does not change any task's
+score. What it changes is how fast calls reach the provider. If your account's
+rate limit is lower than that, throttled tasks fail and are **not scored** — and
+because the tasks that take the most calls are the ones most likely to be cut
+off, what goes missing is systematically the hardest work rather than a random
+sample.
+
+Every run therefore reports what did not get scored:
+
+```json
+"scored_run_count": 197,
+"unscored_run_count": 3,
+"provider_failed_run_count": 3,
+"provider_failed_run_keys": ["...", "...", "..."]
+```
+
+Check those fields before using a result. Re-running the same command retries
+only the missing tasks.
+
+The published numbers were produced at `--workers 2`. A run at a higher worker
+count is a valid run of the benchmark, but it is comparable with the paper's
+figures only when `unscored_run_count` is 0.
 
 The large-catalog tools search the full database with explicit filters,
 sorting, and pagination. Tool responses remain bounded, while the deterministic

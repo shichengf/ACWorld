@@ -9,6 +9,7 @@ import time
 from pathlib import Path
 from typing import Any, Sequence
 
+from experiments.openrouter_runtime import MAX_SUPPORTED_WORKERS
 from large_catalog.database import CatalogDatabase, prepare_catalog
 from large_catalog.download import download_prepared_catalog
 from large_catalog.models import SearchRequest
@@ -72,7 +73,18 @@ def _parser() -> argparse.ArgumentParser:
         help="exact paper model ID; repeat the option or use 'all'",
     )
     run.add_argument("--api-key-file", required=True)
-    run.add_argument("--max-workers", type=int, choices=(1, 2), default=2)
+    run.add_argument(
+        "--max-workers",
+        type=int,
+        choices=range(1, MAX_SUPPORTED_WORKERS + 1),
+        metavar=f"{{1..{MAX_SUPPORTED_WORKERS}}}",
+        default=2,
+        help=(
+            "concurrent tasks. Tasks are scored in isolation, so this does not "
+            "change any task's score; a higher rate of provider calls is more "
+            "likely to be throttled upstream and a throttled task is dropped"
+        ),
+    )
     run.add_argument("--max-cost-usd", type=float, default=10.0)
     run.add_argument("--canary-only", action="store_true")
 

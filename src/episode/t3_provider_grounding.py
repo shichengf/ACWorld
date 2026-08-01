@@ -102,7 +102,7 @@ def grounded_t3_facts_v1(
                 "listing_ref": listing_ref,
                 "hard_attributes": copy.deepcopy(dict(hard_attributes)),
                 "preference_values": copy.deepcopy(dict(preference_values)),
-                "stable_tie_break_key": f"candidate-order-{index:04d}",
+                "sort_key": f"{index:04d}",
             }
         )
 
@@ -173,7 +173,7 @@ def grounded_t3_facts_v1(
                     "update_ref": update_ref,
                     "preference_weights": copy.deepcopy(dict(weights)),
                     "update_sequence": int(revision.get("logical_tick", index)),
-                    "stable_update_key": f"grounded-update-{index:04d}",
+                    "sort_key": f"{index:04d}",
                     "authorized": True,
                 }
             )
@@ -191,7 +191,7 @@ def grounded_t3_facts_v1(
                 {
                     "instruction_ref": instruction_ref,
                     "constraint": copy.deepcopy(dict(constraint)),
-                    "stable_instruction_key": f"grounded-instruction-{index:04d}",
+                    "sort_key": f"{index:04d}",
                     "authorized": True,
                 }
             )

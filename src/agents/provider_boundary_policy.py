@@ -54,8 +54,13 @@ _BENCHMARK_CONTEXT_PATH_SUFFIXES_V1 = (
     ("benchmark_contract",),
     ("task_facts",),
     ("benchmark_facts",),
+    # ``brief`` is the model-visible spelling of the same container.  Metadata
+    # inside it stays private at every depth, exactly as under the internal
+    # spellings above.
+    ("brief",),
     ("persistent_task_business_facts", "task"),
     ("persistent_task_business_facts", "benchmark"),
+    ("persistent_task_business_facts", "brief"),
 )
 
 # These exact business-entity paths use words that are also benchmark labels.

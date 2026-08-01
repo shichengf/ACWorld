@@ -416,7 +416,6 @@ def _problem_inventory(
             "max_delivery_days",
             "merchant_count",
         ],
-        "tie_break": "canonical_selected_sku_refs_then_qty_ascending",
     }:
         raise T5CartPlanningError("public cart objective or tie-break changed")
     return offers, requirements, relations, pricing_terms

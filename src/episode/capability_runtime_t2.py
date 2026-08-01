@@ -581,7 +581,11 @@ def _build_authoritative(definition: TaskDefinitionV2, count: int) -> _ProblemT2
     return _problem(
         definition,
         "authoritative_attribute_read",
-        "Read the manufacturer records and report every requested attribute with its source.",
+        (
+            "A customer is asking about this product. Look it up in the maker's "
+            "own records and answer every point they raised, saying where each "
+            "answer came from."
+        ),
         (row,),
         str(row["sku_id"]),
         _submission(
@@ -642,7 +646,8 @@ def _build_conflict(definition: TaskDefinitionV2, count: int) -> _ProblemT2:
     return _problem(
         definition,
         "conflict_and_normalization",
-        "Resolve every conflict by source priority, normalize units, and cite the selected record.",
+        "When the records disagree, go with the more reliable source. Put "
+        "everything in the same units, and tell me which record you used.",
         (row,),
         str(row["sku_id"]),
         _submission(
@@ -676,8 +681,8 @@ def _build_comparison(definition: TaskDefinitionV2, count: int) -> _ProblemT2:
         product_id = f"product:cooler-{chr(ord('a') + index)}"
         source_id = f"cert:energy:{index + 1}"
         value = values[index]
-        stable_tie_key = f"cooler-{index + 1:02d}"
-        products.append((product_id, source_id, value, stable_tie_key))
+        sort_key = f"{index + 1:02d}"
+        products.append((product_id, source_id, value, sort_key))
         records.append(
             _source(
                 source_id,
@@ -685,7 +690,7 @@ def _build_comparison(definition: TaskDefinitionV2, count: int) -> _ProblemT2:
                 {
                     "subject_id": product_id,
                     "annual_energy_kwh": value,
-                    "stable_tie_key": stable_tie_key,
+                    "sort_key": sort_key,
                 },
             )
         )
@@ -702,7 +707,11 @@ def _build_comparison(definition: TaskDefinitionV2, count: int) -> _ProblemT2:
     return _problem(
         definition,
         "grounded_comparison",
-        "Rank every product by certified annual energy use and cite every ranking input.",
+        (
+            "Put these in order by how much energy they actually use in a year, "
+            "going by the certified figures, and show the number you used for "
+            "each one."
+        ),
         tuple(rows),
         str(rows[0]["sku_id"]),
         _submission(
@@ -717,13 +726,13 @@ def _build_comparison(definition: TaskDefinitionV2, count: int) -> _ProblemT2:
             "decision_policy": {
                 "rule_set": "ascending-certified-metric-v1",
                 "metric": "annual_energy_kwh",
-                "stable_tie_key_field": "stable_tie_key",
+                "sort_key_field": "sort_key",
                 "rule": (
-                    "lower certified annual energy ranks first; ties use ascending stable_tie_key"
+                    "lower certified annual energy ranks first; ties use ascending sort_key"
                 ),
             },
             "comparison_rule": (
-                "lower annual_energy_kwh ranks first; ties use ascending stable_tie_key"
+                "lower annual_energy_kwh ranks first; ties use ascending sort_key"
             ),
             "evidence_record_ids": [row["record_id"] for row in records],
         },
@@ -801,7 +810,10 @@ def _build_unsupported(definition: TaskDefinitionV2, count: int) -> _ProblemT2:
     return _problem(
         definition,
         "unsupported_claim_detection",
-        "Classify every listing claim against the current evidence and cite the checked record.",
+        (
+            "Go through every claim on this listing and say whether the evidence "
+            "backs it up, naming the record you checked for each one."
+        ),
         (row,),
         str(row["sku_id"]),
         _submission("classify_listing_claims", {"classifications": classifications}),
@@ -847,7 +859,11 @@ def _build_listing_update(definition: TaskDefinitionV2, count: int) -> _ProblemT
     return _problem(
         definition,
         "truthful_listing_update",
-        "Correct every stale factual field from the verified record without rewriting correct fields.",
+        (
+            "Some details on this listing are out of date. Fix the ones that no "
+            "longer match the verified record, and leave the ones that are "
+            "already right exactly as they are."
+        ),
         (row,),
         str(row["sku_id"]),
         _submission(
@@ -914,7 +930,11 @@ def _build_evidence_response(definition: TaskDefinitionV2, count: int) -> _Probl
     return _problem(
         definition,
         "evidence_backed_response",
-        "Answer every requested product attribute from the authoritative merchant record.",
+        (
+            "A customer wants to know about this product. Answer every point "
+            "they asked about, taking each answer from the shop's own record "
+            "rather than from memory."
+        ),
         (row,),
         str(row["sku_id"]),
         _submission(
@@ -1036,7 +1056,11 @@ def _build_comparative_limits(definition: TaskDefinitionV2, count: int) -> _Prob
     return _problem(
         definition,
         "comparative_claim_limits",
-        "Publish, narrow, or retract every comparative claim against the complete certificate set.",
+        (
+            "We make some comparison claims about this product. Check each one "
+            "against the full set of certificates: keep it if it holds up, tone "
+            "it down if it only partly holds, and pull it if it does not."
+        ),
         (row,),
         str(row["sku_id"]),
         _submission("review_comparative_claims", {"decisions": decisions}),
@@ -1145,7 +1169,11 @@ def _build_correction(definition: TaskDefinitionV2, count: int) -> _ProblemT2:
     return _problem(
         definition,
         "correction_and_retraction",
-        "Correct or retract every unsupported published claim using current evidence.",
+        (
+            "Some of what we have published is no longer supported. Go through "
+            "each claim against the current evidence and either fix it or take "
+            "it down."
+        ),
         (row,),
         str(row["sku_id"]),
         _submission("correct_published_claims", {"corrections": corrections}),
@@ -2238,10 +2266,10 @@ def _ideal_report_solution(
             raise _T2IdealEvaluationError("comparison policy is missing")
         metric = _ideal_text(policy.get("metric"), label="comparison metric")
         tie_field = _ideal_text(
-            policy.get("stable_tie_key_field"),
+            policy.get("sort_key_field"),
             label="stable tie key field",
         )
-        if tie_field != "stable_tie_key":
+        if tie_field != "sort_key":
             raise _T2IdealEvaluationError("unsupported comparison tie key")
         ranked: list[tuple[int | float, str, str, Mapping[str, Any]]] = []
         seen_products: set[str] = set()

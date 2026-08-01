@@ -299,7 +299,7 @@ def _agent_message_payload_authority(
         instruction = (
             "publish campaign"
             if isinstance(reply_recipient_id, str) and reply_recipient_id.startswith("merchant:")
-            else "inspect governance projection and select an offer"
+            else "look over how these offers are being presented, then pick one"
         )
         return {"instruction": instruction, "task_id": task_id}
     return None
@@ -3389,7 +3389,7 @@ class Agent:
                 value = context.get(key)
                 if isinstance(value, str) and value.strip():
                     return value
-        return "Make the best permitted commerce decision for the current actor."
+        return "Do the best you can for me here, within what you are allowed to do."
 
     def _business_decision_system_prompt(self) -> str:
         """Apply an explicit task-declared response mode without global drift."""
@@ -3401,8 +3401,7 @@ class Agent:
             return (
                 BUSINESS_DECISION_SYSTEM_PROMPT_V1
                 + "\nPerform all reasoning silently. Never reveal calculations or analysis. "
-                "Your complete response must be only the JSON object, with no Markdown fence "
-                "and no text before or after it."
+                "Return one JSON object for the chosen business action."
             )
         return BUSINESS_DECISION_SYSTEM_PROMPT_V1
 

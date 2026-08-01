@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use ACWorld, please cite the paper and this software release."
 title: "Agentic Commerce World: An Auditable and Verifiable Environment for Vibe Commerce"
 type: software
-version: 1.0.0
-date-released: 2026-07-30
+version: 1.1.0
+date-released: 2026-07-31
 repository-code: "https://github.com/shichengf/ACWorld"
 authors:
   - family-names: Fan

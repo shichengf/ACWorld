@@ -390,9 +390,19 @@ class WorldTools:
         lanes; it applies exactly the same friendship/row filtering as
         :meth:`get_friend_reviews` and adds no broader visibility.
         """
-        reviews = self.get_friend_reviews(sku_id=sku_id, merchant_id=merchant_id)
+        # ``sku_id`` is an optional filter, and a caller may express "no filter"
+        # either by omitting it or by passing a blank value.  Both mean the read
+        # has no subject, so both must be reported as ``None``: the Agent
+        # projects this field as a business reference, where a missing identity
+        # is skipped but an empty one is rejected as malformed and aborts the
+        # episode.
+        subject = None if sku_id is None or not str(sku_id).strip() else str(sku_id)
+        merchant = (
+            None if merchant_id is None or not str(merchant_id).strip() else str(merchant_id)
+        )
+        reviews = self.get_friend_reviews(sku_id=subject, merchant_id=merchant)
         return {
-            "sku_id": "" if sku_id is None else str(sku_id),
+            "sku_id": subject,
             "review_ids": [str(review.review_id) for review in reviews],
             "reviews": reviews,
         }

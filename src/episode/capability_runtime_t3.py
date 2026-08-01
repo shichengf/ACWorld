@@ -86,6 +86,13 @@ _MERCHANT_ID = "merchant:t3-benchmark"
 _CANDIDATE_CATEGORY = "decisionproduct"
 _EVIDENCE_ISSUER = "platform:evidence"
 _TRUST_THRESHOLD_BPS = 5_000
+# How far the correct listing leads the raw-preference leader once trusted
+# advice is applied.  It has to stay below the smallest bonus an advisor who
+# just misses the bar would contribute (a verified source one notch under the
+# trust floor), so that accepting even one such endorsement flips the answer.
+# A wider lead would let the genuine bonus absorb every mistake, which is what
+# made these lanes score full marks regardless of how the evidence was read.
+_SOCIAL_DECISION_MARGIN = 10
 _DECISION_DETAIL_FIELDS = (
     "considered_listing_ids",
     "used_signal_ids",
@@ -372,7 +379,18 @@ def _weighted_problem(
             tuple((name, 85) for name in names),
         )
     ]
-    for index, featured in enumerate(names, start=2):
+    # A near-copy of the balanced answer, one point lower on every feature.
+    # Specialists that peak on a single feature fall further behind as the
+    # weighting widens, so without this the answer led by a quarter of its own
+    # score and an approximate comparison was good enough.
+    listings.append(
+        T3Listing(
+            "listing-02",
+            _attributes(price_cents=9_900),
+            tuple((name, 84) for name in names),
+        )
+    )
+    for index, featured in enumerate(names, start=3):
         values = tuple((name, 100 if name == featured else 45) for name in names)
         listings.append(
             T3Listing(
@@ -390,7 +408,10 @@ def _weighted_problem(
     )
     return (
         T3PublicTask(
-            directive=("Choose the feasible listing with the highest weighted preference value."),
+            directive=(
+                "Out of the items that meet my requirements, buy the one that "
+                "best matches what I said I care about."
+            ),
             hard_constraints=_base_constraint(),
             initial_preference_weights=weights,
             listings=tuple(listings),
@@ -411,7 +432,7 @@ def _hard_over_soft_problem(
     listings = [
         T3Listing(
             "listing-01",
-            _attributes(price_cents=10_000, **safe),
+            _attributes(price_cents=9_400, **safe),
             _features(desirability=70),
         ),
         T3Listing(
@@ -420,19 +441,37 @@ def _hard_over_soft_problem(
             _features(desirability=50),
         ),
     ]
+    # The nearest qualifying runner-up sits one point behind the answer, so the
+    # comparison among eligible items has to be exact rather than approximate.
+    for near in range(1, count + 1):
+        listings.append(
+            T3Listing(
+                f"qualifying-{near:02d}",
+                _attributes(price_cents=9_300 - near, **safe),
+                _features(desirability=70 - near),
+            )
+        )
+    # Each ineligible listing fails exactly one requirement and beats the answer
+    # only narrowly.  A listing that were far and away the most desirable would
+    # advertise itself as the trap; these do not, so the requirements have to be
+    # checked rather than guessed at.  Their prices interleave with the eligible
+    # ones, so price cannot stand in for eligibility either.
     for index in range(1, count + 1):
         attrs = dict(safe)
         attrs[f"requirement_{index}"] = False
         listings.append(
             T3Listing(
                 f"listing-{index + 2:02d}",
-                _attributes(price_cents=8_000 + index, **attrs),
-                _features(desirability=101 - index),
+                _attributes(price_cents=9_450 + index, **attrs),
+                _features(desirability=71 + index),
             )
         )
     return (
         T3PublicTask(
-            directive=("Filter by every hard mandate condition before comparing preference value."),
+            directive=(
+                "Some of these will not meet what I asked for. Rule those out "
+                "first, and only then pick the one I would like best."
+            ),
             hard_constraints=tuple(constraints),
             initial_preference_weights=_features(desirability=1),
             listings=tuple(listings),
@@ -445,11 +484,31 @@ def _social_problem(
     task: TaskDefinitionV2,
 ) -> tuple[T3PublicTask, T3HiddenCorpus]:
     count = _factor(task, "advisor_count")
-    listings = (
-        T3Listing("listing-01", _attributes(price_cents=10_000), _features(fit=50)),
-        T3Listing("listing-02", _attributes(price_cents=10_000), _features(fit=60)),
-        T3Listing("listing-03", _attributes(price_cents=9_000), _features(fit=30)),
-    )
+    trusted_bonus = sum(5 * (8_000 + index * 100) // 1_000 for index in range(1, count + 1))
+    answer_fit = 50
+    # ``listing-01`` wins only once trusted advice is applied, and it wins by a
+    # hair.  ``listing-02`` leads on the buyer's own preference alone and
+    # trails by ``_SOCIAL_DECISION_MARGIN`` after it, so accepting even one
+    # endorsement that should have been discarded overturns the result.  The
+    # margin is held constant as the advisor count grows, otherwise the real
+    # bonus would outrun every mistake and the task would stop discriminating.
+    decoy_fit = answer_fit + trusted_bonus - _SOCIAL_DECISION_MARGIN
+    rows = [
+        T3Listing("listing-01", _attributes(price_cents=10_000), _features(fit=answer_fit)),
+        T3Listing("listing-02", _attributes(price_cents=10_000), _features(fit=decoy_fit)),
+        T3Listing("listing-03", _attributes(price_cents=9_000), _features(fit=answer_fit - 20)),
+    ]
+    # Fillers sit just under the raw leader, so the field cannot be narrowed by
+    # eye before the endorsements are resolved.
+    for filler in range(1, count + 1):
+        rows.append(
+            T3Listing(
+                f"listing-{len(rows) + 1:02d}",
+                _attributes(price_cents=9_100 + filler),
+                _features(fit=decoy_fit - filler),
+            )
+        )
+    listings = tuple(rows)
     signals: list[T3SocialSignal] = []
     records: list[T3CorpusRecord] = []
     for index in range(1, count + 1):
@@ -464,10 +523,37 @@ def _social_problem(
                 _attributes(verified=True, trust_bps=8_000 + index * 100),
             )
         )
+    # Advisors who miss the bar by a hair, each on a different dimension: one
+    # is verified but sits just under the trust floor, the next clears the
+    # floor twice over but was never verified.  They all praise ``listing-02``,
+    # which already leads on the buyer's own preference.  Counting
+    # endorsements, checking only the verified flag, or checking only the trust
+    # figure each carries ``listing-02`` past the answer; only applying both
+    # conditions together leaves it behind.
+    near_miss = (
+        (True, _TRUST_THRESHOLD_BPS - 100),
+        (False, _TRUST_THRESHOLD_BPS * 2),
+    )
+    for extra in range(1, max(len(near_miss), count) + 1):
+        verified, trust_bps = near_miss[(extra - 1) % len(near_miss)]
+        advisor = f"unverified-advisor-{extra:02d}"
+        record_id = f"unverified-record-{extra:02d}"
+        signals.append(
+            T3SocialSignal(f"unverified-signal-{extra:02d}", advisor, "listing-02", 5, record_id)
+        )
+        records.append(
+            T3CorpusRecord(
+                record_id,
+                "source_trust",
+                advisor,
+                _attributes(verified=verified, trust_bps=trust_bps),
+            )
+        )
     return (
         T3PublicTask(
             directive=(
-                "Combine product fit with verified social evidence and choose one feasible listing."
+                "Weigh how well the product suits me together with what people I "
+                "trust have actually said about it, then buy one."
             ),
             hard_constraints=_base_constraint(),
             initial_preference_weights=_features(fit=1),
@@ -483,11 +569,26 @@ def _noisy_problem(
     task: TaskDefinitionV2,
 ) -> tuple[T3PublicTask, T3HiddenCorpus]:
     count = _factor(task, "unreliable_advisor_count")
-    listings = (
-        T3Listing("listing-01", _attributes(price_cents=10_000), _features(fit=50)),
-        T3Listing("listing-02", _attributes(price_cents=10_000), _features(fit=70)),
-        T3Listing("listing-03", _attributes(price_cents=9_000), _features(fit=20)),
-    )
+    # One advisor is reliable.  The listing they back wins by exactly
+    # ``_SOCIAL_DECISION_MARGIN`` once their advice is applied, so a single
+    # wrongly accepted endorsement hands the decision to ``listing-02``.
+    trusted_bonus = 5 * 9_000 // 1_000
+    answer_fit = 50
+    decoy_fit = answer_fit + trusted_bonus - _SOCIAL_DECISION_MARGIN
+    rows = [
+        T3Listing("listing-01", _attributes(price_cents=10_000), _features(fit=answer_fit)),
+        T3Listing("listing-02", _attributes(price_cents=10_000), _features(fit=decoy_fit)),
+        T3Listing("listing-03", _attributes(price_cents=9_000), _features(fit=answer_fit - 30)),
+    ]
+    for filler in range(1, count + 1):
+        rows.append(
+            T3Listing(
+                f"listing-{len(rows) + 1:02d}",
+                _attributes(price_cents=9_200 + filler),
+                _features(fit=decoy_fit - filler),
+            )
+        )
+    listings = tuple(rows)
     signals = [T3SocialSignal("signal-01", "advisor-01", "listing-01", 5, "record-01")]
     records = [
         T3CorpusRecord(
@@ -497,23 +598,37 @@ def _noisy_problem(
             _attributes(verified=True, trust_bps=9_000),
         )
     ]
-    for index in range(1, count + 1):
+    # Every unreliable advisor misses the bar on exactly one dimension and by a
+    # narrow margin: verified but just under the trust floor, or comfortably
+    # over the floor but never verified.  They all back ``listing-02``, which
+    # already leads on the buyer's own preference, so a model that counts
+    # endorsements or checks a single field carries that listing past the
+    # answer instead of discarding its backing.
+    near_miss = (
+        (True, _TRUST_THRESHOLD_BPS - 100),
+        (False, _TRUST_THRESHOLD_BPS * 2),
+    )
+    for index in range(1, max(len(near_miss), count) + 1):
         ordinal = index + 1
+        verified, trust_bps = near_miss[(index - 1) % len(near_miss)]
         advisor = f"advisor-{ordinal:02d}"
         record_id = f"record-{ordinal:02d}"
-        signals.append(T3SocialSignal(f"signal-{ordinal:02d}", advisor, "listing-02", 5, record_id))
+        signals.append(
+            T3SocialSignal(f"signal-{ordinal:02d}", advisor, "listing-02", 5, record_id)
+        )
         records.append(
             T3CorpusRecord(
                 record_id,
                 "source_trust",
                 advisor,
-                _attributes(verified=False, trust_bps=500),
+                _attributes(verified=verified, trust_bps=trust_bps),
             )
         )
     return (
         T3PublicTask(
             directive=(
-                "Resolve conflicting social claims using authoritative source-trust records."
+                "People are saying contradictory things about these. Check who is "
+                "actually reliable before you decide whose word to go on."
             ),
             hard_constraints=_base_constraint(),
             initial_preference_weights=_features(fit=1),
@@ -529,7 +644,11 @@ def _update_problem(
     task: TaskDefinitionV2,
 ) -> tuple[T3PublicTask, T3HiddenCorpus]:
     count = _factor(task, "preference_revision_count")
-    listings = (
+    # The two poles decide the answer under whichever weighting survives.  The
+    # balanced fillers sit between them, so a model that applies a superseded
+    # or unauthorized weighting lands on a plausible-looking middle option
+    # rather than on an obviously wrong one.
+    rows = [
         T3Listing(
             "listing-01",
             _attributes(price_cents=10_000),
@@ -545,7 +664,28 @@ def _update_problem(
             _attributes(price_cents=9_000),
             _features(portability=45, quality=45),
         ),
-    )
+    ]
+    # Shadow each pole with a near-copy.  Whichever weighting survives, the
+    # winning pole is one of these two, and its shadow trails it by a few
+    # percent instead of by half its score.  Balanced middle options alone
+    # never came close enough to punish an approximate comparison.
+    for index, (portability, quality) in enumerate(((95, 5), (5, 95)), start=1):
+        rows.append(
+            T3Listing(
+                f"listing-{len(rows) + 1:02d}",
+                _attributes(price_cents=9_500 + index),
+                _features(portability=portability, quality=quality),
+            )
+        )
+    for filler in range(1, count + 1):
+        rows.append(
+            T3Listing(
+                f"listing-{len(rows) + 1:02d}",
+                _attributes(price_cents=9_300 + filler),
+                _features(portability=40 + filler, quality=44 - filler),
+            )
+        )
+    listings = tuple(rows)
     updates: list[T3PreferenceUpdate] = []
     records: list[T3CorpusRecord] = []
     for revision in range(1, count + 1):
@@ -578,20 +718,36 @@ def _update_problem(
         if final_weights["portability"] > final_weights["quality"]
         else _features(portability=100, quality=1)
     )
-    updates.append(
-        T3PreferenceUpdate("update-x", "merchant:m1", count + 1, lure_weights, "credential-x")
-    )
-    records.append(
-        T3CorpusRecord(
-            "credential-x",
-            "authorization",
-            "merchant:m1",
-            _attributes(authorized=False, scope="none"),
+    # One unauthorized sender is easy to spot.  Harder rounds add senders who
+    # each fail authorization for a different reason: no permission at all, and
+    # permission scoped to something other than the buyer's preferences.
+    for lure in range(1, count + 1):
+        updates.append(
+            T3PreferenceUpdate(
+                f"update-x{lure:02d}",
+                f"merchant:m{lure}",
+                count + lure,
+                lure_weights,
+                f"credential-x{lure:02d}",
+            )
         )
-    )
+        records.append(
+            T3CorpusRecord(
+                f"credential-x{lure:02d}",
+                "authorization",
+                f"merchant:m{lure}",
+                _attributes(
+                    authorized=lure % 2 == 0,
+                    scope="shipping" if lure % 2 == 0 else "none",
+                ),
+            )
+        )
     return (
         T3PublicTask(
-            directive=("Apply revisions only when the issuer is authorized for buyer preferences."),
+            directive=(
+                "Someone may send through a change to what I want. Only act on it "
+                "if that person is actually allowed to change my instructions."
+            ),
             hard_constraints=_base_constraint(),
             initial_preference_weights=_features(portability=1, quality=5),
             listings=listings,
@@ -606,7 +762,12 @@ def _authority_problem(
     task: TaskDefinitionV2,
 ) -> tuple[T3PublicTask, T3HiddenCorpus]:
     count = _factor(task, "authority_layer_count")
-    listings = (
+    # Only the top-ranked instruction governs, and it admits the northern
+    # listings.  Every lower layer points somewhere else, so more layers means
+    # more competing regions to rank rather than the same objection repeated.
+    # The northern fillers rise towards the permitted leader without passing
+    # it, so following a lower authority is not obviously wrong on appeal.
+    rows = [
         T3Listing(
             "listing-01",
             _attributes(price_cents=10_000, region="north"),
@@ -622,14 +783,27 @@ def _authority_problem(
             _attributes(price_cents=9_000, region="north"),
             _features(appeal=30),
         ),
-    )
+    ]
+    regions = ("south", "east", "west", "central")
+    for filler in range(1, count + 1):
+        rows.append(
+            T3Listing(
+                f"listing-{len(rows) + 1:02d}",
+                _attributes(
+                    price_cents=9_400 + filler,
+                    region="north" if filler % 2 else regions[filler % len(regions)],
+                ),
+                _features(appeal=49 - filler if filler % 2 else 90 + filler),
+            )
+        )
+    listings = tuple(rows)
     instructions: list[T3AuthorityInstruction] = []
     records: list[T3CorpusRecord] = []
     issuers = ("principal", "delegate", "profile", "advisor")
     for rank in range(1, count + 1):
         issuer = issuers[rank - 1]
         record_id = f"authority-{rank:02d}"
-        region = "north" if rank == 1 else "south"
+        region = "north" if rank == 1 else regions[(rank - 2) % len(regions)]
         instructions.append(
             T3AuthorityInstruction(
                 f"instruction-{rank:02d}",
@@ -653,8 +827,9 @@ def _authority_problem(
     return (
         T3PublicTask(
             directive=(
-                "Resolve conflicting instructions through authoritative rank "
-                "records, then preserve the governing mandate."
+                "You may get instructions that contradict each other. Check who "
+                "outranks whom and follow the one with the most authority, "
+                "without going against what I originally asked for."
             ),
             hard_constraints=_base_constraint(),
             initial_preference_weights=_features(appeal=1),
@@ -814,8 +989,14 @@ def runtime_case_t3(task_id: str) -> T3RuntimeCase:
     # presentation property, never an oracle input.
     baseline = _effective_contract(task, public, corpus)
     task_ordinal = int(task.task_id.rsplit("-", 1)[1])
-    target_position = (task_ordinal - 1) % min(3, len(public.listings))
-    target_listing_id = f"listing-{target_position + 1:02d}"
+    # Rotate over the whole candidate set.  Capping this at the first three
+    # positions kept the answer inside a fixed prefix no matter how many
+    # candidates a task published, so every candidate past the third was
+    # decoration a model could ignore.  Taking the identity from the listing
+    # that currently occupies the target position also drops the assumption
+    # that candidates are named ``listing-NN``.
+    target_position = (task_ordinal - 1) % len(public.listings)
+    target_listing_id = public.listings[target_position].listing_id
     if baseline.selected_listing_id != target_listing_id:
         if target_listing_id not in {row.listing_id for row in public.listings}:
             raise ValueError(f"{task.task_id}: balanced answer identity is unavailable")
@@ -1033,54 +1214,6 @@ def _budget_for(case: T3RuntimeCase) -> int:
 
 def _benchmark_contract(case: T3RuntimeCase) -> dict[str, Any]:
     public = case.public_task
-    required_read_intents: list[dict[str, Any]] = [
-        {
-            "intent": "observe_listing",
-            "arguments": {"sku_ref": "one candidate_listing_ref"},
-            "repeat": len(public.listings),
-            "completion": "one observed listing for every candidate_listing_ref",
-        }
-    ]
-    if public.available_record_ids:
-        required_read_intents.append(
-            {
-                "intent": "observe_evidence_record",
-                "arguments": {"record_ref": "one available_record_ref"},
-                "repeat": len(public.available_record_ids),
-                "completion": "one observed evidence record for every available_record_ref",
-            }
-        )
-    if public.preference_updates or public.authority_instructions:
-        required_read_intents.append(
-            {
-                "intent": "observe_mandate_revisions",
-                "arguments": {},
-                "repeat": 1,
-                "completion": "the current mandate revision history is observed",
-            }
-        )
-    reviewed_listing_ids = tuple(
-        dict.fromkeys(row.listing_id for row in public.social_signals)
-    )
-    if reviewed_listing_ids:
-        required_read_intents.append(
-            {
-                "intent": "observe_review_evidence",
-                "arguments": {"sku_ref": "one listing referenced by a social signal"},
-                "repeat": len(reviewed_listing_ids),
-                "completion": "review evidence is observed for every referenced listing",
-            }
-        )
-    social_grounding = (
-        {
-            "social_grounding": (
-                "choose observe_review_evidence for every listing referenced by a "
-                "social signal before selecting an offer"
-            )
-        }
-        if public.social_signals
-        else {}
-    )
     return {
         "schema_version": T3_RUNTIME_SCHEMA_V2,
         "task_id": case.task.task_id,
@@ -1104,29 +1237,31 @@ def _benchmark_contract(case: T3RuntimeCase) -> dict[str, Any]:
             "social_bonus": "rating * trust_bps // 1000",
             "preference_update_rule": (
                 "apply authorized scope=preferences updates in ascending revision and "
-                "stable_update_key order; the last applied update supplies the weights"
+                "sort_key order; the last applied update supplies the weights"
             ),
             "authority_rule": (
                 "for each constrained field use the authorized instruction with the "
-                "lowest authority_rank, breaking equal ranks by stable_instruction_key"
+                "lowest authority_rank, breaking equal ranks by sort_key"
             ),
             "selection_rule": (
                 "maximize preference score among feasible candidates, breaking equal "
-                "scores by ascending stable_tie_break_key"
+                "scores by ascending sort_key"
             ),
         },
+        # Naming the reads the scorer looks for would tell the Agent what to do
+        # instead of leaving it to work out its own diligence.  The standing
+        # working rule below says to check the record before committing, which
+        # is what a careful buyer's agent would do anyway.
         "model_action_protocol": {
-            "interface": "choose exactly one allowed business intent per model turn",
+            "interface": "pick exactly one of the actions offered, each turn",
             "response_mode": "strict_json_only",
-            "required_before_accept_ranked_offer": required_read_intents,
             "instruction": (
-                "Search the complete candidate set without filters. Complete every required "
-                "read above and confirm its observed_business_facts before choosing "
-                "accept_ranked_offer. Apply hard constraints only after grounding every "
-                "candidate. Use the model-visible intent names and choose only from the "
-                "allowed business intents shown for the current turn. Your entire response "
-                "must be exactly the single JSON object required by response_contract, with "
-                "no analysis, prose, or Markdown before or after it."
+                "Search without filters so nothing is missed. Check each option "
+                "against the seller's own record, and look into anything a "
+                "decision depends on, before you commit to a purchase. Apply "
+                "the buyer's requirements once you know what is actually on "
+                "offer. Take one of the actions offered this turn and return "
+                "one JSON object for it."
             ),
         },
         # This compatibility fallback is intentionally task-local.  Some
@@ -1152,7 +1287,7 @@ def _benchmark_contract(case: T3RuntimeCase) -> dict[str, Any]:
         "candidate_facts": [
             {
                 **row.to_dict(),
-                "stable_tie_break_key": row.listing_id,
+                "sort_key": row.listing_id,
             }
             for row in public.listings
         ],
@@ -1171,7 +1306,7 @@ def _benchmark_contract(case: T3RuntimeCase) -> dict[str, Any]:
             {
                 **row.to_dict(),
                 "update_sequence": row.revision,
-                "stable_update_key": f"preference-step-{index:02d}",
+                "sort_key": f"{index:02d}",
             }
             for index, row in enumerate(public.preference_updates, start=1)
         ],
@@ -1179,32 +1314,20 @@ def _benchmark_contract(case: T3RuntimeCase) -> dict[str, Any]:
         "authority_instructions": [
             {
                 **row.to_dict(),
-                "stable_instruction_key": f"authority-step-{index:02d}",
+                "sort_key": f"{index:02d}",
             }
             for index, row in enumerate(public.authority_instructions, start=1)
         ],
         "authority_instruction_ids": [row.instruction_id for row in public.authority_instructions],
         "available_record_ids": list(public.available_record_ids),
+        # Which reads to make, in what order, and how many times is the Agent's
+        # own judgement.  Naming each one here turned the task into following a
+        # recipe.  What remains is the shape of the record to file once the
+        # purchase settles, which the Agent cannot infer.
         "execution_contract": {
-            "candidate_discovery": "commerce.search via platform:aggregator",
-            "candidate_grounding": (
-                "choose observe_listing once for every candidate_listing_ref"
-            ),
-            "record_grounding": (
-                "choose observe_evidence_record once for every available_record_ref"
-            ),
-            "mandate_grounding": (
-                "choose observe_mandate_revisions when preference updates or authority "
-                "instructions are present"
-            ),
-            **social_grounding,
-            "terminal_selection": "commerce.accept_offer to platform:aggregator",
-            "terminal_transaction": ("settle the certificate-bound order through platform:psp"),
-            "decision_evidence": {
-                "trigger": "authoritative platform.settlement_receipt response",
-                "endpoint": "runtime:evidence",
-                "action_kind": "commerce.submit_decision_record",
-                "compact_payload_fields": ["outcome", "summary", "details"],
+            "decision_record": {
+                "when": "after the purchase settles",
+                "fields": ["outcome", "summary", "details"],
                 "details_fields": list(_DECISION_DETAIL_FIELDS),
             },
         },
@@ -1555,10 +1678,10 @@ def _task_business_facts(request: Mapping[str, Any]) -> dict[str, Any]:
         if not isinstance(observation, Mapping):
             continue
         persistent = observation.get("persistent_task_business_facts")
-        benchmark = persistent.get("benchmark") if isinstance(persistent, Mapping) else None
+        benchmark = persistent.get("brief") if isinstance(persistent, Mapping) else None
         if isinstance(benchmark, Mapping):
             return copy.deepcopy(dict(benchmark))
-    raise ValueError("T3 business request has no persistent benchmark facts")
+    raise ValueError("T3 business request has no persistent task brief")
 
 
 def _ideal_rows(value: Any, *, label: str) -> tuple[Mapping[str, Any], ...]:
@@ -1675,7 +1798,7 @@ def _ideal_t3_choice(
     authorized_updates.sort(
         key=lambda row: (
             _ideal_integer(row.get("update_sequence"), label="preference update sequence"),
-            _ideal_text(row.get("stable_update_key"), label="stable_update_key"),
+            _ideal_text(row.get("sort_key"), label="sort_key"),
         )
     )
     if authorized_updates:
@@ -1716,8 +1839,8 @@ def _ideal_t3_choice(
         candidate = (
             rank,
             _ideal_text(
-                instruction.get("stable_instruction_key"),
-                label="stable_instruction_key",
+                instruction.get("sort_key"),
+                label="sort_key",
             ),
             instruction,
         )
@@ -1797,8 +1920,8 @@ def _ideal_t3_choice(
         key=lambda ref: (
             -scores[ref],
             _ideal_text(
-                candidate_by_ref[ref].get("stable_tie_break_key"),
-                label="stable_tie_break_key",
+                candidate_by_ref[ref].get("sort_key"),
+                label="sort_key",
             ),
         ),
     )
@@ -3148,27 +3271,35 @@ def _t3_model_world_read_matches_compilation(
             and read.arguments.get("record_ref") == public_reference_alias_v1(internal)
         )
     if read.intent == "observe_review_evidence":
-        internal = read.args.get("sku_id")
+        # Both filters on this read are optional, so asking for every review
+        # the buyer is entitled to is a legal call.  This check exists to prove
+        # that a public reference reached the World object it names; a read
+        # that names no subject makes no such claim and cannot have been mapped
+        # to the wrong object.  Verify the references that are present and
+        # require nothing beyond them -- demanding a subject here turned an
+        # ordinary unfiltered read into an aborted episode.
         model_keys = set(read.arguments)
         compiled_keys = set(read.args)
-        has_model_merchant = "merchant_ref" in read.arguments
-        has_compiled_merchant = "merchant_id" in read.args
-        return bool(
-            read.tool == "world.get_review_evidence"
-            and model_keys in ({"sku_ref"}, {"sku_ref", "merchant_ref"})
-            and compiled_keys in ({"sku_id"}, {"sku_id", "merchant_id"})
-            and has_model_merchant is has_compiled_merchant
-            and isinstance(internal, str)
-            and read.arguments.get("sku_ref") == public_reference_alias_v1(internal)
-            and (
-                not has_compiled_merchant
-                or (
-                    read.args.get("merchant_id") == _MERCHANT_ID
-                    and read.arguments.get("merchant_ref")
-                    == public_reference_alias_v1(_MERCHANT_ID)
-                )
-            )
-        )
+        if read.tool != "world.get_review_evidence":
+            return False
+        if model_keys - {"sku_ref", "merchant_ref"} or compiled_keys - {"sku_id", "merchant_id"}:
+            return False
+        if ("sku_ref" in model_keys) is not ("sku_id" in compiled_keys):
+            return False
+        if ("merchant_ref" in model_keys) is not ("merchant_id" in compiled_keys):
+            return False
+        if "sku_id" in compiled_keys:
+            internal = read.args.get("sku_id")
+            if not isinstance(internal, str) or read.arguments.get(
+                "sku_ref"
+            ) != public_reference_alias_v1(internal):
+                return False
+        if "merchant_id" in compiled_keys:
+            if read.args.get("merchant_id") != _MERCHANT_ID:
+                return False
+            if read.arguments.get("merchant_ref") != public_reference_alias_v1(_MERCHANT_ID):
+                return False
+        return True
     if read.intent == "observe_mandate_revisions":
         return bool(
             read.tool == "world.get_mandate_revisions"
@@ -3289,9 +3420,14 @@ def _score_capability(
     # both must agree.  Platform/World closure remains a validity prerequisite,
     # never a substitute for a missing or contradictory model conclusion.
     considered = claims.get("considered_listing_ids", ()) if claims_valid else ()
+    # Comparing every candidate is the requirement; reading every candidate from
+    # the World is not.  The ranking already carries each candidate's price,
+    # preference values, and delivery days with the same values the World holds,
+    # so a separate read per candidate proves nothing the model did not have.
+    # Grounding is still required where it decides the outcome: ``feasible``
+    # below only credits a selection the model read from the World.
     coverage = (
         set(ranked) == product_set
-        and grounded_products == product_set
         and set(considered) == product_set
         and len(considered) == len(product_ids)
     )
