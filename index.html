@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ACWorld — Auditable Agentic Commerce</title>
+  <meta name="description" content="Agentic Commerce World is an auditable and verifiable environment for evaluating Buyer and Merchant agents in a shared market.">
+  <meta name="theme-color" content="#07111f">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://shichengf.github.io/ACWorld/">
+  <meta property="og:title" content="ACWorld — Auditable Agentic Commerce">
+  <meta property="og:description" content="A many-to-many environment and 260-task benchmark for verifiable Buyer and Merchant agents.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ACWorld — Auditable Agentic Commerce">
+  <meta name="twitter:description" content="A many-to-many environment and 260-task benchmark for verifiable Buyer and Merchant agents.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    document.documentElement.classList.add('js');
+    (function () {
+      var saved = localStorage.getItem('acworld-theme');
+      var preferred = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = saved || preferred;
+    }());
+  </script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07111f;
+      --bg-deep: #030914;
+      --surface: rgba(13, 28, 47, 0.68);
+      --surface-solid: #0d1c2f;
+      --surface-soft: rgba(17, 36, 59, 0.46);
+      --line: rgba(161, 198, 224, 0.14);
+      --line-strong: rgba(75, 216, 200, 0.38);
+      --text: #f3f7fb;
+      --text-soft: #a9b9c9;
+      --text-muted: #70869b;
+      --cyan: #55d6ff;
+      --teal: #49e1c2;
+      --violet: #a895ff;
+      --amber: #f4b85d;
+      --danger: #ff8a8a;
+      --shadow: 0 24px 90px rgba(0, 0, 0, 0.32);
+      --grid: rgba(108, 160, 198, 0.055);
+      --nav: rgba(7, 17, 31, 0.76);
+      --code: #030914;
+      --max: 1160px;
+    }
+
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f3f8fb;
+      --bg-deep: #eaf2f7;
+      --surface: rgba(255, 255, 255, 0.78);
+      --surface-solid: #ffffff;
+      --surface-soft: rgba(255, 255, 255, 0.58);
+      --line: rgba(21, 69, 92, 0.12);
+      --line-strong: rgba(0, 139, 129, 0.35);
+      --text: #102337;
+      --text-soft: #4d6375;
+      --text-muted: #718596;
+      --cyan: #007fa6;
+      --teal: #008b81;
+      --violet: #6754c8;
+      --amber: #ad6800;
+      --danger: #b93636;
+      --shadow: 0 24px 80px rgba(34, 72, 95, 0.13);
+      --grid: rgba(28, 93, 121, 0.07);
+      --nav: rgba(243, 248, 251, 0.82);
+      --code: #e8f0f5;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 16% 12%, color-mix(in srgb, var(--cyan) 13%, transparent), transparent 28%),
+        radial-gradient(circle at 82% 28%, color-mix(in srgb, var(--violet) 13%, transparent), transparent 27%),
+        radial-gradient(circle at 52% 82%, color-mix(in srgb, var(--teal) 8%, transparent), transparent 34%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black 0%, transparent 78%);
+    }
+
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid color-mix(in srgb, var(--cyan) 70%, white); outline-offset: 4px; }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 100;
+      transform: translateY(-150%);
+      padding: 9px 14px;
+      border-radius: 8px;
+      background: var(--surface-solid);
+      color: var(--text);
+      text-decoration: none;
+      transition: transform .2s ease;
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .container { width: min(calc(100% - 40px), var(--max)); margin-inline: auto; }
+    .mono { font-family: "JetBrains Mono", monospace; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: var(--nav);
+      backdrop-filter: blur(18px) saturate(150%);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+    }
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--text);
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      text-decoration: none;
+    }
+    .brand-mark {
+      width: 31px;
+      height: 31px;
+      display: grid;
+      place-items: center;
+      border: 1px solid color-mix(in srgb, var(--teal) 55%, transparent);
+      border-radius: 9px;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--cyan) 22%, transparent), color-mix(in srgb, var(--violet) 18%, transparent));
+      box-shadow: inset 0 0 18px color-mix(in srgb, var(--cyan) 10%, transparent);
+      color: var(--teal);
+      font: 700 11px/1 "JetBrains Mono", monospace;
+    }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .nav-links { display: flex; gap: 22px; }
+    .nav-links a {
+      color: var(--text-soft);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+    .nav-links a:hover { color: var(--teal); }
+    .theme-toggle {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface-soft);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 17px;
+      transition: transform .2s ease, border-color .2s ease;
+    }
+    .theme-toggle:hover { transform: translateY(-1px); border-color: var(--line-strong); }
+    .sun { display: none; }
+    [data-theme="light"] .moon { display: none; }
+    [data-theme="light"] .sun { display: inline; }
+
+    .hero {
+      position: relative;
+      padding: 104px 0 76px;
+      text-align: center;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 56px;
+      left: 50%;
+      z-index: -1;
+      width: min(70vw, 800px);
+      height: 360px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: radial-gradient(ellipse, color-mix(in srgb, var(--cyan) 12%, transparent), transparent 68%);
+      filter: blur(28px);
+    }
+    .paper-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 26px;
+      padding: 7px 14px;
+      border: 1px solid color-mix(in srgb, var(--cyan) 34%, transparent);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--cyan) 8%, transparent);
+      color: var(--cyan);
+      font: 500 12px/1.4 "JetBrains Mono", monospace;
+      letter-spacing: .02em;
+    }
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 12px var(--teal);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse { 50% { opacity: .45; transform: scale(1.35); } }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 1030px;
+      margin: 0 auto 24px;
+      font-size: clamp(43px, 7vw, 78px);
+      font-weight: 800;
+      letter-spacing: -.055em;
+      line-height: 1.02;
+    }
+    .gradient-text {
+      background: linear-gradient(120deg, var(--cyan) 0%, var(--teal) 35%, var(--violet) 68%, var(--amber) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-subtitle {
+      max-width: 780px;
+      margin: 0 auto 28px;
+      color: var(--text-soft);
+      font-size: clamp(17px, 2.2vw, 21px);
+      line-height: 1.65;
+    }
+    .hero-subtitle strong { color: var(--text); font-weight: 650; }
+    .authors {
+      max-width: 920px;
+      margin: 0 auto;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.85;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 11px;
+      margin-top: 34px;
+    }
+    .button {
+      min-height: 45px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 10px 18px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: var(--surface);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, .08);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 650;
+      text-decoration: none;
+      backdrop-filter: blur(12px);
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); border-color: var(--line-strong); box-shadow: 0 14px 34px color-mix(in srgb, var(--cyan) 11%, transparent); }
+    .button.primary {
+      border-color: transparent;
+      background: linear-gradient(120deg, var(--teal), var(--cyan));
+      color: #03141b;
+    }
+    .button .arrow { font-size: 15px; transition: transform .2s ease; }
+    .button:hover .arrow { transform: translate(2px, -2px); }
+
+    .flow-shell {
+      position: relative;
+      margin-top: 64px;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(145deg, var(--surface), color-mix(in srgb, var(--surface-solid) 68%, transparent));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+    }
+    .flow-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, color-mix(in srgb, var(--cyan) 8%, transparent), transparent 35%, color-mix(in srgb, var(--amber) 7%, transparent));
+      pointer-events: none;
+    }
+    .flow-kicker {
+      position: relative;
+      margin-bottom: 22px;
+      color: var(--text-muted);
+      font: 500 10px/1 "JetBrains Mono", monospace;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .flow {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 64px 1.15fr 64px 1fr;
+      align-items: center;
+      gap: 10px;
+    }
+    .actor-stack { display: grid; gap: 10px; }
+    .flow-card {
+      min-height: 106px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface-soft);
+      text-align: left;
+    }
+    .flow-card.buyer { border-color: color-mix(in srgb, var(--cyan) 32%, transparent); }
+    .flow-card.merchant { border-color: color-mix(in srgb, var(--teal) 32%, transparent); }
+    .flow-card.verify { border-color: color-mix(in srgb, var(--violet) 38%, transparent); }
+    .flow-card.world { border-color: color-mix(in srgb, var(--amber) 40%, transparent); }
+    .node-icon {
+      flex: 0 0 auto;
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid currentColor;
+      border-radius: 11px;
+      font: 600 12px/1 "JetBrains Mono", monospace;
+    }
+    .buyer .node-icon { color: var(--cyan); }
+    .merchant .node-icon { color: var(--teal); }
+    .verify .node-icon { color: var(--violet); }
+    .world .node-icon { color: var(--amber); }
+    .node-copy strong { display: block; color: var(--text); font-size: 14px; }
+    .node-copy span { display: block; margin-top: 2px; color: var(--text-muted); font-size: 11px; }
+    .flow-arrow { color: var(--text-muted); font: 500 11px/1.4 "JetBrains Mono", monospace; text-align: center; }
+    .flow-arrow::after { content: "→"; display: block; margin-top: 6px; color: var(--teal); font-size: 28px; }
+    .ledger-strip {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 9px 22px;
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--text-muted);
+      font: 500 10px/1.5 "JetBrains Mono", monospace;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .ledger-strip span::before { content: "✓"; margin-right: 7px; color: var(--teal); }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .stat {
+      padding: 23px 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface-soft);
+      text-align: center;
+      backdrop-filter: blur(12px);
+    }
+    .stat strong {
+      display: block;
+      background: linear-gradient(110deg, var(--cyan), var(--teal));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 800;
+      letter-spacing: -.04em;
+      line-height: 1.1;
+    }
+    .stat span { display: block; margin-top: 8px; color: var(--text-muted); font: 500 10px/1.4 "JetBrains Mono", monospace; text-transform: uppercase; }
+
+    section { position: relative; padding: 100px 0; }
+    .section-head { max-width: 760px; margin: 0 auto 46px; text-align: center; }
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--teal);
+      font: 600 11px/1.4 "JetBrains Mono", monospace;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    h2 {
+      margin-bottom: 14px;
+      color: var(--text);
+      font-size: clamp(30px, 5vw, 48px);
+      font-weight: 800;
+      letter-spacing: -.045em;
+      line-height: 1.12;
+    }
+    .section-head p { margin-bottom: 0; color: var(--text-soft); font-size: 16px; }
+
+    .glass {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--surface);
+      box-shadow: 0 20px 70px rgba(0, 0, 0, .12);
+      backdrop-filter: blur(18px) saturate(140%);
+    }
+    .abstract-grid { display: grid; grid-template-columns: 1.4fr .8fr; gap: 18px; }
+    .abstract-copy { padding: clamp(28px, 5vw, 48px); }
+    .abstract-copy p { color: var(--text-soft); font-size: 16px; }
+    .abstract-copy p:last-child { margin-bottom: 0; }
+    .abstract-copy strong { color: var(--text); }
+    .finding { display: flex; flex-direction: column; justify-content: space-between; padding: 34px; overflow: hidden; }
+    .finding-label { color: var(--amber); font: 600 10px/1.4 "JetBrains Mono", monospace; letter-spacing: .13em; text-transform: uppercase; }
+    .finding-number { margin: 28px 0 8px; color: var(--amber); font-size: clamp(48px, 8vw, 76px); font-weight: 800; letter-spacing: -.06em; line-height: 1; }
+    .finding p { margin-bottom: 0; color: var(--text-soft); font-size: 13px; }
+
+    .architecture {
+      display: grid;
+      grid-template-columns: 1fr 56px 1fr 56px 1fr 56px 1fr;
+      align-items: stretch;
+    }
+    .arch-card { min-height: 220px; padding: 28px 24px; }
+    .arch-card .step { color: var(--text-muted); font: 500 10px/1 "JetBrains Mono", monospace; }
+    .arch-card h3 { margin: 30px 0 10px; color: var(--text); font-size: 18px; }
+    .arch-card p { margin-bottom: 0; color: var(--text-soft); font-size: 13px; line-height: 1.65; }
+    .arch-accent { width: 42px; height: 3px; margin-top: 24px; border-radius: 3px; background: var(--cyan); }
+    .arch-card:nth-of-type(3) .arch-accent { background: var(--violet); }
+    .arch-card:nth-of-type(5) .arch-accent { background: var(--teal); }
+    .arch-card:nth-of-type(7) .arch-accent { background: var(--amber); }
+    .arch-arrow { display: grid; place-items: center; color: var(--text-muted); font-size: 24px; }
+
+    .invariants { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 18px; }
+    .invariant { padding: 23px; }
+    .invariant .check { color: var(--teal); font: 600 12px/1 "JetBrains Mono", monospace; }
+    .invariant strong { display: block; margin: 16px 0 7px; color: var(--text); font-size: 14px; }
+    .invariant p { margin: 0; color: var(--text-muted); font-size: 12px; line-height: 1.6; }
+
+    .track-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .track { position: relative; padding: clamp(28px, 4vw, 42px); overflow: hidden; }
+    .track::after { content: ""; position: absolute; top: -90px; right: -80px; width: 220px; height: 220px; border-radius: 50%; background: color-mix(in srgb, var(--cyan) 12%, transparent); filter: blur(16px); }
+    .track.catalog::after { background: color-mix(in srgb, var(--violet) 13%, transparent); }
+    .track-tag { position: relative; z-index: 1; color: var(--cyan); font: 600 10px/1.4 "JetBrains Mono", monospace; letter-spacing: .14em; text-transform: uppercase; }
+    .catalog .track-tag { color: var(--violet); }
+    .track h3 { position: relative; z-index: 1; margin: 14px 0 8px; color: var(--text); font-size: 24px; letter-spacing: -.02em; }
+    .track > p { position: relative; z-index: 1; min-height: 72px; color: var(--text-soft); font-size: 14px; }
+    .track-metrics { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-top: 26px; }
+    .track-metric { padding: 14px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-soft); }
+    .track-metric strong { display: block; color: var(--text); font-size: 18px; }
+    .track-metric span { color: var(--text-muted); font: 500 9px/1.35 "JetBrains Mono", monospace; text-transform: uppercase; }
+
+    .results-panel { padding: clamp(24px, 4vw, 42px); }
+    .results-toolbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 22px; margin-bottom: 32px; }
+    .results-toolbar h3 { margin: 0 0 6px; color: var(--text); font-size: 20px; }
+    .results-toolbar p { margin: 0; color: var(--text-muted); font-size: 12px; }
+    .legend { display: flex; flex-wrap: wrap; gap: 14px; color: var(--text-muted); font: 500 10px/1.4 "JetBrains Mono", monospace; }
+    .legend span::before { content: ""; display: inline-block; width: 18px; height: 4px; margin-right: 7px; border-radius: 4px; vertical-align: middle; background: var(--cyan); }
+    .legend span:last-child::before { background: var(--violet); }
+    .chart { display: grid; gap: 15px; }
+    .chart-row { display: grid; grid-template-columns: 170px 1fr; gap: 18px; align-items: center; }
+    .model { overflow: hidden; color: var(--text-soft); font-size: 12px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+    .bar-pair { display: grid; gap: 5px; }
+    .bar-track { position: relative; height: 14px; overflow: hidden; border-radius: 99px; background: color-mix(in srgb, var(--text-muted) 11%, transparent); }
+    .bar {
+      width: calc(var(--score) * 1%);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, color-mix(in srgb, var(--cyan) 65%, transparent), var(--cyan));
+      transform-origin: left;
+      transition: transform 1s cubic-bezier(.2,.8,.2,1);
+    }
+    .bar.catalog-bar { background: linear-gradient(90deg, color-mix(in srgb, var(--violet) 55%, transparent), var(--violet)); }
+    .js .reveal:not(.visible) .bar { transform: scaleX(0); }
+    .bar-value { position: absolute; top: 50%; right: 7px; transform: translateY(-50%); color: var(--text); font: 600 9px/1 "JetBrains Mono", monospace; text-shadow: 0 1px 3px var(--bg-deep); }
+    .results-note { margin: 26px 0 0; padding-top: 22px; border-top: 1px solid var(--line); color: var(--text-muted); font-size: 12px; }
+
+    .insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
+    .insight { padding: 30px; }
+    .insight .metric { color: var(--teal); font-size: 31px; font-weight: 800; letter-spacing: -.04em; }
+    .insight:nth-child(2) .metric { color: var(--amber); }
+    .insight:nth-child(3) .metric { color: var(--violet); }
+    .insight h3 { margin: 16px 0 8px; color: var(--text); font-size: 16px; }
+    .insight p { margin: 0; color: var(--text-muted); font-size: 12px; }
+
+    .reproduce-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 18px; align-items: stretch; }
+    .reproduce-copy { padding: clamp(30px, 5vw, 50px); }
+    .reproduce-copy h2 { font-size: clamp(30px, 4vw, 42px); }
+    .reproduce-copy p { color: var(--text-soft); }
+    .requirements { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+    .requirements span { padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--text-muted); font: 500 10px/1.4 "JetBrains Mono", monospace; }
+    .code-card { position: relative; display: flex; flex-direction: column; min-width: 0; padding: 26px; background: var(--code); }
+    .code-dots { display: flex; gap: 6px; margin-bottom: 22px; }
+    .code-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--danger); }
+    .code-dots span:nth-child(2) { background: var(--amber); }
+    .code-dots span:nth-child(3) { background: var(--teal); }
+    pre { margin: 0; overflow-x: auto; color: var(--text-soft); font: 500 12px/1.85 "JetBrains Mono", monospace; white-space: pre; }
+    .prompt { color: var(--teal); }
+    .copy-button {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface-soft);
+      color: var(--text-soft);
+      cursor: pointer;
+      font: 500 10px/1.3 "JetBrains Mono", monospace;
+    }
+    .copy-button:hover { border-color: var(--line-strong); color: var(--teal); }
+
+    .citation { position: relative; padding: clamp(26px, 4vw, 40px); background: var(--code); overflow: hidden; }
+    .citation pre { padding-right: 90px; }
+    .citation .copy-button { top: 22px; right: 22px; }
+
+    footer { padding: 42px 0; border-top: 1px solid var(--line); color: var(--text-muted); font-size: 12px; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    footer a { color: var(--text-soft); text-decoration: none; }
+    footer a:hover { color: var(--teal); }
+
+    .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .75s ease, transform .75s ease; }
+    .js .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 980px) {
+      .stat-grid { grid-template-columns: repeat(3, 1fr); }
+      .architecture { grid-template-columns: 1fr; gap: 10px; }
+      .arch-card { min-height: 0; }
+      .arch-arrow { height: 34px; transform: rotate(90deg); }
+      .invariants { grid-template-columns: 1fr 1fr; }
+      .chart-row { grid-template-columns: 140px 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .nav-links { display: none; }
+      .hero { padding-top: 72px; }
+      h1 { font-size: clamp(40px, 13vw, 62px); }
+      .flow { grid-template-columns: 1fr; }
+      .flow-arrow { padding: 2px 0; }
+      .flow-arrow::after { transform: rotate(90deg); }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+      .stat:last-child { grid-column: 1 / -1; }
+      section { padding: 72px 0; }
+      .abstract-grid, .track-grid, .reproduce-grid { grid-template-columns: 1fr; }
+      .track > p { min-height: 0; }
+      .insight-grid { grid-template-columns: 1fr; }
+      .results-toolbar { flex-direction: column; }
+      .chart-row { grid-template-columns: 1fr; gap: 6px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (max-width: 520px) {
+      .container { width: min(calc(100% - 28px), var(--max)); }
+      .nav { min-height: 64px; }
+      .brand { font-size: 15px; }
+      .hero { padding-bottom: 54px; }
+      .paper-chip { font-size: 10px; }
+      .actions { display: grid; grid-template-columns: 1fr 1fr; }
+      .button { padding-inline: 12px; }
+      .flow-shell { padding: 20px; }
+      .flow-card { min-height: 88px; }
+      .stat-grid { gap: 9px; }
+      .stat { padding: 18px 10px; }
+      .invariants { grid-template-columns: 1fr; }
+      .track-metrics { grid-template-columns: 1fr; }
+      .citation pre { padding-right: 0; padding-top: 42px; }
+      .code-card, .citation { padding: 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="topbar" aria-label="Primary navigation">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="ACWorld home">
+        <span class="brand-mark" aria-hidden="true">AC</span>
+        <span>ACWorld</span>
+      </a>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="#abstract">Abstract</a>
+          <a href="#architecture">Architecture</a>
+          <a href="#benchmark">Benchmark</a>
+          <a href="#results">Results</a>
+          <a href="#citation">Citation</a>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
+          <span class="moon" aria-hidden="true">☾</span>
+          <span class="sun" aria-hidden="true">☀</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="hero" id="top">
+      <div class="container">
+        <div class="paper-chip"><span class="live-dot" aria-hidden="true"></span>arXiv:2608.02441 · 2026</div>
+        <h1><span class="gradient-text">Agentic Commerce World</span><br>Auditable by design.</h1>
+        <p class="hero-subtitle">
+          A many-to-many environment for evaluating independently controlled
+          <strong>Buyer and Merchant agents</strong> across ongoing transactions.
+        </p>
+        <p class="authors">
+          Shicheng Fan · Mingdai Yang · Duohao Wang · Canyu Chen · Yongfeng Zhang · Hua Wei ·<br>
+          Manling Li · Julian McAuley · Kun Zhang · Philip S. Yu · Kejing Yu · Zhiwei Liu
+        </p>
+        <div class="actions">
+          <a class="button primary" href="https://arxiv.org/abs/2608.02441" target="_blank" rel="noopener">Read the paper <span class="arrow" aria-hidden="true">↗</span></a>
+          <a class="button" href="https://arxiv.org/pdf/2608.02441" target="_blank" rel="noopener">PDF <span class="arrow" aria-hidden="true">↗</span></a>
+          <a class="button" href="https://github.com/shichengf/ACWorld" target="_blank" rel="noopener">GitHub <span class="arrow" aria-hidden="true">↗</span></a>
+          <a class="button" href="#reproduce">Run benchmark <span class="arrow" aria-hidden="true">↓</span></a>
+        </div>
+
+        <div class="flow-shell reveal" aria-label="ACWorld transaction flow">
+          <div class="flow-kicker">One shared market · separate authority · ordered evidence</div>
+          <div class="flow">
+            <div class="actor-stack">
+              <div class="flow-card buyer"><span class="node-icon">B</span><span class="node-copy"><strong>Buyer agent</strong><span>private goal &amp; ceiling</span></span></div>
+              <div class="flow-card merchant"><span class="node-icon">M</span><span class="node-copy"><strong>Merchant agent</strong><span>private mandate &amp; floor</span></span></div>
+            </div>
+            <div class="flow-arrow">propose</div>
+            <div class="flow-card verify"><span class="node-icon">VCP</span><span class="node-copy"><strong>Commerce Intelligence Platform</strong><span>attribute · validate · authorize</span></span></div>
+            <div class="flow-arrow">commit</div>
+            <div class="flow-card world"><span class="node-icon">W</span><span class="node-copy"><strong>Deterministic World</strong><span>inventory · order · payment · trust</span></span></div>
+          </div>
+          <div class="ledger-strip"><span>Actor-bound action</span><span>Accepted validation</span><span>Replayable commit</span><span>Evidence-linked score</span></div>
+        </div>
+
+        <div class="stat-grid reveal" aria-label="ACWorld benchmark summary">
+          <div class="stat"><strong>260</strong><span>released tasks</span></div>
+          <div class="stat"><strong>80</strong><span>capabilities</span></div>
+          <div class="stat"><strong>785K</strong><span>listings</span></div>
+          <div class="stat"><strong>10</strong><span>model panel</span></div>
+          <div class="stat"><strong>2</strong><span>agent roles</span></div>
+        </div>
+      </div>
+    </header>
+
+    <section id="abstract">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">01 / Abstract</span>
+          <h2>Commerce needs more than a final answer.</h2>
+          <p>ACWorld makes every accepted market effect attributable, reconstructable, and independently scorable.</p>
+        </div>
+        <div class="abstract-grid">
+          <article class="glass abstract-copy reveal">
+            <p>In vibe commerce, people express buying or selling goals in natural language and delegate the work to agents. Unlike a single assistant using a fixed website, commerce requires <strong>independently controlled Buyers and Merchants</strong> to interact while preserving private objectives and distinct authority.</p>
+            <p>ACWorld separates an agent's decision from the authority to change shared state. The <strong>Vibe Commerce Protocol (VCP)</strong> binds proposed actions to their actors, the Commerce Intelligence Platform validates them, and the World commits only authorized effects.</p>
+            <p>The resulting trace connects each decision to validation, execution evidence, and state change. Evaluators can replay and rescore a transaction <strong>without rerunning the model</strong>.</p>
+          </article>
+          <aside class="glass finding reveal">
+            <div class="finding-label">A final-state blind spot</div>
+            <div>
+              <div class="finding-number">99</div>
+              <p>of 861 capability-track runs without full credit still reached a World state also produced by a full-credit execution of the same task.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="architecture">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">02 / Architecture</span>
+          <h2>Decision, validation, and effect stay separate.</h2>
+          <p>No model response has commercial effect until it passes the same typed, auditable path.</p>
+        </div>
+        <div class="architecture reveal">
+          <article class="glass arch-card"><span class="step">01 · INTENT</span><div class="arch-accent"></div><h3>Role-specific agent</h3><p>A Buyer or Merchant pursues a private natural-language mandate with its own skills and visible state.</p></article>
+          <div class="arch-arrow" aria-hidden="true">→</div>
+          <article class="glass arch-card"><span class="step">02 · MESSAGE</span><div class="arch-accent"></div><h3>Vibe Commerce Protocol</h3><p>Every proposed action carries actor identity, typed content, and the context needed for authorization.</p></article>
+          <div class="arch-arrow" aria-hidden="true">→</div>
+          <article class="glass arch-card"><span class="step">03 · CHECK</span><div class="arch-accent"></div><h3>Platform validation</h3><p>The Commerce Intelligence Platform checks market rules and current state, then rejects or authorizes.</p></article>
+          <div class="arch-arrow" aria-hidden="true">→</div>
+          <article class="glass arch-card"><span class="step">04 · EFFECT</span><div class="arch-accent"></div><h3>Deterministic World</h3><p>Accepted events update shared inventory, orders, payments, trust, and evidence through replayable commits.</p></article>
+        </div>
+
+        <div class="invariants reveal" aria-label="VCP invariants">
+          <article class="glass invariant"><span class="check">CHECK / 01</span><strong>Authenticated actor</strong><p>Every action belongs to one identified Buyer or Merchant.</p></article>
+          <article class="glass invariant"><span class="check">CHECK / 02</span><strong>No direct mutation</strong><p>Messages never update the shared World by themselves.</p></article>
+          <article class="glass invariant"><span class="check">CHECK / 03</span><strong>Authorized commit</strong><p>Each state change cites an accepted platform validation.</p></article>
+          <article class="glass invariant"><span class="check">CHECK / 04</span><strong>Exact replay</strong><p>Ordered commits reproduce the final state and event digest.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="benchmark">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">03 / Benchmark</span>
+          <h2>Two tracks. One execution contract.</h2>
+          <p>Breadth and catalog scale are tested separately so different task distributions never collapse into one misleading score.</p>
+        </div>
+        <div class="track-grid">
+          <article class="glass track reveal">
+            <span class="track-tag">Track A · controlled worlds</span>
+            <h3>Capability coverage</h3>
+            <p>Broad commerce behavior across ten balanced families, from discovery and grounding to negotiation, lifecycle, governance, and timing.</p>
+            <div class="track-metrics">
+              <div class="track-metric"><strong>200</strong><span>tasks</span></div>
+              <div class="track-metric"><strong>80</strong><span>capabilities</span></div>
+              <div class="track-metric"><strong>1,082</strong><span>snapshots</span></div>
+            </div>
+          </article>
+          <article class="glass track catalog reveal">
+            <span class="track-tag">Track B · full catalog</span>
+            <h3>Large catalog</h3>
+            <p>Search, evidence, choice, validation, and transaction execution over a globally checked read-only catalog with bounded tool responses.</p>
+            <div class="track-metrics">
+              <div class="track-metric"><strong>60</strong><span>tasks</span></div>
+              <div class="track-metric"><strong>18</strong><span>capabilities</span></div>
+              <div class="track-metric"><strong>785,022</strong><span>listings</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="results">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">04 / Results</span>
+          <h2>Capability breadth does not predict catalog scale.</h2>
+          <p>The same ten models were evaluated on both tracks; their rankings change when search and global choice enter the path.</p>
+        </div>
+        <div class="glass results-panel reveal">
+          <div class="results-toolbar">
+            <div><h3>Mean benchmark score</h3><p>Percent · higher is better · independent track means</p></div>
+            <div class="legend" aria-label="Chart legend"><span>Capability</span><span>Large catalog</span></div>
+          </div>
+          <div class="chart" role="img" aria-label="Mean scores for ten models on ACWorld capability coverage and large catalog tracks">
+            <div class="chart-row"><span class="model">GPT-5.6 Sol</span><div class="bar-pair"><div class="bar-track"><div class="bar" style="--score:85.6"></div><span class="bar-value">85.6</span></div><div class="bar-track"><div class="bar catalog-bar" style="--score:89.11"></div><span class="bar-value">89.11</span></div></div></div>
+            <div class="chart-row"><span class="model">Gemini 3.6 Flash</span><div class="bar-pair"><div class="bar-track"><div class="bar" style="--score:85.0"></div><span class="bar-value">85.0</span></div><div class="bar-track"><div class="bar catalog-bar" style="--score:91.35"></div><span class="bar-value">91.35</span></div></div></div>
+            <div class="chart-row"><span class="model">Gemini 3.5 Flash</span><div class="bar-pair"><div class="bar-track"><div class="bar" style="--score:83.7"></div><span class="bar-value">83.7</span></div><div class="bar-track"><div class="bar catalog-bar" style="--score:91.36"></div><span class="bar-value">91.36</span></div></div></div>
+            <div class="chart-row"><span class="model">Kimi K3</span><div class="bar-pair"><div class="bar-track"><div class="bar" style="--score:83.0"></div><span class="bar-value">83.0</span></div><div class="bar-track"><div class="bar catalog-bar" style="--score:87.11"></div><span class="bar-value">87.11</span></div></div></div>
+            <div class="chart-row"><span class="model">GPT-5.6 Terra</span><div class="bar-pair"><div class="bar-track"><div class="bar" style="--score:80.2"></div><span class="bar-value">80.2</span></div><div class="bar-track"><div class="bar catalog-bar" style="--score:83.90"></div><span class="bar-value">83.90</span></div></div></div>
+            <div class="chart-row"><span class="model">Claude Sonnet 5</span><div class="bar-pair"><div class="bar-track"><div class="bar" style="--score:78.4"></div><span class="bar-value">78.4</span></div><div class="bar-track"><div class="bar catalog-bar" style="--score:79.67"></div><span class="bar-value">79.67</span></div></div></div>
+            <div class="chart-row"><span class="model">Qwen3.5 Plus</span><div class="bar-pair"><div class="bar-track"><div class="bar" style="--score:73.0"></div><span class="bar-value">73.0</span></div><div class="bar-track"><div class="bar catalog-bar" style="--score:60.56"></div><span class="bar-value">60.56</span></div></div></div>
+            <div class="chart-row"><span class="model">DeepSeek-V4-Pro</span><div class="bar-pair"><div class="bar-track"><div class="bar" style="--score:70.3"></div><span class="bar-value">70.3</span></div><div class="bar-track"><div class="bar catalog-bar" style="--score:56.10"></div><span class="bar-value">56.10</span></div></div></div>
+            <div class="chart-row"><span class="model">Mistral Medium 3.5</span><div class="bar-pair"><div class="bar-track"><div class="bar" style="--score:67.8"></div><span class="bar-value">67.8</span></div><div class="bar-track"><div class="bar catalog-bar" style="--score:83.56"></div><span class="bar-value">83.56</span></div></div></div>
+            <div class="chart-row"><span class="model">GPT-5.6 Luna</span><div class="bar-pair"><div class="bar-track"><div class="bar" style="--score:65.9"></div><span class="bar-value">65.9</span></div><div class="bar-track"><div class="bar catalog-bar" style="--score:79.74"></div><span class="bar-value">79.74</span></div></div></div>
+          </div>
+          <p class="results-note">Scores are reported independently because the tracks differ in family mix, role mix, and catalog scale. Provider-default generation settings were used.</p>
+        </div>
+
+        <div class="insight-grid">
+          <article class="glass insight reveal"><div class="metric">93.3%</div><h3>Inventory is strongest</h3><p>Across models, Inventory leads the capability families, while Timing is the hardest at 40.3%.</p></article>
+          <article class="glass insight reveal"><div class="metric">97.8%</div><h3>Shared-market welfare</h3><p>One 5 × 5 market matches the reference allocation and reaches 97.8% of the global optimum.</p></article>
+          <article class="glass insight reveal"><div class="metric">73.67%</div><h3>Choice remains the bottleneck</h3><p>On large-catalog tasks, Decision trails Evidence and Validation despite the same execution contract.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="reproduce">
+      <div class="container">
+        <div class="reproduce-grid">
+          <div class="glass reproduce-copy reveal">
+            <span class="eyebrow">05 / Reproduce</span>
+            <h2>Run both tracks with one launcher.</h2>
+            <p>The released code installs locked dependencies, resumes completed work, and keeps task-level traces and scores locally.</p>
+            <div class="requirements"><span>Python ≥ 3.11</span><span>Git</span><span>OpenRouter key</span><span>5 GB free</span></div>
+          </div>
+          <div class="glass code-card reveal">
+            <div class="code-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+            <button class="copy-button" type="button" data-copy="quickstart">COPY</button>
+            <pre id="quickstart"><span class="prompt">$</span> git clone https://github.com/shichengf/ACWorld.git
+<span class="prompt">$</span> cd ACWorld
+
+<span class="prompt">$</span> ./run_benchmark.sh run \
+    --tasks 260 \
+    --model google/gemini-3.6-flash \
+    --api-key-file /absolute/path/to/openrouter-key.txt</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="citation">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">06 / Citation</span>
+          <h2>Cite ACWorld.</h2>
+          <p>If ACWorld supports your research, please cite the paper and link the public benchmark release.</p>
+        </div>
+        <div class="glass citation reveal">
+          <button class="copy-button" type="button" data-copy="bibtex">COPY</button>
+          <pre id="bibtex">@misc{fan2026agenticcommerceworld,
+  title         = {Agentic Commerce World: An Auditable and
+                   Verifiable Environment for Vibe Commerce},
+  author        = {Fan, Shicheng and Yang, Mingdai and Wang, Duohao and
+                   Chen, Canyu and Zhang, Yongfeng and Wei, Hua and
+                   Li, Manling and McAuley, Julian and Zhang, Kun and
+                   Yu, Philip S. and Yu, Kejing and Liu, Zhiwei},
+  year          = {2026},
+  eprint        = {2608.02441},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI},
+  url           = {https://arxiv.org/abs/2608.02441}
+}</pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© 2026 ACWorld authors · Released under MIT</span>
+      <div class="footer-links"><a href="https://arxiv.org/abs/2608.02441">Paper</a><a href="https://github.com/shichengf/ACWorld">Repository</a><a href="https://github.com/shichengf/ACWorld/releases">Releases</a><a href="https://github.com/shichengf/ACWorld/blob/main/LICENSE">License</a></div>
+    </div>
+  </footer>
+
+  <script>
+    var themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', function () {
+      var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      localStorage.setItem('acworld-theme', next);
+    });
+
+    document.querySelectorAll('[data-copy]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var target = document.getElementById(button.dataset.copy);
+        navigator.clipboard.writeText(target.innerText).then(function () {
+          var previous = button.textContent;
+          button.textContent = 'COPIED ✓';
+          setTimeout(function () { button.textContent = previous; }, 1500);
+        });
+      });
+    });
+
+    var reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      reveals.forEach(function (element) { observer.observe(element); });
+    } else {
+      reveals.forEach(function (element) { element.classList.add('visible'); });
+    }
+  </script>
+</body>
+</html>

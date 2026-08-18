@@ -1,4 +1,11 @@
-# ACWorld
+# [ACWorld](https://shichengf.github.io/ACWorld/)
+
+[![arXiv](https://img.shields.io/badge/arXiv-2608.02441-b31b1b.svg)](https://arxiv.org/abs/2608.02441)
+[![Project Page](https://img.shields.io/badge/Project-Page-12a594.svg)](https://shichengf.github.io/ACWorld/)
+[![Benchmark](https://img.shields.io/badge/Benchmark-260_tasks-6d5bd0.svg)](#choose-the-benchmark)
+[![License](https://img.shields.io/badge/License-MIT-1677b8.svg)](LICENSE)
+
+**Agentic Commerce World: An Auditable and Verifiable Environment for Vibe Commerce**
 
 ACWorld is a many-to-many environment for training and evaluating Buyer and
 Merchant agents. Agents act through the Vibe Commerce Protocol, the Commerce
