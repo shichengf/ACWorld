@@ -14,11 +14,11 @@
   <meta property="og:url" content="https://shichengf.github.io/ACWorld/">
   <meta property="og:title" content="Agentic Commerce World">
   <meta property="og:description" content="An auditable and verifiable environment for vibe commerce.">
-  <meta property="og:image" content="https://shichengf.github.io/ACWorld/static/images/transaction-overview.png">
+  <meta property="og:image" content="https://shichengf.github.io/ACWorld/static/images/architecture.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Agentic Commerce World">
   <meta name="twitter:description" content="An auditable and verifiable environment for vibe commerce.">
-  <meta name="twitter:image" content="https://shichengf.github.io/ACWorld/static/images/transaction-overview.png">
+  <meta name="twitter:image" content="https://shichengf.github.io/ACWorld/static/images/architecture.png">
 
   <meta name="citation_title" content="Agentic Commerce World: An Auditable and Verifiable Environment for Vibe Commerce">
   <meta name="citation_author" content="Shicheng Fan">
@@ -51,7 +51,7 @@
     "url": "https://shichengf.github.io/ACWorld/",
     "sameAs": "https://arxiv.org/abs/2608.02441",
     "datePublished": "2026",
-    "image": "https://shichengf.github.io/ACWorld/static/images/transaction-overview.png",
+    "image": "https://shichengf.github.io/ACWorld/static/images/architecture.png",
     "author": [
       {"@type":"Person","name":"Shicheng Fan"},
       {"@type":"Person","name":"Mingdai Yang"},
@@ -125,13 +125,15 @@
       </div>
     </header>
 
-    <section class="section teaser-section" aria-labelledby="teaser-heading">
+    <section class="section teaser-section" id="method" aria-labelledby="teaser-heading">
       <div class="container project-container">
-        <h2 class="visually-hidden" id="teaser-heading">Commerce transaction overview</h2>
-        <figure class="hero-figure figure-card">
-          <img src="static/images/transaction-overview.png" alt="A buyer agent and merchant agent completing an auditable commerce transaction through the Vibe Commerce Protocol.">
+        <h2 class="visually-hidden" id="teaser-heading">ACWorld architecture</h2>
+        <figure class="hero-figure architecture-figure figure-card">
+          <div class="architecture-crop">
+            <img src="static/images/architecture.png" alt="ACWorld architecture connecting buyer and merchant agents, VCP tool servers, the commerce platform, shared state, and verifiable evaluation.">
+          </div>
           <figcaption>
-            ACWorld turns a multi-agent purchase into an inspectable sequence: every tool call, state transition, and outcome remains attributable to the agent that produced it.
+            ACWorld separates agent control, protocol validation, platform execution, and evaluation while preserving an end-to-end evidence chain.
           </figcaption>
         </figure>
       </div>
@@ -176,24 +178,6 @@
             <p>Outcomes are scored together with process evidence, exposing hidden shortcuts and unsupported success.</p>
           </article>
         </div>
-      </div>
-    </section>
-
-    <section class="section section-tint" id="method">
-      <div class="container project-container">
-        <p class="section-eyebrow has-text-centered">Environment design</p>
-        <h2 class="section-title has-text-centered">A verifiable world for agentic trade</h2>
-        <p class="section-lead">
-          Buyer and merchant agents act through dedicated tool servers. VCP validates those actions, the platform executes them against shared state, and the evaluator reconstructs outcomes from an ordered event history.
-        </p>
-        <figure class="figure-card architecture-figure">
-          <div class="architecture-crop">
-            <img src="static/images/architecture.png" alt="ACWorld architecture connecting buyer and merchant agents, VCP tool servers, the commerce platform, shared state, and verifiable evaluation.">
-          </div>
-          <figcaption>
-            ACWorld separates agent control, protocol validation, platform execution, and evaluation while preserving an end-to-end evidence chain.
-          </figcaption>
-        </figure>
       </div>
     </section>
 

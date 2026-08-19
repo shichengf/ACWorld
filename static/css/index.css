@@ -369,6 +369,10 @@ a:hover {
   box-shadow: 0 24px 60px rgba(21, 32, 43, 0.1);
 }
 
+.hero-figure.architecture-figure {
+  max-width: 1120px;
+}
+
 .contribution-section {
   padding-top: 6.3rem;
   padding-bottom: 6.3rem;
@@ -441,31 +445,32 @@ a:hover {
 
 .benchmark-layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.88fr) minmax(350px, 1.12fr);
-  align-items: stretch;
-  gap: 1.4rem;
+  grid-template-columns: minmax(0, 1.45fr) minmax(330px, 0.75fr);
+  align-items: center;
+  gap: 1rem;
 }
 
 .benchmark-figure {
   display: grid;
   place-items: center;
-  min-height: 100%;
-  padding: 1rem;
+  min-height: 0;
+  padding: 0.4rem;
 }
 
 .benchmark-figure img {
-  max-height: 500px;
+  width: 100%;
+  max-height: none;
   object-fit: contain;
 }
 
 .track-stack {
   display: grid;
-  gap: 1.4rem;
+  gap: 0.9rem;
 }
 
 .track-card {
   position: relative;
-  padding: 1.85rem;
+  padding: 1.15rem 1.3rem;
   overflow: hidden;
   background: #fff;
   border: 1px solid var(--line);
@@ -489,18 +494,18 @@ a:hover {
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.45rem;
 }
 
 .track-label {
   color: var(--ink);
-  font-size: 1.08rem;
+  font-size: 1rem;
   font-weight: 700;
 }
 
 .track-heading strong {
   color: var(--teal);
-  font-size: 0.92rem;
+  font-size: 0.84rem;
 }
 
 .track-catalog .track-heading strong {
@@ -508,16 +513,17 @@ a:hover {
 }
 
 .track-card > p {
-  margin: 0 0 1.35rem;
+  margin: 0 0 0.8rem;
   color: var(--ink-soft);
-  font-size: 0.9rem;
+  font-size: 0.82rem;
+  line-height: 1.55;
 }
 
 .track-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin: 0;
-  padding-top: 1.2rem;
+  padding-top: 0.8rem;
   border-top: 1px solid var(--line);
 }
 
@@ -532,7 +538,7 @@ a:hover {
 
 .track-stats dt {
   color: var(--muted);
-  font-size: 0.68rem;
+  font-size: 0.6rem;
   font-weight: 650;
   letter-spacing: 0.04em;
   line-height: 1.35;
@@ -542,7 +548,7 @@ a:hover {
 .track-stats dd {
   margin: 0.2rem 0 0;
   color: var(--ink);
-  font-size: 1.05rem;
+  font-size: 0.96rem;
   font-weight: 700;
 }
 
