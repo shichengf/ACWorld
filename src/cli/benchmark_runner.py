@@ -39,7 +39,7 @@ def _run_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="./run_benchmark.sh run",
         description=(
-            "Run the original 200 tasks, the 60-task large-catalog suite, "
+            "Run the 200 capability tasks, the 60-task large-catalog suite, "
             "or both suites for 260 tasks."
         ),
     )
@@ -47,7 +47,7 @@ def _run_parser() -> argparse.ArgumentParser:
         "--tasks",
         choices=("200", "60", "260"),
         default="200",
-        help="benchmark size; omitted means the original 200 tasks",
+        help="benchmark size; omitted means the 200 capability tasks",
     )
     parser.add_argument(
         "--model",
@@ -87,7 +87,7 @@ def _run_parser() -> argparse.ArgumentParser:
         dest="core_output_root",
         type=Path,
         default=DEFAULT_CORE_OUTPUT,
-        help="output directory for the original 200 tasks",
+        help="output directory for the 200 capability tasks",
     )
     parser.add_argument(
         "--large-output-root",

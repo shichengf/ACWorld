@@ -244,6 +244,9 @@ the Agent, VCP, Commerce Intelligence Platform, and World before scoring.
 
 Runs and model responses are generated locally. The paper score archive, `ACWorld-paper-scores-10models-200tasks.tar.gz`, contains all 2,000 task scores for the ten evaluated models, their model identifiers, API configuration, and an aggregation script. Readers can inspect individual results and recompute the 130 overall, role, and family means reported in Tables 4 and 13 for the capability-coverage track without new model API calls. These means have been checked against the paper results. Download the archive and its SHA-256 checksum from the [GitHub releases](https://github.com/shichengf/ACWorld/releases).
 
+- [5×5 shared-market study records](artifacts/shared-market/README.md)
+- [Catalog provenance](artifacts/catalog-provenance/README.md)
+
 ```text
 output/
   benchmark/
@@ -284,7 +287,7 @@ means together with full, partial, zero, and protocol-error counts.
 - `skills/`: reusable Buyer and Merchant capabilities.
 - `scenarios/`: deterministic environment examples and market studies.
 - `data/`: controlled catalog fixtures and provenance metadata.
-- `examples/`: extension examples.
+- `src/cwe_examples/`: extension examples.
 - `tests/`: focused regression tests for the public benchmark paths.
 
 The 200-task benchmark includes the hardened T4, T6, and T7 tasks and the

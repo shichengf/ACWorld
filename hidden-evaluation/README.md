@@ -10,7 +10,7 @@ The evaluation operator keeps the assembled task bundle private. Agents use `pyt
 
 Model credentials belong to the running Agent's provider configuration. The ACWorld service does not call a model or require a provider key. API usage is charged to the configured provider account. Custom Agents can use Harbor's Agent interface and the same commerce client.
 
-With Docker and uv installed, the operator can run:
+Run the commands below from `hidden-evaluation/` in the repository, or from the extracted adapter directory. With Docker and uv installed, the operator can run:
 
 ```bash
 HARBOR_TELEMETRY=0 uvx --from harbor==0.22.0 harbor run \
