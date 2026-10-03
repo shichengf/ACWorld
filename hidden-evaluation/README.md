@@ -18,7 +18,7 @@ HARBOR_TELEMETRY=0 uvx --from harbor==0.22.0 harbor run \
   -o /private/hidden-set/harbor-jobs
 ```
 
-Set the credentials required by the chosen Harbor Agent before running this command. The task does not supply a shared model key.
+Set the credentials required by the chosen Harbor Agent before running this command.
 
 ## Scores and feedback
 
@@ -44,6 +44,6 @@ HARBOR_TELEMETRY=0 uvx --from harbor==0.22.0 harbor run \
 python -m unittest discover -s . -p 'test_*.py'
 ```
 
-Use Python 3.11 or later with the dependencies in `adapter/requirements.txt` for assembly. Docker images install those pinned dependencies. The generated task bundle and `oracle` solutions are private. This public adapter contains neither the hidden task parameters nor their answers.
+Use Python 3.11 or later with the dependencies in `adapter/requirements.txt` for assembly. Docker images install those pinned dependencies. The generated task bundle and `oracle` solutions are private.
 
 The Agent container receives the commerce client and role-visible requests. The independent verifier reads the trusted service artifact after Agent execution ends. Agent-written reward files do not determine the result.

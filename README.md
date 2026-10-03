@@ -29,7 +29,7 @@ The paper's 200-task capability-coverage results use the [`v1.0.0` code package]
 
 Use `git checkout v1.0.0` before reproducing the paper's task and scorer configuration. The current `v1.1.0` release points to `250f04cf157e4587ca807a75561a996843ea4b90`. It changes the evaluation interface and scoring, so results from the two versions must be reported separately.
 
-The paper's 200-task results and the later large-catalog track are separate evaluations. Check the track and version before comparing results.
+The paper's 200-task results and the later large-catalog track are separate evaluations.
 
 ## Hidden evaluation
 
