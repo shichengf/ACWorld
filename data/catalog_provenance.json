@@ -2,9 +2,10 @@
   "manifest_version": "1.0",
   "dataset_id": "acworld-merchant-catalog-snapshots-v1",
   "data_label": "merchant_catalog_snapshots",
-  "description": "Provenance metadata for six merchant catalog snapshots. Raw source records are not included in this release.",
+  "description": "Catalog provenance for data supplied by Spring Brand. Sources are labeled A through F.",
   "governance": {
     "collector": "Spring Brand",
+    "provider_url": "https://springbrand.ai/",
     "acquisition_method": "Spring Brand compiled catalog data held on its internal platform and supplied it to the research team.",
     "acquired_at": "2026-05-21",
     "provider_authorization": "Spring Brand authorized research use of the supplied catalog and publication of the adapted benchmark data.",
@@ -27,43 +28,37 @@
   },
   "sources": [
     {
-      "merchant": "allbirds",
-      "source_domains": ["www.allbirds.com"],
+      "merchant": "A",
       "row_count": 295,
       "canonical_listing_count": 295,
       "released": false
     },
     {
-      "merchant": "brooklinen",
-      "source_domains": ["www.brooklinen.com"],
+      "merchant": "B",
       "row_count": 375,
       "canonical_listing_count": 280,
       "released": false
     },
     {
-      "merchant": "death_wish_coffee",
-      "source_domains": ["www.deathwishcoffee.com"],
+      "merchant": "C",
       "row_count": 113,
       "canonical_listing_count": 113,
       "released": false
     },
     {
-      "merchant": "kylie_cosmetics",
-      "source_domains": ["www.kyliecosmetics.com"],
+      "merchant": "D",
       "row_count": 59,
       "canonical_listing_count": 57,
       "released": false
     },
     {
-      "merchant": "manduka",
-      "source_domains": ["www.manduka.com"],
+      "merchant": "E",
       "row_count": 280,
       "canonical_listing_count": 252,
       "released": false
     },
     {
-      "merchant": "meowant",
-      "source_domains": ["meowant.com"],
+      "merchant": "F",
       "row_count": 105,
       "canonical_listing_count": 85,
       "released": false
