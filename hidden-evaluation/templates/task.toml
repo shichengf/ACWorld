@@ -1,0 +1,33 @@
+schema_version = "1.4"
+
+# Harbor collects this file directly from the trusted service after stopping main.
+artifacts = [{ source = "/acworld-evidence/result.json", service = "acworld" }]
+
+[metadata]
+benchmark = "ACWorld"
+adapter = "harbor"
+scorer = "ACWorld v1.0.0"
+
+[agent]
+timeout_sec = 1800.0
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 2
+memory_mb = 2048
+network_mode = "public"
+
+[verifier]
+timeout_sec = 120.0
+environment_mode = "separate"
+
+[[verifier.collect]]
+service = "acworld"
+command = "python /adapter/finalize.py"
+timeout_sec = 120.0
+
+[verifier.environment]
+build_timeout_sec = 600.0
+cpus = 1
+memory_mb = 512
+network_mode = "public"

@@ -1,0 +1,26 @@
+# Harbor supplies the main service image, build context, keepalive, and log mounts.
+services:
+  main:
+    depends_on:
+      acworld:
+        condition: service_healthy
+
+  acworld:
+    build:
+      context: ./acworld-server
+    expose:
+      - "8765"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8765/health', timeout=5).read()"
+      interval: 2s
+      timeout: 6s
+      retries: 60
+      start_period: 5s

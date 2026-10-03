@@ -1,0 +1,63 @@
+{
+  "scope": "Six source catalog snapshots for the original 200-task benchmark",
+  "provider": "Spring Brand",
+  "provider_url": "https://springbrand.ai/",
+  "url_role": "data provider homepage",
+  "collection_date": "2026-05-21",
+  "collection_process": "Spring Brand platform collected public product listings from the six retailers and provided the catalog to the research team.",
+  "aggregate": {
+    "rows": 1227,
+    "sellable": 1166,
+    "canonical": 1082,
+    "canonical_url_present": 1082
+  },
+  "sources": [
+    {
+      "source_id": "A",
+      "rows": 295,
+      "sellable": 295,
+      "canonical": 295
+    },
+    {
+      "source_id": "B",
+      "rows": 375,
+      "sellable": 350,
+      "canonical": 280
+    },
+    {
+      "source_id": "C",
+      "rows": 113,
+      "sellable": 113,
+      "canonical": 113
+    },
+    {
+      "source_id": "D",
+      "rows": 59,
+      "sellable": 57,
+      "canonical": 57
+    },
+    {
+      "source_id": "E",
+      "rows": 280,
+      "sellable": 252,
+      "canonical": 252
+    },
+    {
+      "source_id": "F",
+      "rows": 105,
+      "sellable": 99,
+      "canonical": 85
+    }
+  ],
+  "missing_value_markers": [
+    "-",
+    "--",
+    "n/a",
+    "na",
+    "none",
+    "not available",
+    "not specified",
+    "null",
+    "unknown"
+  ]
+}

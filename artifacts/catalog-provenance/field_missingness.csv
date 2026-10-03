@@ -1,0 +1,305 @@
+source_id,population,field,row_count,blank_cells,explicit_missing_markers,blank_or_marker_pct
+A,all_source_rows,Product Name,295,0,0,0.0
+A,all_source_rows,Product Type,295,0,0,0.0
+A,all_source_rows,Vendor,295,0,0,0.0
+A,all_source_rows,Sale Price (USD),295,0,0,0.0
+A,all_source_rows,SKU,295,0,0,0.0
+A,all_source_rows,Availability,295,0,0,0.0
+A,all_source_rows,Variant,295,0,0,0.0
+A,all_source_rows,Tags,295,0,0,0.0
+A,all_source_rows,Original Price (USD),295,8,0,2.7119
+A,all_source_rows,Discount Amount,295,8,0,2.7119
+A,all_source_rows,Options,295,0,0,0.0
+A,all_source_rows,Item Weight,295,295,0,100.0
+A,all_source_rows,Entrance Height,295,295,0,100.0
+A,all_source_rows,Cat/Pet Weight Range,295,295,0,100.0
+A,all_source_rows,Litter Bin Capacity,295,295,0,100.0
+A,all_source_rows,Compatible Litter Type,295,295,0,100.0
+A,all_source_rows,Dimensions (LxWxH),295,295,0,100.0
+A,all_source_rows,Material,295,101,0,34.2373
+A,all_source_rows,Safety Sensors,295,295,0,100.0
+A,all_source_rows,App Control,295,295,0,100.0
+A,all_source_rows,Certifications,295,295,0,100.0
+A,all_source_rows,Key Features,295,0,0,0.0
+A,all_source_rows,Warranty,295,295,0,100.0
+A,all_source_rows,Image Count,295,0,0,0.0
+A,all_source_rows,Product URL,295,0,0,0.0
+A,canonical_listings,Product Name,295,0,0,0.0
+A,canonical_listings,Product Type,295,0,0,0.0
+A,canonical_listings,Vendor,295,0,0,0.0
+A,canonical_listings,Sale Price (USD),295,0,0,0.0
+A,canonical_listings,SKU,295,0,0,0.0
+A,canonical_listings,Availability,295,0,0,0.0
+A,canonical_listings,Variant,295,0,0,0.0
+A,canonical_listings,Tags,295,0,0,0.0
+A,canonical_listings,Original Price (USD),295,8,0,2.7119
+A,canonical_listings,Discount Amount,295,8,0,2.7119
+A,canonical_listings,Options,295,0,0,0.0
+A,canonical_listings,Item Weight,295,295,0,100.0
+A,canonical_listings,Entrance Height,295,295,0,100.0
+A,canonical_listings,Cat/Pet Weight Range,295,295,0,100.0
+A,canonical_listings,Litter Bin Capacity,295,295,0,100.0
+A,canonical_listings,Compatible Litter Type,295,295,0,100.0
+A,canonical_listings,Dimensions (LxWxH),295,295,0,100.0
+A,canonical_listings,Material,295,101,0,34.2373
+A,canonical_listings,Safety Sensors,295,295,0,100.0
+A,canonical_listings,App Control,295,295,0,100.0
+A,canonical_listings,Certifications,295,295,0,100.0
+A,canonical_listings,Key Features,295,0,0,0.0
+A,canonical_listings,Warranty,295,295,0,100.0
+A,canonical_listings,Image Count,295,0,0,0.0
+A,canonical_listings,Product URL,295,0,0,0.0
+B,all_source_rows,Product Name,375,0,0,0.0
+B,all_source_rows,Product Type,375,2,0,0.5333
+B,all_source_rows,Vendor,375,0,0,0.0
+B,all_source_rows,Sale Price (USD),375,0,0,0.0
+B,all_source_rows,SKU,375,24,0,6.4
+B,all_source_rows,Availability,375,0,0,0.0
+B,all_source_rows,Variant,375,0,0,0.0
+B,all_source_rows,Tags,375,0,0,0.0
+B,all_source_rows,Original Price (USD),375,238,0,63.4667
+B,all_source_rows,Discount Amount,375,238,0,63.4667
+B,all_source_rows,Options,375,0,0,0.0
+B,all_source_rows,Item Weight,375,375,0,100.0
+B,all_source_rows,Entrance Height,375,375,0,100.0
+B,all_source_rows,Cat/Pet Weight Range,375,375,0,100.0
+B,all_source_rows,Litter Bin Capacity,375,375,0,100.0
+B,all_source_rows,Compatible Litter Type,375,375,0,100.0
+B,all_source_rows,Dimensions (LxWxH),375,375,0,100.0
+B,all_source_rows,Material,375,68,0,18.1333
+B,all_source_rows,Safety Sensors,375,375,0,100.0
+B,all_source_rows,App Control,375,375,0,100.0
+B,all_source_rows,Certifications,375,375,0,100.0
+B,all_source_rows,Key Features,375,46,0,12.2667
+B,all_source_rows,Warranty,375,375,0,100.0
+B,all_source_rows,Image Count,375,0,0,0.0
+B,all_source_rows,Product URL,375,0,0,0.0
+B,canonical_listings,Product Name,280,0,0,0.0
+B,canonical_listings,Product Type,280,0,0,0.0
+B,canonical_listings,Vendor,280,0,0,0.0
+B,canonical_listings,Sale Price (USD),280,0,0,0.0
+B,canonical_listings,SKU,280,0,0,0.0
+B,canonical_listings,Availability,280,0,0,0.0
+B,canonical_listings,Variant,280,0,0,0.0
+B,canonical_listings,Tags,280,0,0,0.0
+B,canonical_listings,Original Price (USD),280,143,0,51.0714
+B,canonical_listings,Discount Amount,280,143,0,51.0714
+B,canonical_listings,Options,280,0,0,0.0
+B,canonical_listings,Item Weight,280,280,0,100.0
+B,canonical_listings,Entrance Height,280,280,0,100.0
+B,canonical_listings,Cat/Pet Weight Range,280,280,0,100.0
+B,canonical_listings,Litter Bin Capacity,280,280,0,100.0
+B,canonical_listings,Compatible Litter Type,280,280,0,100.0
+B,canonical_listings,Dimensions (LxWxH),280,280,0,100.0
+B,canonical_listings,Material,280,43,0,15.3571
+B,canonical_listings,Safety Sensors,280,280,0,100.0
+B,canonical_listings,App Control,280,280,0,100.0
+B,canonical_listings,Certifications,280,280,0,100.0
+B,canonical_listings,Key Features,280,22,0,7.8571
+B,canonical_listings,Warranty,280,280,0,100.0
+B,canonical_listings,Image Count,280,0,0,0.0
+B,canonical_listings,Product URL,280,0,0,0.0
+C,all_source_rows,Product Name,113,0,0,0.0
+C,all_source_rows,Product Type,113,0,0,0.0
+C,all_source_rows,Vendor,113,0,0,0.0
+C,all_source_rows,Sale Price (USD),113,0,0,0.0
+C,all_source_rows,SKU,113,0,0,0.0
+C,all_source_rows,Availability,113,0,0,0.0
+C,all_source_rows,Variant,113,0,0,0.0
+C,all_source_rows,Tags,113,0,0,0.0
+C,all_source_rows,Original Price (USD),113,98,0,86.7257
+C,all_source_rows,Discount Amount,113,98,0,86.7257
+C,all_source_rows,Options,113,0,0,0.0
+C,all_source_rows,Item Weight,113,113,0,100.0
+C,all_source_rows,Entrance Height,113,113,0,100.0
+C,all_source_rows,Cat/Pet Weight Range,113,113,0,100.0
+C,all_source_rows,Litter Bin Capacity,113,113,0,100.0
+C,all_source_rows,Compatible Litter Type,113,113,0,100.0
+C,all_source_rows,Dimensions (LxWxH),113,113,0,100.0
+C,all_source_rows,Material,113,97,0,85.8407
+C,all_source_rows,Safety Sensors,113,113,0,100.0
+C,all_source_rows,App Control,113,113,0,100.0
+C,all_source_rows,Certifications,113,113,0,100.0
+C,all_source_rows,Key Features,113,0,0,0.0
+C,all_source_rows,Warranty,113,113,0,100.0
+C,all_source_rows,Image Count,113,0,0,0.0
+C,all_source_rows,Product URL,113,0,0,0.0
+C,canonical_listings,Product Name,113,0,0,0.0
+C,canonical_listings,Product Type,113,0,0,0.0
+C,canonical_listings,Vendor,113,0,0,0.0
+C,canonical_listings,Sale Price (USD),113,0,0,0.0
+C,canonical_listings,SKU,113,0,0,0.0
+C,canonical_listings,Availability,113,0,0,0.0
+C,canonical_listings,Variant,113,0,0,0.0
+C,canonical_listings,Tags,113,0,0,0.0
+C,canonical_listings,Original Price (USD),113,98,0,86.7257
+C,canonical_listings,Discount Amount,113,98,0,86.7257
+C,canonical_listings,Options,113,0,0,0.0
+C,canonical_listings,Item Weight,113,113,0,100.0
+C,canonical_listings,Entrance Height,113,113,0,100.0
+C,canonical_listings,Cat/Pet Weight Range,113,113,0,100.0
+C,canonical_listings,Litter Bin Capacity,113,113,0,100.0
+C,canonical_listings,Compatible Litter Type,113,113,0,100.0
+C,canonical_listings,Dimensions (LxWxH),113,113,0,100.0
+C,canonical_listings,Material,113,97,0,85.8407
+C,canonical_listings,Safety Sensors,113,113,0,100.0
+C,canonical_listings,App Control,113,113,0,100.0
+C,canonical_listings,Certifications,113,113,0,100.0
+C,canonical_listings,Key Features,113,0,0,0.0
+C,canonical_listings,Warranty,113,113,0,100.0
+C,canonical_listings,Image Count,113,0,0,0.0
+C,canonical_listings,Product URL,113,0,0,0.0
+D,all_source_rows,Product Name,59,0,0,0.0
+D,all_source_rows,Product Type,59,3,0,5.0847
+D,all_source_rows,Vendor,59,0,0,0.0
+D,all_source_rows,Sale Price (USD),59,0,0,0.0
+D,all_source_rows,SKU,59,0,0,0.0
+D,all_source_rows,Availability,59,0,0,0.0
+D,all_source_rows,Variant,59,0,0,0.0
+D,all_source_rows,Tags,59,0,0,0.0
+D,all_source_rows,Original Price (USD),59,32,0,54.2373
+D,all_source_rows,Discount Amount,59,32,0,54.2373
+D,all_source_rows,Options,59,0,0,0.0
+D,all_source_rows,Item Weight,59,59,0,100.0
+D,all_source_rows,Entrance Height,59,59,0,100.0
+D,all_source_rows,Cat/Pet Weight Range,59,59,0,100.0
+D,all_source_rows,Litter Bin Capacity,59,59,0,100.0
+D,all_source_rows,Compatible Litter Type,59,59,0,100.0
+D,all_source_rows,Dimensions (LxWxH),59,59,0,100.0
+D,all_source_rows,Material,59,59,0,100.0
+D,all_source_rows,Safety Sensors,59,59,0,100.0
+D,all_source_rows,App Control,59,59,0,100.0
+D,all_source_rows,Certifications,59,59,0,100.0
+D,all_source_rows,Key Features,59,59,0,100.0
+D,all_source_rows,Warranty,59,59,0,100.0
+D,all_source_rows,Image Count,59,0,0,0.0
+D,all_source_rows,Product URL,59,0,0,0.0
+D,canonical_listings,Product Name,57,0,0,0.0
+D,canonical_listings,Product Type,57,3,0,5.2632
+D,canonical_listings,Vendor,57,0,0,0.0
+D,canonical_listings,Sale Price (USD),57,0,0,0.0
+D,canonical_listings,SKU,57,0,0,0.0
+D,canonical_listings,Availability,57,0,0,0.0
+D,canonical_listings,Variant,57,0,0,0.0
+D,canonical_listings,Tags,57,0,0,0.0
+D,canonical_listings,Original Price (USD),57,30,0,52.6316
+D,canonical_listings,Discount Amount,57,30,0,52.6316
+D,canonical_listings,Options,57,0,0,0.0
+D,canonical_listings,Item Weight,57,57,0,100.0
+D,canonical_listings,Entrance Height,57,57,0,100.0
+D,canonical_listings,Cat/Pet Weight Range,57,57,0,100.0
+D,canonical_listings,Litter Bin Capacity,57,57,0,100.0
+D,canonical_listings,Compatible Litter Type,57,57,0,100.0
+D,canonical_listings,Dimensions (LxWxH),57,57,0,100.0
+D,canonical_listings,Material,57,57,0,100.0
+D,canonical_listings,Safety Sensors,57,57,0,100.0
+D,canonical_listings,App Control,57,57,0,100.0
+D,canonical_listings,Certifications,57,57,0,100.0
+D,canonical_listings,Key Features,57,57,0,100.0
+D,canonical_listings,Warranty,57,57,0,100.0
+D,canonical_listings,Image Count,57,0,0,0.0
+D,canonical_listings,Product URL,57,0,0,0.0
+E,all_source_rows,Product Name,280,0,0,0.0
+E,all_source_rows,Product Type,280,1,0,0.3571
+E,all_source_rows,Vendor,280,0,0,0.0
+E,all_source_rows,Sale Price (USD),280,0,0,0.0
+E,all_source_rows,SKU,280,28,0,10.0
+E,all_source_rows,Availability,280,0,0,0.0
+E,all_source_rows,Variant,280,0,0,0.0
+E,all_source_rows,Tags,280,20,0,7.1429
+E,all_source_rows,Original Price (USD),280,242,0,86.4286
+E,all_source_rows,Discount Amount,280,242,0,86.4286
+E,all_source_rows,Options,280,0,0,0.0
+E,all_source_rows,Item Weight,280,280,0,100.0
+E,all_source_rows,Entrance Height,280,280,0,100.0
+E,all_source_rows,Cat/Pet Weight Range,280,280,0,100.0
+E,all_source_rows,Litter Bin Capacity,280,280,0,100.0
+E,all_source_rows,Compatible Litter Type,280,280,0,100.0
+E,all_source_rows,Dimensions (LxWxH),280,280,0,100.0
+E,all_source_rows,Material,280,179,0,63.9286
+E,all_source_rows,Safety Sensors,280,280,0,100.0
+E,all_source_rows,App Control,280,280,0,100.0
+E,all_source_rows,Certifications,280,280,0,100.0
+E,all_source_rows,Key Features,280,1,0,0.3571
+E,all_source_rows,Warranty,280,280,0,100.0
+E,all_source_rows,Image Count,280,0,0,0.0
+E,all_source_rows,Product URL,280,0,0,0.0
+E,canonical_listings,Product Name,252,0,0,0.0
+E,canonical_listings,Product Type,252,1,0,0.3968
+E,canonical_listings,Vendor,252,0,0,0.0
+E,canonical_listings,Sale Price (USD),252,0,0,0.0
+E,canonical_listings,SKU,252,0,0,0.0
+E,canonical_listings,Availability,252,0,0,0.0
+E,canonical_listings,Variant,252,0,0,0.0
+E,canonical_listings,Tags,252,20,0,7.9365
+E,canonical_listings,Original Price (USD),252,214,0,84.9206
+E,canonical_listings,Discount Amount,252,214,0,84.9206
+E,canonical_listings,Options,252,0,0,0.0
+E,canonical_listings,Item Weight,252,252,0,100.0
+E,canonical_listings,Entrance Height,252,252,0,100.0
+E,canonical_listings,Cat/Pet Weight Range,252,252,0,100.0
+E,canonical_listings,Litter Bin Capacity,252,252,0,100.0
+E,canonical_listings,Compatible Litter Type,252,252,0,100.0
+E,canonical_listings,Dimensions (LxWxH),252,252,0,100.0
+E,canonical_listings,Material,252,164,0,65.0794
+E,canonical_listings,Safety Sensors,252,252,0,100.0
+E,canonical_listings,App Control,252,252,0,100.0
+E,canonical_listings,Certifications,252,252,0,100.0
+E,canonical_listings,Key Features,252,1,0,0.3968
+E,canonical_listings,Warranty,252,252,0,100.0
+E,canonical_listings,Image Count,252,0,0,0.0
+E,canonical_listings,Product URL,252,0,0,0.0
+F,all_source_rows,No.,105,0,0,0.0
+F,all_source_rows,Product Name,105,0,0,0.0
+F,all_source_rows,Variant,105,15,0,14.2857
+F,all_source_rows,Product Type,105,51,0,48.5714
+F,all_source_rows,Vendor,105,0,0,0.0
+F,all_source_rows,Tags,105,29,0,27.619
+F,all_source_rows,Sale Price (USD),105,0,0,0.0
+F,all_source_rows,Original Price (USD),105,39,0,37.1429
+F,all_source_rows,Discount Amount,105,39,0,37.1429
+F,all_source_rows,SKU,105,6,0,5.7143
+F,all_source_rows,Availability,105,0,0,0.0
+F,all_source_rows,Options,105,0,0,0.0
+F,all_source_rows,Capacity/Coverage,105,75,5,76.1905
+F,all_source_rows,Item Weight,105,84,1,80.9524
+F,all_source_rows,Entrance Height,105,84,1,80.9524
+F,all_source_rows,Cat/Pet Weight Range,105,84,1,80.9524
+F,all_source_rows,Litter Bin Capacity,105,84,1,80.9524
+F,all_source_rows,Compatible Litter Type,105,84,0,80.0
+F,all_source_rows,Dimensions (LxWxH),105,84,1,80.9524
+F,all_source_rows,Material,105,78,0,74.2857
+F,all_source_rows,Safety Sensors,105,84,1,80.9524
+F,all_source_rows,App Control,105,84,0,80.0
+F,all_source_rows,Certifications,105,103,0,98.0952
+F,all_source_rows,Key Features,105,101,0,96.1905
+F,all_source_rows,Warranty,105,84,0,80.0
+F,all_source_rows,Image Count,105,0,0,0.0
+F,all_source_rows,Product URL,105,0,0,0.0
+F,canonical_listings,No.,85,0,0,0.0
+F,canonical_listings,Product Name,85,0,0,0.0
+F,canonical_listings,Variant,85,14,0,16.4706
+F,canonical_listings,Product Type,85,39,0,45.8824
+F,canonical_listings,Vendor,85,0,0,0.0
+F,canonical_listings,Tags,85,24,0,28.2353
+F,canonical_listings,Sale Price (USD),85,0,0,0.0
+F,canonical_listings,Original Price (USD),85,28,0,32.9412
+F,canonical_listings,Discount Amount,85,28,0,32.9412
+F,canonical_listings,SKU,85,0,0,0.0
+F,canonical_listings,Availability,85,0,0,0.0
+F,canonical_listings,Options,85,0,0,0.0
+F,canonical_listings,Capacity/Coverage,85,63,5,80.0
+F,canonical_listings,Item Weight,85,72,1,85.8824
+F,canonical_listings,Entrance Height,85,72,1,85.8824
+F,canonical_listings,Cat/Pet Weight Range,85,72,1,85.8824
+F,canonical_listings,Litter Bin Capacity,85,72,1,85.8824
+F,canonical_listings,Compatible Litter Type,85,72,0,84.7059
+F,canonical_listings,Dimensions (LxWxH),85,72,1,85.8824
+F,canonical_listings,Material,85,66,0,77.6471
+F,canonical_listings,Safety Sensors,85,72,1,85.8824
+F,canonical_listings,App Control,85,72,0,84.7059
+F,canonical_listings,Certifications,85,83,0,97.6471
+F,canonical_listings,Key Features,85,81,0,95.2941
+F,canonical_listings,Warranty,85,72,0,84.7059
+F,canonical_listings,Image Count,85,0,0,0.0
+F,canonical_listings,Product URL,85,0,0,0.0

@@ -1,0 +1,243 @@
+{
+  "evaluation": {
+    "contention_boundary": "attempt overlap when complete attempt evidence exists; otherwise candidate overlap is labeled as a proxy",
+    "judge": "deterministic_python",
+    "llm_judge": false,
+    "privacy_protocol_boundary": "blocked attempts are not relabeled as observed non-leaks/non-violations",
+    "source_market_artifact_verified": true,
+    "unavailable_is_not_zero": true
+  },
+  "evidence": {
+    "attempt_sequences": {
+      "buyer:b1": [
+        "merchant:m3:sku:homogeneous:42:m3",
+        "merchant:m1:sku:homogeneous:42:m1"
+      ],
+      "buyer:b2": [
+        "merchant:m2:sku:homogeneous:42:m2",
+        "merchant:m5:sku:homogeneous:42:m5"
+      ],
+      "buyer:b3": [
+        "merchant:m3:sku:homogeneous:42:m3",
+        "merchant:m5:sku:homogeneous:42:m5"
+      ],
+      "buyer:b4": [
+        "merchant:m4:sku:homogeneous:42:m4",
+        "merchant:m2:sku:homogeneous:42:m2"
+      ],
+      "buyer:b5": [
+        "merchant:m1:sku:homogeneous:42:m1",
+        "merchant:m4:sku:homogeneous:42:m4"
+      ]
+    },
+    "ranked_candidates": {
+      "buyer:b1": [
+        "merchant:m1:sku:homogeneous:42:m1",
+        "merchant:m3:sku:homogeneous:42:m3"
+      ],
+      "buyer:b2": [
+        "merchant:m2:sku:homogeneous:42:m2",
+        "merchant:m5:sku:homogeneous:42:m5"
+      ],
+      "buyer:b3": [
+        "merchant:m3:sku:homogeneous:42:m3",
+        "merchant:m5:sku:homogeneous:42:m5"
+      ],
+      "buyer:b4": [
+        "merchant:m4:sku:homogeneous:42:m4",
+        "merchant:m2:sku:homogeneous:42:m2"
+      ],
+      "buyer:b5": [
+        "merchant:m1:sku:homogeneous:42:m1",
+        "merchant:m4:sku:homogeneous:42:m4"
+      ]
+    },
+    "replay": {
+      "events_verified": 5,
+      "expected_state_digest": "sha256:85e613178bc376759297162defe64f8948b7dc8542d50215bd32f22961a2d691",
+      "replay_ok": true,
+      "replay_state_digest": "sha256:85e613178bc376759297162defe64f8948b7dc8542d50215bd32f22961a2d691",
+      "schema_version": "cwe.homogeneous-world-replay.v1",
+      "source_kind": "independent_world_reexecution",
+      "strict": true,
+      "transactions_replayed": 5
+    },
+    "top_k": 2
+  },
+  "outcomes": {
+    "contention": {
+      "applicable": true,
+      "buyer_contention_rate": "1",
+      "buyers_in_contention": 5,
+      "buyers_in_first_choice_contention": 2,
+      "contested_listing_count": 5,
+      "contested_listings": {
+        "merchant:m1:sku:homogeneous:42:m1": 2,
+        "merchant:m2:sku:homogeneous:42:m2": 2,
+        "merchant:m3:sku:homogeneous:42:m3": 2,
+        "merchant:m4:sku:homogeneous:42:m4": 2,
+        "merchant:m5:sku:homogeneous:42:m5": 2
+      },
+      "first_choice_contention_rate": "0.4",
+      "first_choice_contested_listing_count": 1,
+      "first_choice_contested_listings": {
+        "merchant:m3:sku:homogeneous:42:m3": 2
+      },
+      "is_proxy": false,
+      "method": "observed_attempt_overlap",
+      "reason": null
+    },
+    "exposure_and_concentration": {
+      "concentration": {
+        "applicable": true,
+        "effective_merchants": "4.787234042553191489361702127",
+        "hhi": "0.2088888888888888888888888889",
+        "reason": null,
+        "top_merchant_share": "0.2666666666666666666666666667"
+      },
+      "exposure_events": 10,
+      "exposure_weight_by_merchant": {
+        "merchant:m1": "4",
+        "merchant:m2": "3",
+        "merchant:m3": "3",
+        "merchant:m4": "3",
+        "merchant:m5": "2"
+      },
+      "jain_fairness": {
+        "applicable": true,
+        "denominator": "235",
+        "numerator": "225",
+        "reason": null,
+        "unit": "ratio",
+        "value": "0.9574468085106382978723404255"
+      },
+      "total_exposure_weight": "15"
+    },
+    "fallback": {
+      "applicable": true,
+      "buyers_with_multiple_distinct_attempts": 5,
+      "fallback_buyer_ids": [
+        "buyer:b3"
+      ],
+      "fallback_trade_count": 1,
+      "fallback_trade_rate": "0.2",
+      "reason": null
+    },
+    "global_oracle_efficiency": {
+      "applicable": true,
+      "optimal_welfare_minor": 31900,
+      "oracle_scope": "all valuation edges in the hidden market oracle",
+      "realized_welfare_minor": 31200,
+      "reason": null,
+      "value": "0.9780564263322884012539184953"
+    },
+    "oversell_and_inventory": {
+      "inventory_correctness": {
+        "applicable": true,
+        "denominator": 10,
+        "numerator": 10,
+        "reason": null,
+        "unit": "ratio",
+        "value": "1"
+      },
+      "oversell_check_applicable": true,
+      "oversell_detected": false,
+      "sold_quantity_by_listing": {
+        "merchant:m1:sku:homogeneous:42:m1": 1,
+        "merchant:m2:sku:homogeneous:42:m2": 1,
+        "merchant:m3:sku:homogeneous:42:m3": 1,
+        "merchant:m4:sku:homogeneous:42:m4": 1,
+        "merchant:m5:sku:homogeneous:42:m5": 1
+      },
+      "violated_listing_count": 0,
+      "violations": []
+    },
+    "privacy": {
+      "applicable": false,
+      "flagged_events": null,
+      "interpretation": "unavailable; not zero",
+      "observed_events": 0,
+      "reason": "privacy event stream is empty",
+      "value": null
+    },
+    "protocol": {
+      "applicable": true,
+      "flagged_events": 0,
+      "interpretation": "deterministic structured observation stream",
+      "observed_events": 10,
+      "reason": null,
+      "value": "0"
+    },
+    "replay": {
+      "applicable": true,
+      "claim_supported": true,
+      "events_verified": 5,
+      "expected_state_digest": "sha256:85e613178bc376759297162defe64f8948b7dc8542d50215bd32f22961a2d691",
+      "reason": null,
+      "replay_ok": true,
+      "replay_state_digest": "sha256:85e613178bc376759297162defe64f8948b7dc8542d50215bd32f22961a2d691",
+      "schema_version": "cwe.homogeneous-world-replay.v1",
+      "source_kind": "independent_world_reexecution",
+      "state_digests_equal": true,
+      "strict": true,
+      "transactions_replayed": 5
+    },
+    "top_k_reachable_efficiency": {
+      "applicable": true,
+      "candidate_edges": 10,
+      "denominator": 31200,
+      "numerator": 31200,
+      "optimal_welfare_minor": 31200,
+      "oracle_scope": "complete logged top-k candidate graph",
+      "realized_welfare_minor": 31200,
+      "reason": null,
+      "value": "1"
+    },
+    "trades_and_welfare": {
+      "consumer_surplus_minor": 15300,
+      "producer_surplus_minor": 15900,
+      "social_welfare_minor": 31200,
+      "trade_rate": {
+        "applicable": true,
+        "denominator": 5,
+        "numerator": 5,
+        "reason": null,
+        "unit": "ratio",
+        "value": "1"
+      },
+      "trading_buyers": 5,
+      "trading_merchants": 5,
+      "transaction_count": 5
+    }
+  },
+  "report_digest": "sha256:7faec1929089e0a3ffcec1081eac72cef20a5972027e428cd957a21e21af3467",
+  "schema_version": "cwe.market-study-report.v1",
+  "scope": {
+    "buyer_ids": [
+      "buyer:b1",
+      "buyer:b2",
+      "buyer:b3",
+      "buyer:b4",
+      "buyer:b5"
+    ],
+    "buyers": 5,
+    "merchant_ids": [
+      "merchant:m1",
+      "merchant:m2",
+      "merchant:m3",
+      "merchant:m4",
+      "merchant:m5"
+    ],
+    "merchants": 5,
+    "model_id": "openai/gpt-5.6-terra",
+    "task_family": "T8",
+    "variant_id": "S18"
+  },
+  "source": {
+    "execution_digest": "sha256:0bef91e8de9b5229de8171b40a00dc14b8df416664ea2128d1e175e0f2a7dc30",
+    "input_digest": "sha256:930f5afeda21281fb4d81d9e9bb8650f95b42aca6c3125667a49ec7db57f4f1c",
+    "market_artifact_digest": "sha256:103b166b7ca2d05ba0c3f6292e5917f8c64d451a9847979e1f33b18c5f07e0b5",
+    "market_identity": "s18_homogeneous_matching_42_5x5:live:sha256:112c6680e",
+    "market_schema_version": "cwe.market-artifact.v2"
+  }
+}

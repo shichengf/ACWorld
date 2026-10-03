@@ -1,0 +1,508 @@
+{
+  "evaluation": {
+    "judge": "deterministic_python",
+    "legacy_episode_score_modified": false,
+    "llm_judge": false
+  },
+  "execution": {
+    "agent_kind": "direct_role_local_json",
+    "clearing_policy": "maximize_trade_count_then_first_choice_satisfaction_then_hidden_social_welfare_then_lexicographic",
+    "completed": true,
+    "contract_id": "sha256:112c6680eb6dd666d5106a4d89a753f0c8eca35a20333bc8095e558d6b5d0890",
+    "evidence_digest": "sha256:e61a80246ee574d5b31b300e2cee9d6579287b5a239d0e489f5ef43ab95584d3",
+    "model_call_count": 10,
+    "model_call_limit": 20,
+    "model_calls_used": 10,
+    "model_id": "openai/gpt-5.6-terra",
+    "model_inference": true,
+    "protocol": "merchant_quotes_then_top2_then_buyer_rank_then_clear_settle",
+    "replay_ok": true,
+    "replay_state_digest": "sha256:85e613178bc376759297162defe64f8948b7dc8542d50215bd32f22961a2d691",
+    "result_scope": "environment_composition_case_study_not_benchmark",
+    "scenario_id": "s18_homogeneous_matching_42_5x5",
+    "state_digest": "sha256:85e613178bc376759297162defe64f8948b7dc8542d50215bd32f22961a2d691",
+    "stop_reason": null,
+    "top_k": 2,
+    "truncated": false
+  },
+  "execution_digest": "sha256:0bef91e8de9b5229de8171b40a00dc14b8df416664ea2128d1e175e0f2a7dc30",
+  "input_digest": "sha256:930f5afeda21281fb4d81d9e9bb8650f95b42aca6c3125667a49ec7db57f4f1c",
+  "inputs": {
+    "allocation_oracle": {
+      "optimal_social_welfare_minor": 31900,
+      "oracle_id": "homogeneous-study-exact-5x5-global-v1"
+    },
+    "buyer_ids": [
+      "buyer:b1",
+      "buyer:b2",
+      "buyer:b3",
+      "buyer:b4",
+      "buyer:b5"
+    ],
+    "exposures": [
+      {
+        "buyer_id": "buyer:b1",
+        "exposure_id": "exposure:buyer:b1:1",
+        "listing_id": "merchant:m1:sku:homogeneous:42:m1",
+        "merchant_id": "merchant:m1",
+        "weight": "2"
+      },
+      {
+        "buyer_id": "buyer:b1",
+        "exposure_id": "exposure:buyer:b1:2",
+        "listing_id": "merchant:m3:sku:homogeneous:42:m3",
+        "merchant_id": "merchant:m3",
+        "weight": "1"
+      },
+      {
+        "buyer_id": "buyer:b2",
+        "exposure_id": "exposure:buyer:b2:1",
+        "listing_id": "merchant:m2:sku:homogeneous:42:m2",
+        "merchant_id": "merchant:m2",
+        "weight": "2"
+      },
+      {
+        "buyer_id": "buyer:b2",
+        "exposure_id": "exposure:buyer:b2:2",
+        "listing_id": "merchant:m5:sku:homogeneous:42:m5",
+        "merchant_id": "merchant:m5",
+        "weight": "1"
+      },
+      {
+        "buyer_id": "buyer:b3",
+        "exposure_id": "exposure:buyer:b3:1",
+        "listing_id": "merchant:m3:sku:homogeneous:42:m3",
+        "merchant_id": "merchant:m3",
+        "weight": "2"
+      },
+      {
+        "buyer_id": "buyer:b3",
+        "exposure_id": "exposure:buyer:b3:2",
+        "listing_id": "merchant:m5:sku:homogeneous:42:m5",
+        "merchant_id": "merchant:m5",
+        "weight": "1"
+      },
+      {
+        "buyer_id": "buyer:b4",
+        "exposure_id": "exposure:buyer:b4:1",
+        "listing_id": "merchant:m4:sku:homogeneous:42:m4",
+        "merchant_id": "merchant:m4",
+        "weight": "2"
+      },
+      {
+        "buyer_id": "buyer:b4",
+        "exposure_id": "exposure:buyer:b4:2",
+        "listing_id": "merchant:m2:sku:homogeneous:42:m2",
+        "merchant_id": "merchant:m2",
+        "weight": "1"
+      },
+      {
+        "buyer_id": "buyer:b5",
+        "exposure_id": "exposure:buyer:b5:1",
+        "listing_id": "merchant:m1:sku:homogeneous:42:m1",
+        "merchant_id": "merchant:m1",
+        "weight": "2"
+      },
+      {
+        "buyer_id": "buyer:b5",
+        "exposure_id": "exposure:buyer:b5:2",
+        "listing_id": "merchant:m4:sku:homogeneous:42:m4",
+        "merchant_id": "merchant:m4",
+        "weight": "1"
+      }
+    ],
+    "merchant_floors": [
+      {
+        "capacity": 1,
+        "listing_id": "merchant:m1:sku:homogeneous:42:m1",
+        "merchant_id": "merchant:m1",
+        "unit_floor_minor": 7600
+      },
+      {
+        "capacity": 1,
+        "listing_id": "merchant:m2:sku:homogeneous:42:m2",
+        "merchant_id": "merchant:m2",
+        "unit_floor_minor": 7200
+      },
+      {
+        "capacity": 1,
+        "listing_id": "merchant:m3:sku:homogeneous:42:m3",
+        "merchant_id": "merchant:m3",
+        "unit_floor_minor": 9000
+      },
+      {
+        "capacity": 1,
+        "listing_id": "merchant:m4:sku:homogeneous:42:m4",
+        "merchant_id": "merchant:m4",
+        "unit_floor_minor": 6700
+      },
+      {
+        "capacity": 1,
+        "listing_id": "merchant:m5:sku:homogeneous:42:m5",
+        "merchant_id": "merchant:m5",
+        "unit_floor_minor": 8200
+      }
+    ],
+    "merchant_ids": [
+      "merchant:m1",
+      "merchant:m2",
+      "merchant:m3",
+      "merchant:m4",
+      "merchant:m5"
+    ],
+    "privacy_events": [],
+    "protocol_events": [
+      {
+        "actor_id": "merchant:m1",
+        "event_id": "protocol:merchant:m1",
+        "violated": false
+      },
+      {
+        "actor_id": "merchant:m2",
+        "event_id": "protocol:merchant:m2",
+        "violated": false
+      },
+      {
+        "actor_id": "merchant:m3",
+        "event_id": "protocol:merchant:m3",
+        "violated": false
+      },
+      {
+        "actor_id": "merchant:m4",
+        "event_id": "protocol:merchant:m4",
+        "violated": false
+      },
+      {
+        "actor_id": "merchant:m5",
+        "event_id": "protocol:merchant:m5",
+        "violated": false
+      },
+      {
+        "actor_id": "buyer:b1",
+        "event_id": "protocol:buyer:b1",
+        "violated": false
+      },
+      {
+        "actor_id": "buyer:b2",
+        "event_id": "protocol:buyer:b2",
+        "violated": false
+      },
+      {
+        "actor_id": "buyer:b3",
+        "event_id": "protocol:buyer:b3",
+        "violated": false
+      },
+      {
+        "actor_id": "buyer:b4",
+        "event_id": "protocol:buyer:b4",
+        "violated": false
+      },
+      {
+        "actor_id": "buyer:b5",
+        "event_id": "protocol:buyer:b5",
+        "violated": false
+      }
+    ],
+    "transactions": [
+      {
+        "buyer_id": "buyer:b1",
+        "inventory_after": 0,
+        "inventory_before": 1,
+        "listing_id": "merchant:m3:sku:homogeneous:42:m3",
+        "merchant_id": "merchant:m3",
+        "quantity": 1,
+        "transaction_id": "txn:homogeneous-live:1",
+        "unit_price_minor": 12200
+      },
+      {
+        "buyer_id": "buyer:b2",
+        "inventory_after": 0,
+        "inventory_before": 1,
+        "listing_id": "merchant:m2:sku:homogeneous:42:m2",
+        "merchant_id": "merchant:m2",
+        "quantity": 1,
+        "transaction_id": "txn:homogeneous-live:2",
+        "unit_price_minor": 10400
+      },
+      {
+        "buyer_id": "buyer:b3",
+        "inventory_after": 0,
+        "inventory_before": 1,
+        "listing_id": "merchant:m5:sku:homogeneous:42:m5",
+        "merchant_id": "merchant:m5",
+        "quantity": 1,
+        "transaction_id": "txn:homogeneous-live:3",
+        "unit_price_minor": 11400
+      },
+      {
+        "buyer_id": "buyer:b4",
+        "inventory_after": 0,
+        "inventory_before": 1,
+        "listing_id": "merchant:m4:sku:homogeneous:42:m4",
+        "merchant_id": "merchant:m4",
+        "quantity": 1,
+        "transaction_id": "txn:homogeneous-live:4",
+        "unit_price_minor": 9600
+      },
+      {
+        "buyer_id": "buyer:b5",
+        "inventory_after": 0,
+        "inventory_before": 1,
+        "listing_id": "merchant:m1:sku:homogeneous:42:m1",
+        "merchant_id": "merchant:m1",
+        "quantity": 1,
+        "transaction_id": "txn:homogeneous-live:5",
+        "unit_price_minor": 11000
+      }
+    ],
+    "valuations": [
+      {
+        "buyer_id": "buyer:b1",
+        "listing_id": "merchant:m1:sku:homogeneous:42:m1",
+        "merchant_id": "merchant:m1",
+        "unit_value_minor": 13600
+      },
+      {
+        "buyer_id": "buyer:b1",
+        "listing_id": "merchant:m2:sku:homogeneous:42:m2",
+        "merchant_id": "merchant:m2",
+        "unit_value_minor": 13200
+      },
+      {
+        "buyer_id": "buyer:b1",
+        "listing_id": "merchant:m3:sku:homogeneous:42:m3",
+        "merchant_id": "merchant:m3",
+        "unit_value_minor": 14200
+      },
+      {
+        "buyer_id": "buyer:b1",
+        "listing_id": "merchant:m4:sku:homogeneous:42:m4",
+        "merchant_id": "merchant:m4",
+        "unit_value_minor": 11200
+      },
+      {
+        "buyer_id": "buyer:b1",
+        "listing_id": "merchant:m5:sku:homogeneous:42:m5",
+        "merchant_id": "merchant:m5",
+        "unit_value_minor": 13000
+      },
+      {
+        "buyer_id": "buyer:b2",
+        "listing_id": "merchant:m1:sku:homogeneous:42:m1",
+        "merchant_id": "merchant:m1",
+        "unit_value_minor": 12000
+      },
+      {
+        "buyer_id": "buyer:b2",
+        "listing_id": "merchant:m2:sku:homogeneous:42:m2",
+        "merchant_id": "merchant:m2",
+        "unit_value_minor": 13500
+      },
+      {
+        "buyer_id": "buyer:b2",
+        "listing_id": "merchant:m3:sku:homogeneous:42:m3",
+        "merchant_id": "merchant:m3",
+        "unit_value_minor": 12400
+      },
+      {
+        "buyer_id": "buyer:b2",
+        "listing_id": "merchant:m4:sku:homogeneous:42:m4",
+        "merchant_id": "merchant:m4",
+        "unit_value_minor": 11800
+      },
+      {
+        "buyer_id": "buyer:b2",
+        "listing_id": "merchant:m5:sku:homogeneous:42:m5",
+        "merchant_id": "merchant:m5",
+        "unit_value_minor": 14000
+      },
+      {
+        "buyer_id": "buyer:b3",
+        "listing_id": "merchant:m1:sku:homogeneous:42:m1",
+        "merchant_id": "merchant:m1",
+        "unit_value_minor": 13200
+      },
+      {
+        "buyer_id": "buyer:b3",
+        "listing_id": "merchant:m2:sku:homogeneous:42:m2",
+        "merchant_id": "merchant:m2",
+        "unit_value_minor": 12800
+      },
+      {
+        "buyer_id": "buyer:b3",
+        "listing_id": "merchant:m3:sku:homogeneous:42:m3",
+        "merchant_id": "merchant:m3",
+        "unit_value_minor": 15000
+      },
+      {
+        "buyer_id": "buyer:b3",
+        "listing_id": "merchant:m4:sku:homogeneous:42:m4",
+        "merchant_id": "merchant:m4",
+        "unit_value_minor": 12000
+      },
+      {
+        "buyer_id": "buyer:b3",
+        "listing_id": "merchant:m5:sku:homogeneous:42:m5",
+        "merchant_id": "merchant:m5",
+        "unit_value_minor": 13800
+      },
+      {
+        "buyer_id": "buyer:b4",
+        "listing_id": "merchant:m1:sku:homogeneous:42:m1",
+        "merchant_id": "merchant:m1",
+        "unit_value_minor": 11900
+      },
+      {
+        "buyer_id": "buyer:b4",
+        "listing_id": "merchant:m2:sku:homogeneous:42:m2",
+        "merchant_id": "merchant:m2",
+        "unit_value_minor": 13300
+      },
+      {
+        "buyer_id": "buyer:b4",
+        "listing_id": "merchant:m3:sku:homogeneous:42:m3",
+        "merchant_id": "merchant:m3",
+        "unit_value_minor": 12700
+      },
+      {
+        "buyer_id": "buyer:b4",
+        "listing_id": "merchant:m4:sku:homogeneous:42:m4",
+        "merchant_id": "merchant:m4",
+        "unit_value_minor": 13900
+      },
+      {
+        "buyer_id": "buyer:b4",
+        "listing_id": "merchant:m5:sku:homogeneous:42:m5",
+        "merchant_id": "merchant:m5",
+        "unit_value_minor": 13200
+      },
+      {
+        "buyer_id": "buyer:b5",
+        "listing_id": "merchant:m1:sku:homogeneous:42:m1",
+        "merchant_id": "merchant:m1",
+        "unit_value_minor": 14500
+      },
+      {
+        "buyer_id": "buyer:b5",
+        "listing_id": "merchant:m2:sku:homogeneous:42:m2",
+        "merchant_id": "merchant:m2",
+        "unit_value_minor": 13100
+      },
+      {
+        "buyer_id": "buyer:b5",
+        "listing_id": "merchant:m3:sku:homogeneous:42:m3",
+        "merchant_id": "merchant:m3",
+        "unit_value_minor": 13600
+      },
+      {
+        "buyer_id": "buyer:b5",
+        "listing_id": "merchant:m4:sku:homogeneous:42:m4",
+        "merchant_id": "merchant:m4",
+        "unit_value_minor": 12600
+      },
+      {
+        "buyer_id": "buyer:b5",
+        "listing_id": "merchant:m5:sku:homogeneous:42:m5",
+        "merchant_id": "merchant:m5",
+        "unit_value_minor": 13400
+      }
+    ]
+  },
+  "market_id": "s18_homogeneous_matching_42_5x5:live:sha256:112c6680e",
+  "metrics": {
+    "allocative_efficiency": {
+      "applicable": true,
+      "denominator": 31900,
+      "numerator": 31200,
+      "reason": null,
+      "unit": "ratio",
+      "value": "0.9780564263322884012539184953"
+    },
+    "consumer_surplus": {
+      "applicable": true,
+      "denominator": null,
+      "numerator": 15300,
+      "reason": null,
+      "unit": "minor_currency_units",
+      "value": 15300
+    },
+    "exposure_fairness": {
+      "applicable": true,
+      "denominator": "235",
+      "numerator": "225",
+      "reason": null,
+      "unit": "ratio",
+      "value": "0.9574468085106382978723404255"
+    },
+    "inventory_correctness": {
+      "applicable": true,
+      "denominator": 10,
+      "numerator": 10,
+      "reason": null,
+      "unit": "ratio",
+      "value": "1"
+    },
+    "privacy_leakage_rate": {
+      "applicable": false,
+      "denominator": null,
+      "numerator": null,
+      "reason": "privacy event stream is empty",
+      "unit": "ratio",
+      "value": null
+    },
+    "producer_surplus": {
+      "applicable": true,
+      "denominator": null,
+      "numerator": 15900,
+      "reason": null,
+      "unit": "minor_currency_units",
+      "value": 15900
+    },
+    "protocol_violation_rate": {
+      "applicable": true,
+      "denominator": 10,
+      "numerator": 0,
+      "reason": null,
+      "unit": "ratio",
+      "value": "0"
+    },
+    "social_welfare": {
+      "applicable": true,
+      "denominator": null,
+      "numerator": 31200,
+      "reason": null,
+      "unit": "minor_currency_units",
+      "value": 31200
+    },
+    "trade_rate": {
+      "applicable": true,
+      "denominator": 5,
+      "numerator": 5,
+      "reason": null,
+      "unit": "ratio",
+      "value": "1"
+    }
+  },
+  "population": {
+    "buyer_ids": [
+      "buyer:b1",
+      "buyer:b2",
+      "buyer:b3",
+      "buyer:b4",
+      "buyer:b5"
+    ],
+    "buyers": 5,
+    "merchant_ids": [
+      "merchant:m1",
+      "merchant:m2",
+      "merchant:m3",
+      "merchant:m4",
+      "merchant:m5"
+    ],
+    "merchants": 5
+  },
+  "schema_version": "cwe.market-artifact.v2",
+  "seed": 42,
+  "task_family": "T8",
+  "variant_id": "S18"
+}

@@ -23,6 +23,18 @@ The released benchmark has two parts:
 The two parts can be run separately or together. They retain separate scores
 because they test different distributions.
 
+## Paper and current versions
+
+The paper's 200-task capability-coverage results use the [`v1.0.0` code package](https://github.com/shichengf/ACWorld/tree/v1.0.0) at commit `169602300bb0b9c51c69c0c8afa54c0756a3f7d3`, also named `kdd2027-submission`.
+
+Use `git checkout v1.0.0` before reproducing the paper's task and scorer configuration. The current `v1.1.0` release points to `250f04cf157e4587ca807a75561a996843ea4b90`. It changes the evaluation interface and scoring, so results from the two versions must be reported separately.
+
+The paper's 200-task results and the later large-catalog track are separate evaluations. Check the track and version before comparing results.
+
+## Hidden evaluation
+
+The [Harbor adapter](hidden-evaluation/README.md) runs submitted Agents against 20 private configurations using the v1.0.0 runtime and scorers. Agents use their own model configuration and provider credentials. The evaluation operator keeps the task bundle private and returns aggregate results. This initial set is separate from the 200 public development tasks and is intended to expand in future releases.
+
 ## Changes in 1.1.0
 
 Revises the 200-task capability benchmark. The 60-task large-catalog benchmark
@@ -45,7 +57,7 @@ is unchanged.
 - `--workers` may be raised above 2, and every run reports how many tasks went
   unscored; see [Raising `--workers`](#raising---workers).
 
-Business rules and the 200 task definitions are unchanged. Scores are not
+The ten task families and 200 task identifiers are retained. Model-visible task content, parsing, and scoring have changed. Scores are not
 comparable with 1.0.0; rerun a model rather than rescoring its saved 1.0.0
 outputs.
 
@@ -120,12 +132,12 @@ Run both parts in sequence:
   --api-key-file /absolute/path/to/openrouter-key.txt
 ```
 
-Omitting `--tasks` runs the original 200 tasks. The first 60-task or 260-task
+Omitting `--tasks` runs the 200 capability tasks. The first 60-task or 260-task
 run downloads the prepared catalog automatically. Pass
 `--data-root /absolute/path/to/raw_data` only when rebuilding the catalog from
 authorized source CSV files.
 
-Use `--model all` to run the ten models reported in the paper, or repeat
+Use `--model all` to run the configured model panel under the checked-out code version, or repeat
 `--model` to select several models. Print every accepted model ID with:
 
 ```bash
@@ -221,8 +233,7 @@ Check those fields before using a result. Re-running the same command retries
 only the missing tasks.
 
 The published numbers were produced at `--workers 2`. A run at a higher worker
-count is a valid run of the benchmark, but it is comparable with the paper's
-figures only when `unscored_run_count` is 0.
+count should report its code version and `unscored_run_count`. Use `v1.0.0` for the paper configuration.
 
 The large-catalog tools search the full database with explicit filters,
 sorting, and pagination. Tool responses remain bounded, while the deterministic
@@ -231,8 +242,7 @@ the Agent, VCP, Commerce Intelligence Platform, and World before scoring.
 
 ## Outputs
 
-Runs and model responses are generated locally. The repository does not ship
-precomputed model trajectories or result archives.
+Runs and model responses are generated locally. The paper score archive, `ACWorld-paper-scores-10models-200tasks.tar.gz`, contains all 2,000 task scores for the ten evaluated models, their model identifiers, API configuration, and an aggregation script. Readers can inspect individual results and recompute the 130 overall, role, and family means reported in Tables 4 and 13 for the capability-coverage track without new model API calls. These means have been checked against the paper results. Download the archive and its SHA-256 checksum from the [GitHub releases](https://github.com/shichengf/ACWorld/releases).
 
 ```text
 output/
@@ -289,6 +299,8 @@ controlled fixtures are informed by public product information. The prepared
 large catalog contains normalized product records, not raw pages. Researchers
 who rebuild from CSV files are responsible for using data they are authorized
 to process.
+
+Spring Brand provided the source catalog for the 200-task benchmark, collected by its platform from six retailers' public product listings on 21 May 2026. It authorized research use and publication of the adapted benchmark data, subject to restrictions on further redistribution.
 
 ACWorld source code and code documentation are distributed under the MIT
 License in [LICENSE](LICENSE). The MIT License does not apply to the prepared

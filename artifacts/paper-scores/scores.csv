@@ -1,0 +1,2001 @@
+model,model_id,task_id,family,role,score,strict_success,model_calls
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-01,T1,buyer,0.884615,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-02,T1,buyer,0.884615,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-03,T1,buyer,0.884615,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-04,T1,buyer,0.884615,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-05,T1,buyer,0.884615,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-06,T1,buyer,0.884615,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-07,T1,buyer,0.884615,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-08,T1,buyer,0.5,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-09,T1,buyer,0.5,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-10,T1,buyer,0.5,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-11,T1,buyer,0.5,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-12,T1,buyer,0.5,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-13,T1,buyer,0.384615,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-14,T1,buyer,0.384615,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-15,T1,buyer,0.384615,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-16,T1,buyer,0.384615,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-17,T1,buyer,0.714286,False,3
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-18,T1,buyer,0.714286,False,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-19,T1,buyer,0.125,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T01-20,T1,buyer,0.142857,False,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-01,T2,buyer,0.647059,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-02,T2,buyer,0.647059,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-03,T2,buyer,0.647059,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-04,T2,buyer,0.647059,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-05,T2,buyer,0.647059,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-06,T2,buyer,0.647059,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-07,T2,buyer,0.647059,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-08,T2,buyer,0.647059,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-09,T2,merchant,1.0,True,5
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-10,T2,merchant,1.0,True,5
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-11,T2,merchant,1.0,True,5
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-12,T2,merchant,1.0,True,5
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-13,T2,merchant,1.0,True,7
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-14,T2,merchant,0.764706,False,10
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-15,T2,merchant,0.764706,False,14
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-16,T2,merchant,0.882353,False,9
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-17,T2,merchant,0.509804,False,12
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-18,T2,merchant,0.588235,False,18
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-19,T2,merchant,1.0,True,7
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T02-20,T2,merchant,0.235294,False,15
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-01,T3,buyer,1.0,True,7
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-02,T3,buyer,0.6,False,8
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-03,T3,buyer,1.0,True,9
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-04,T3,buyer,1.0,True,11
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-05,T3,buyer,1.0,True,6
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-06,T3,buyer,1.0,True,7
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-07,T3,buyer,1.0,True,8
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-08,T3,buyer,1.0,True,9
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-09,T3,buyer,1.0,True,8
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-10,T3,buyer,1.0,True,9
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-11,T3,buyer,1.0,True,10
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-12,T3,buyer,1.0,True,12
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-13,T3,buyer,1.0,True,10
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-14,T3,buyer,1.0,True,11
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-15,T3,buyer,1.0,True,13
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-16,T3,buyer,1.0,True,9
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-17,T3,buyer,1.0,True,10
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-18,T3,buyer,0.133333,False,11
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-19,T3,buyer,1.0,True,9
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T03-20,T3,buyer,0.133333,False,11
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-01,T4,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-02,T4,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-03,T4,buyer,0.5,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-04,T4,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-05,T4,buyer,0.133333,False,1
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-06,T4,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-07,T4,buyer,0.0,False,1
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-08,T4,buyer,1.0,True,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-09,T4,buyer,0.8,False,3
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-10,T4,buyer,0.5,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-11,T4,merchant,1.0,True,1
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-12,T4,merchant,1.0,True,1
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-13,T4,merchant,1.0,True,1
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-14,T4,merchant,1.0,True,1
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-15,T4,merchant,1.0,True,1
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-16,T4,merchant,1.0,True,1
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-17,T4,merchant,0.733333,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-18,T4,merchant,1.0,True,3
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-19,T4,merchant,0.733333,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T04-20,T4,merchant,0.666667,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-01,T5,buyer,1.0,True,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-02,T5,buyer,0.0,False,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-03,T5,buyer,0.0,False,9
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-04,T5,buyer,0.0,False,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-05,T5,buyer,1.0,True,3
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-06,T5,buyer,1.0,True,3
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-07,T5,buyer,1.0,True,3
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-08,T5,buyer,1.0,True,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-09,T5,buyer,0.0,False,5
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-10,T5,buyer,0.0,False,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-11,T5,buyer,0.5,False,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-12,T5,buyer,0.0,False,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-13,T5,buyer,1.0,True,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-14,T5,buyer,1.0,True,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-15,T5,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-16,T5,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-17,T5,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-18,T5,merchant,0.6,False,3
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-19,T5,merchant,0.08,False,3
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T05-20,T5,merchant,0.8,False,3
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-01,T6,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-02,T6,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-03,T6,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-04,T6,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-05,T6,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-06,T6,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-07,T6,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-08,T6,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-09,T6,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-10,T6,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-11,T6,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-12,T6,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-13,T6,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-14,T6,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-15,T6,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-16,T6,merchant,0.3,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-17,T6,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-18,T6,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-19,T6,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T06-20,T6,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-01,T7,buyer,1.0,True,1
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-02,T7,buyer,1.0,True,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-03,T7,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-04,T7,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-05,T7,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-06,T7,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-07,T7,buyer,1.0,True,3
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-08,T7,buyer,0.883333,False,6
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-09,T7,merchant,1.0,True,1
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-10,T7,merchant,1.0,True,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-11,T7,merchant,1.0,True,3
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-12,T7,merchant,1.0,True,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-13,T7,merchant,1.0,True,5
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-14,T7,merchant,1.0,True,7
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-15,T7,merchant,1.0,True,5
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-16,T7,merchant,0.175,False,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-17,T7,merchant,0.65,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-18,T7,merchant,0.996,False,7
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-19,T7,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T07-20,T7,merchant,1.0,True,5
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-01,T8,buyer,1.0,True,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-02,T8,buyer,1.0,True,5
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-03,T8,buyer,1.0,True,6
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-04,T8,buyer,0.454545,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-05,T8,buyer,0.454545,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-06,T8,buyer,0.714286,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-07,T8,buyer,0.714286,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-08,T8,buyer,0.818182,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-09,T8,buyer,0.8,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-10,T8,buyer,0.8,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-11,T8,merchant,1.0,True,3
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-12,T8,merchant,1.0,True,5
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-13,T8,merchant,1.0,True,1
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-14,T8,merchant,1.0,True,1
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-15,T8,merchant,1.0,True,1
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-16,T8,merchant,1.0,True,1
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-17,T8,merchant,1.0,True,1
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-18,T8,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-19,T8,merchant,1.0,True,3
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T08-20,T8,merchant,1.0,True,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-01,T9,buyer,1.0,True,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-02,T9,buyer,1.0,True,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-03,T9,buyer,1.0,True,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-04,T9,buyer,1.0,True,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-05,T9,buyer,1.0,True,5
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-06,T9,buyer,1.0,True,5
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-07,T9,buyer,1.0,True,5
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-08,T9,buyer,0.0,False,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-09,T9,buyer,0.65,False,5
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-10,T9,buyer,0.0,False,8
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-11,T9,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-12,T9,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-13,T9,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-14,T9,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-15,T9,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-16,T9,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-17,T9,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-18,T9,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-19,T9,merchant,1.0,True,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T09-20,T9,merchant,1.0,True,8
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-01,T10,buyer,0.3,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-02,T10,buyer,0.3,False,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-03,T10,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-04,T10,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-05,T10,buyer,0.0,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-06,T10,buyer,0.3,False,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-07,T10,buyer,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-08,T10,buyer,1.0,True,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-09,T10,merchant,0.3,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-10,T10,merchant,0.2,False,3
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-11,T10,merchant,0.12,False,5
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-12,T10,merchant,0.3,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-13,T10,merchant,0.2,False,3
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-14,T10,merchant,0.12,False,5
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-15,T10,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-16,T10,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-17,T10,merchant,0.3,False,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-18,T10,merchant,0.15,False,4
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-19,T10,merchant,1.0,True,2
+Claude Sonnet 5,anthropic/claude-sonnet-5,CWV2-T10-20,T10,merchant,1.0,True,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-01,T1,buyer,0.884615,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-02,T1,buyer,0.884615,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-03,T1,buyer,0.884615,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-04,T1,buyer,0.884615,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-05,T1,buyer,0.0,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-06,T1,buyer,0.884615,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-07,T1,buyer,0.884615,False,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-08,T1,buyer,1.0,True,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-09,T1,buyer,0.115385,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-10,T1,buyer,0.115385,False,5
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-11,T1,buyer,0.615385,False,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-12,T1,buyer,0.0,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-13,T1,buyer,0.384615,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-14,T1,buyer,0.384615,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-15,T1,buyer,0.384615,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-16,T1,buyer,0.384615,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-17,T1,buyer,0.714286,False,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-18,T1,buyer,1.0,True,7
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-19,T1,buyer,0.714286,False,5
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T01-20,T1,buyer,0.714286,False,6
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-01,T2,buyer,0.647059,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-02,T2,buyer,0.602941,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-03,T2,buyer,0.647059,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-04,T2,buyer,0.647059,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-05,T2,buyer,0.588235,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-06,T2,buyer,0.647059,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-07,T2,buyer,0.647059,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-08,T2,buyer,0.647059,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-09,T2,merchant,1.0,True,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-10,T2,merchant,1.0,True,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-11,T2,merchant,1.0,True,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-12,T2,merchant,1.0,True,6
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-13,T2,merchant,1.0,True,7
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-14,T2,merchant,0.509804,False,6
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-15,T2,merchant,0.764706,False,15
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-16,T2,merchant,0.882353,False,9
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-17,T2,merchant,0.490196,False,13
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-18,T2,merchant,0.470588,False,5
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-19,T2,merchant,0.235294,False,7
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T02-20,T2,merchant,0.588235,False,12
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-01,T3,buyer,1.0,True,8
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-02,T3,buyer,0.0,False,8
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-03,T3,buyer,0.6,False,9
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-04,T3,buyer,0.0,False,9
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-05,T3,buyer,0.733333,False,6
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-06,T3,buyer,1.0,True,7
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-07,T3,buyer,1.0,True,8
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-08,T3,buyer,1.0,True,10
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-09,T3,buyer,1.0,True,8
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-10,T3,buyer,0.733333,False,9
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-11,T3,buyer,1.0,True,11
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-12,T3,buyer,1.0,True,12
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-13,T3,buyer,0.866667,False,13
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-14,T3,buyer,1.0,True,12
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-15,T3,buyer,0.866667,False,14
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-16,T3,buyer,0.866667,False,9
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-17,T3,buyer,1.0,True,11
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-18,T3,buyer,1.0,True,11
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-19,T3,buyer,0.4,False,10
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T03-20,T3,buyer,0.933333,False,11
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-01,T4,buyer,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-02,T4,buyer,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-03,T4,buyer,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-04,T4,buyer,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-05,T4,buyer,0.133333,False,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-06,T4,buyer,1.0,True,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-07,T4,buyer,0.746667,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-08,T4,buyer,0.5,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-09,T4,buyer,0.55,False,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-10,T4,buyer,1.0,True,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-11,T4,merchant,1.0,True,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-12,T4,merchant,1.0,True,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-13,T4,merchant,1.0,True,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-14,T4,merchant,1.0,True,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-15,T4,merchant,1.0,True,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-16,T4,merchant,1.0,True,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-17,T4,merchant,0.766667,False,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-18,T4,merchant,1.0,True,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-19,T4,merchant,0.733333,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T04-20,T4,merchant,0.666667,False,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-01,T5,buyer,0.0,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-02,T5,buyer,0.0,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-03,T5,buyer,0.0,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-04,T5,buyer,0.0,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-05,T5,buyer,1.0,True,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-06,T5,buyer,1.0,True,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-07,T5,buyer,1.0,True,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-08,T5,buyer,1.0,True,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-09,T5,buyer,1.0,True,9
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-10,T5,buyer,0.0,False,5
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-11,T5,buyer,1.0,True,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-12,T5,buyer,1.0,True,5
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-13,T5,buyer,1.0,True,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-14,T5,buyer,1.0,True,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-15,T5,merchant,1.0,True,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-16,T5,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-17,T5,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-18,T5,merchant,0.1,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-19,T5,merchant,0.04,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T05-20,T5,merchant,0.1,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-01,T6,buyer,0.4,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-02,T6,buyer,0.35,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-03,T6,buyer,1.0,True,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-04,T6,buyer,1.0,True,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-05,T6,buyer,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-06,T6,buyer,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-07,T6,buyer,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-08,T6,buyer,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-09,T6,merchant,1.0,True,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-10,T6,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-11,T6,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-12,T6,merchant,1.0,True,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-13,T6,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-14,T6,merchant,1.0,True,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-15,T6,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-16,T6,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-17,T6,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-18,T6,merchant,0.3,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-19,T6,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T06-20,T6,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-01,T7,buyer,1.0,True,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-02,T7,buyer,1.0,True,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-03,T7,buyer,1.0,True,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-04,T7,buyer,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-05,T7,buyer,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-06,T7,buyer,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-07,T7,buyer,1.0,True,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-08,T7,buyer,1.0,True,7
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-09,T7,merchant,1.0,True,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-10,T7,merchant,1.0,True,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-11,T7,merchant,1.0,True,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-12,T7,merchant,1.0,True,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-13,T7,merchant,1.0,True,5
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-14,T7,merchant,0.075,False,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-15,T7,merchant,1.0,True,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-16,T7,merchant,0.175,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-17,T7,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-18,T7,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-19,T7,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T07-20,T7,merchant,1.0,True,6
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-01,T8,buyer,0.0,False,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-02,T8,buyer,1.0,True,5
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-03,T8,buyer,0.0,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-04,T8,buyer,0.0,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-05,T8,buyer,0.454545,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-06,T8,buyer,0.714286,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-07,T8,buyer,0.714286,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-08,T8,buyer,0.818182,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-09,T8,buyer,0.8,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-10,T8,buyer,0.8,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-11,T8,merchant,1.0,True,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-12,T8,merchant,1.0,True,5
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-13,T8,merchant,1.0,True,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-14,T8,merchant,1.0,True,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-15,T8,merchant,1.0,True,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-16,T8,merchant,1.0,True,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-17,T8,merchant,1.0,True,1
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-18,T8,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-19,T8,merchant,1.0,True,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T08-20,T8,merchant,1.0,True,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-01,T9,buyer,0.65,False,5
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-02,T9,buyer,0.65,False,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-03,T9,buyer,0.0,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-04,T9,buyer,0.0,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-05,T9,buyer,0.65,False,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-06,T9,buyer,0.0,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-07,T9,buyer,0.0,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-08,T9,buyer,0.0,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-09,T9,buyer,0.0,False,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-10,T9,buyer,0.0,False,5
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-11,T9,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-12,T9,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-13,T9,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-14,T9,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-15,T9,merchant,1.0,True,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-16,T9,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-17,T9,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-18,T9,merchant,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-19,T9,merchant,1.0,True,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T09-20,T9,merchant,1.0,True,8
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-01,T10,buyer,0.3,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-02,T10,buyer,0.15,False,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-03,T10,buyer,1.0,True,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-04,T10,buyer,0.7,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-05,T10,buyer,0.3,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-06,T10,buyer,0.15,False,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-07,T10,buyer,0.0,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-08,T10,buyer,0.15,False,5
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-09,T10,merchant,0.3,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-10,T10,merchant,0.2,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-11,T10,merchant,0.12,False,5
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-12,T10,merchant,0.3,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-13,T10,merchant,0.2,False,3
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-14,T10,merchant,0.12,False,6
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-15,T10,merchant,0.3,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-16,T10,merchant,0.3,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-17,T10,merchant,0.3,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-18,T10,merchant,0.15,False,4
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-19,T10,merchant,0.7,False,2
+DeepSeek-V4-Pro,deepseek/deepseek-v4-pro,CWV2-T10-20,T10,merchant,0.15,False,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-01,T1,buyer,0.884615,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-02,T1,buyer,0.884615,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-03,T1,buyer,0.884615,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-04,T1,buyer,0.884615,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-05,T1,buyer,1.0,True,6
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-06,T1,buyer,0.884615,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-07,T1,buyer,1.0,True,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-08,T1,buyer,1.0,True,7
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-09,T1,buyer,0.884615,False,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-10,T1,buyer,1.0,True,9
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-11,T1,buyer,1.0,True,18
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-12,T1,buyer,0.884615,False,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-13,T1,buyer,0.384615,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-14,T1,buyer,0.384615,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-15,T1,buyer,0.384615,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-16,T1,buyer,0.384615,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-17,T1,buyer,1.0,True,5
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-18,T1,buyer,1.0,True,6
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-19,T1,buyer,1.0,True,7
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T01-20,T1,buyer,1.0,True,8
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-01,T2,buyer,0.647059,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-02,T2,buyer,0.647059,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-03,T2,buyer,0.647059,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-04,T2,buyer,0.647059,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-05,T2,buyer,0.647059,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-06,T2,buyer,0.647059,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-07,T2,buyer,0.647059,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-08,T2,buyer,0.647059,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-09,T2,merchant,0.647059,False,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-10,T2,merchant,0.647059,False,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-11,T2,merchant,0.647059,False,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-12,T2,merchant,1.0,True,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-13,T2,merchant,1.0,True,6
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-14,T2,merchant,0.764706,False,10
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-15,T2,merchant,0.764706,False,14
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-16,T2,merchant,1.0,True,8
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-17,T2,merchant,0.823529,False,15
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-18,T2,merchant,0.494118,False,11
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-19,T2,merchant,1.0,True,7
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T02-20,T2,merchant,0.509804,False,5
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-01,T3,buyer,1.0,True,7
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-02,T3,buyer,1.0,True,9
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-03,T3,buyer,1.0,True,9
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-04,T3,buyer,1.0,True,11
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-05,T3,buyer,1.0,True,6
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-06,T3,buyer,1.0,True,7
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-07,T3,buyer,1.0,True,8
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-08,T3,buyer,1.0,True,9
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-09,T3,buyer,1.0,True,8
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-10,T3,buyer,1.0,True,9
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-11,T3,buyer,1.0,True,10
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-12,T3,buyer,1.0,True,12
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-13,T3,buyer,1.0,True,10
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-14,T3,buyer,1.0,True,11
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-15,T3,buyer,1.0,True,14
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-16,T3,buyer,1.0,True,9
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-17,T3,buyer,1.0,True,10
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-18,T3,buyer,1.0,True,11
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-19,T3,buyer,1.0,True,9
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T03-20,T3,buyer,1.0,True,11
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-01,T4,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-02,T4,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-03,T4,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-04,T4,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-05,T4,buyer,0.133333,False,1
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-06,T4,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-07,T4,buyer,0.746667,False,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-08,T4,buyer,0.5,False,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-09,T4,buyer,1.0,True,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-10,T4,buyer,1.0,True,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-11,T4,merchant,1.0,True,1
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-12,T4,merchant,1.0,True,1
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-13,T4,merchant,1.0,True,1
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-14,T4,merchant,0.2,False,1
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-15,T4,merchant,1.0,True,1
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-16,T4,merchant,1.0,True,1
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-17,T4,merchant,0.766667,False,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-18,T4,merchant,1.0,True,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-19,T4,merchant,1.0,True,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T04-20,T4,merchant,1.0,True,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-01,T5,buyer,1.0,True,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-02,T5,buyer,1.0,True,5
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-03,T5,buyer,1.0,True,7
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-04,T5,buyer,1.0,True,10
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-05,T5,buyer,1.0,True,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-06,T5,buyer,1.0,True,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-07,T5,buyer,1.0,True,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-08,T5,buyer,1.0,True,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-09,T5,buyer,1.0,True,8
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-10,T5,buyer,1.0,True,12
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-11,T5,buyer,1.0,True,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-12,T5,buyer,1.0,True,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-13,T5,buyer,1.0,True,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-14,T5,buyer,1.0,True,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-15,T5,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-16,T5,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-17,T5,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-18,T5,merchant,0.6,False,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-19,T5,merchant,0.6,False,6
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T05-20,T5,merchant,0.8,False,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-01,T6,buyer,0.4,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-02,T6,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-03,T6,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-04,T6,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-05,T6,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-06,T6,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-07,T6,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-08,T6,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-09,T6,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-10,T6,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-11,T6,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-12,T6,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-13,T6,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-14,T6,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-15,T6,merchant,0.3,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-16,T6,merchant,0.3,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-17,T6,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-18,T6,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-19,T6,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T06-20,T6,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-01,T7,buyer,1.0,True,1
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-02,T7,buyer,1.0,True,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-03,T7,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-04,T7,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-05,T7,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-06,T7,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-07,T7,buyer,1.0,True,5
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-08,T7,buyer,0.883333,False,6
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-09,T7,merchant,1.0,True,1
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-10,T7,merchant,1.0,True,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-11,T7,merchant,1.0,True,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-12,T7,merchant,1.0,True,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-13,T7,merchant,1.0,True,5
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-14,T7,merchant,1.0,True,7
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-15,T7,merchant,1.0,True,7
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-16,T7,merchant,0.0,False,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-17,T7,merchant,1.0,True,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-18,T7,merchant,1.0,True,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-19,T7,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T07-20,T7,merchant,1.0,True,20
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-01,T8,buyer,1.0,True,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-02,T8,buyer,1.0,True,5
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-03,T8,buyer,1.0,True,6
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-04,T8,buyer,1.0,True,5
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-05,T8,buyer,1.0,True,6
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-06,T8,buyer,0.714286,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-07,T8,buyer,0.714286,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-08,T8,buyer,0.818182,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-09,T8,buyer,0.8,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-10,T8,buyer,0.8,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-11,T8,merchant,1.0,True,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-12,T8,merchant,1.0,True,5
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-13,T8,merchant,1.0,True,1
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-14,T8,merchant,1.0,True,1
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-15,T8,merchant,1.0,True,1
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-16,T8,merchant,1.0,True,1
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-17,T8,merchant,1.0,True,1
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-18,T8,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-19,T8,merchant,1.0,True,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T08-20,T8,merchant,1.0,True,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-01,T9,buyer,0.65,False,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-02,T9,buyer,0.65,False,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-03,T9,buyer,1.0,True,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-04,T9,buyer,0.65,False,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-05,T9,buyer,0.65,False,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-06,T9,buyer,0.65,False,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-07,T9,buyer,0.65,False,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-08,T9,buyer,0.65,False,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-09,T9,buyer,0.65,False,5
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-10,T9,buyer,0.65,False,6
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-11,T9,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-12,T9,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-13,T9,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-14,T9,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-15,T9,merchant,1.0,True,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-16,T9,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-17,T9,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-18,T9,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-19,T9,merchant,1.0,True,5
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T09-20,T9,merchant,1.0,True,8
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-01,T10,buyer,0.3,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-02,T10,buyer,0.15,False,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-03,T10,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-04,T10,buyer,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-05,T10,buyer,0.3,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-06,T10,buyer,0.0,False,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-07,T10,buyer,0.3,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-08,T10,buyer,0.15,False,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-09,T10,merchant,0.3,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-10,T10,merchant,0.2,False,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-11,T10,merchant,0.12,False,5
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-12,T10,merchant,0.3,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-13,T10,merchant,0.2,False,3
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-14,T10,merchant,0.12,False,5
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-15,T10,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-16,T10,merchant,1.0,True,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-17,T10,merchant,0.3,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-18,T10,merchant,0.15,False,4
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-19,T10,merchant,0.3,False,2
+Gemini 3.5 Flash,google/gemini-3.5-flash,CWV2-T10-20,T10,merchant,0.15,False,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-01,T1,buyer,0.884615,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-02,T1,buyer,0.884615,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-03,T1,buyer,0.884615,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-04,T1,buyer,0.884615,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-05,T1,buyer,0.884615,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-06,T1,buyer,0.884615,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-07,T1,buyer,0.884615,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-08,T1,buyer,1.0,True,7
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-09,T1,buyer,1.0,True,10
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-10,T1,buyer,1.0,True,11
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-11,T1,buyer,1.0,True,17
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-12,T1,buyer,0.615385,False,20
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-13,T1,buyer,0.384615,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-14,T1,buyer,0.384615,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-15,T1,buyer,0.384615,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-16,T1,buyer,0.384615,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-17,T1,buyer,1.0,True,5
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-18,T1,buyer,1.0,True,6
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-19,T1,buyer,1.0,True,7
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T01-20,T1,buyer,1.0,True,8
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-01,T2,buyer,0.602941,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-02,T2,buyer,0.647059,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-03,T2,buyer,0.647059,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-04,T2,buyer,0.647059,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-05,T2,buyer,0.647059,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-06,T2,buyer,0.647059,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-07,T2,buyer,0.647059,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-08,T2,buyer,0.647059,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-09,T2,merchant,0.647059,False,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-10,T2,merchant,0.647059,False,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-11,T2,merchant,0.647059,False,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-12,T2,merchant,0.647059,False,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-13,T2,merchant,1.0,True,6
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-14,T2,merchant,0.764706,False,10
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-15,T2,merchant,0.764706,False,14
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-16,T2,merchant,1.0,True,7
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-17,T2,merchant,0.509804,False,8
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-18,T2,merchant,0.588235,False,22
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-19,T2,merchant,1.0,True,6
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T02-20,T2,merchant,0.764706,False,12
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-01,T3,buyer,1.0,True,7
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-02,T3,buyer,1.0,True,8
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-03,T3,buyer,1.0,True,9
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-04,T3,buyer,1.0,True,11
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-05,T3,buyer,1.0,True,6
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-06,T3,buyer,1.0,True,7
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-07,T3,buyer,1.0,True,8
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-08,T3,buyer,1.0,True,9
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-09,T3,buyer,1.0,True,8
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-10,T3,buyer,1.0,True,9
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-11,T3,buyer,1.0,True,10
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-12,T3,buyer,1.0,True,12
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-13,T3,buyer,1.0,True,10
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-14,T3,buyer,1.0,True,11
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-15,T3,buyer,1.0,True,13
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-16,T3,buyer,1.0,True,9
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-17,T3,buyer,1.0,True,10
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-18,T3,buyer,1.0,True,11
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-19,T3,buyer,1.0,True,9
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T03-20,T3,buyer,1.0,True,11
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-01,T4,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-02,T4,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-03,T4,buyer,0.5,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-04,T4,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-05,T4,buyer,0.133333,False,1
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-06,T4,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-07,T4,buyer,0.746667,False,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-08,T4,buyer,1.0,True,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-09,T4,buyer,0.5,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-10,T4,buyer,0.5,False,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-11,T4,merchant,1.0,True,1
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-12,T4,merchant,1.0,True,1
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-13,T4,merchant,1.0,True,1
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-14,T4,merchant,1.0,True,1
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-15,T4,merchant,1.0,True,1
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-16,T4,merchant,1.0,True,1
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-17,T4,merchant,0.7,False,1
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-18,T4,merchant,1.0,True,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-19,T4,merchant,0.733333,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T04-20,T4,merchant,0.666667,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-01,T5,buyer,1.0,True,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-02,T5,buyer,1.0,True,5
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-03,T5,buyer,1.0,True,7
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-04,T5,buyer,0.0,False,11
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-05,T5,buyer,1.0,True,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-06,T5,buyer,1.0,True,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-07,T5,buyer,1.0,True,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-08,T5,buyer,1.0,True,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-09,T5,buyer,1.0,True,8
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-10,T5,buyer,0.0,False,15
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-11,T5,buyer,1.0,True,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-12,T5,buyer,1.0,True,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-13,T5,buyer,1.0,True,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-14,T5,buyer,1.0,True,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-15,T5,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-16,T5,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-17,T5,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-18,T5,merchant,0.6,False,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-19,T5,merchant,0.4,False,6
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T05-20,T5,merchant,0.8,False,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-01,T6,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-02,T6,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-03,T6,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-04,T6,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-05,T6,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-06,T6,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-07,T6,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-08,T6,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-09,T6,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-10,T6,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-11,T6,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-12,T6,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-13,T6,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-14,T6,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-15,T6,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-16,T6,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-17,T6,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-18,T6,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-19,T6,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T06-20,T6,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-01,T7,buyer,1.0,True,1
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-02,T7,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-03,T7,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-04,T7,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-05,T7,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-06,T7,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-07,T7,buyer,1.0,True,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-08,T7,buyer,0.883333,False,6
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-09,T7,merchant,1.0,True,1
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-10,T7,merchant,1.0,True,1
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-11,T7,merchant,1.0,True,1
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-12,T7,merchant,1.0,True,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-13,T7,merchant,1.0,True,5
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-14,T7,merchant,0.99775,False,8
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-15,T7,merchant,1.0,True,5
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-16,T7,merchant,1.0,True,5
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-17,T7,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-18,T7,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-19,T7,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T07-20,T7,merchant,1.0,True,5
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-01,T8,buyer,1.0,True,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-02,T8,buyer,1.0,True,5
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-03,T8,buyer,1.0,True,6
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-04,T8,buyer,1.0,True,5
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-05,T8,buyer,1.0,True,6
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-06,T8,buyer,0.714286,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-07,T8,buyer,0.714286,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-08,T8,buyer,0.818182,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-09,T8,buyer,0.8,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-10,T8,buyer,0.8,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-11,T8,merchant,1.0,True,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-12,T8,merchant,1.0,True,5
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-13,T8,merchant,1.0,True,1
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-14,T8,merchant,1.0,True,1
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-15,T8,merchant,1.0,True,1
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-16,T8,merchant,1.0,True,1
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-17,T8,merchant,1.0,True,1
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-18,T8,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-19,T8,merchant,1.0,True,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T08-20,T8,merchant,1.0,True,6
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-01,T9,buyer,0.65,False,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-02,T9,buyer,0.65,False,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-03,T9,buyer,0.65,False,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-04,T9,buyer,0.65,False,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-05,T9,buyer,0.65,False,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-06,T9,buyer,0.65,False,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-07,T9,buyer,1.0,True,5
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-08,T9,buyer,0.65,False,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-09,T9,buyer,0.65,False,5
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-10,T9,buyer,0.65,False,6
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-11,T9,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-12,T9,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-13,T9,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-14,T9,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-15,T9,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-16,T9,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-17,T9,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-18,T9,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-19,T9,merchant,1.0,True,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T09-20,T9,merchant,1.0,True,8
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-01,T10,buyer,0.3,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-02,T10,buyer,0.15,False,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-03,T10,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-04,T10,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-05,T10,buyer,0.3,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-06,T10,buyer,0.15,False,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-07,T10,buyer,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-08,T10,buyer,1.0,True,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-09,T10,merchant,0.3,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-10,T10,merchant,0.2,False,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-11,T10,merchant,0.12,False,5
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-12,T10,merchant,0.3,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-13,T10,merchant,0.2,False,3
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-14,T10,merchant,0.12,False,5
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-15,T10,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-16,T10,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-17,T10,merchant,0.3,False,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-18,T10,merchant,0.15,False,4
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-19,T10,merchant,1.0,True,2
+Gemini 3.6 Flash,google/gemini-3.6-flash,CWV2-T10-20,T10,merchant,1.0,True,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-01,T1,buyer,0.884615,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-02,T1,buyer,0.884615,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-03,T1,buyer,0.884615,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-04,T1,buyer,0.884615,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-05,T1,buyer,1.0,True,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-06,T1,buyer,0.884615,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-07,T1,buyer,0.884615,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-08,T1,buyer,0.115385,False,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-09,T1,buyer,1.0,True,10
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-10,T1,buyer,0.115385,False,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-11,T1,buyer,0.0,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-12,T1,buyer,0.0,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-13,T1,buyer,0.384615,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-14,T1,buyer,0.384615,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-15,T1,buyer,0.384615,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-16,T1,buyer,0.384615,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-17,T1,buyer,1.0,True,5
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-18,T1,buyer,0.166667,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-19,T1,buyer,0.357143,False,5
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T01-20,T1,buyer,0.1,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-01,T2,buyer,0.647059,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-02,T2,buyer,0.647059,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-03,T2,buyer,0.647059,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-04,T2,buyer,0.647059,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-05,T2,buyer,0.647059,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-06,T2,buyer,0.647059,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-07,T2,buyer,0.647059,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-08,T2,buyer,0.647059,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-09,T2,merchant,1.0,True,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-10,T2,merchant,1.0,True,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-11,T2,merchant,1.0,True,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-12,T2,merchant,0.647059,False,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-13,T2,merchant,1.0,True,7
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-14,T2,merchant,0.764706,False,12
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-15,T2,merchant,0.764706,False,15
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-16,T2,merchant,1.0,True,8
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-17,T2,merchant,0.588235,False,13
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-18,T2,merchant,0.588235,False,19
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-19,T2,merchant,1.0,True,6
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T02-20,T2,merchant,0.764706,False,9
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-01,T3,buyer,0.0,False,6
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-02,T3,buyer,1.0,True,8
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-03,T3,buyer,1.0,True,9
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-04,T3,buyer,0.0,False,11
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-05,T3,buyer,0.0,False,5
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-06,T3,buyer,1.0,True,8
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-07,T3,buyer,1.0,True,8
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-08,T3,buyer,1.0,True,9
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-09,T3,buyer,1.0,True,8
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-10,T3,buyer,1.0,True,9
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-11,T3,buyer,1.0,True,10
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-12,T3,buyer,1.0,True,12
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-13,T3,buyer,1.0,True,10
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-14,T3,buyer,1.0,True,11
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-15,T3,buyer,1.0,True,13
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-16,T3,buyer,1.0,True,9
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-17,T3,buyer,1.0,True,10
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-18,T3,buyer,1.0,True,11
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-19,T3,buyer,1.0,True,9
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T03-20,T3,buyer,0.933333,False,11
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-01,T4,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-02,T4,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-03,T4,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-04,T4,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-05,T4,buyer,0.133333,False,1
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-06,T4,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-07,T4,buyer,0.746667,False,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-08,T4,buyer,0.5,False,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-09,T4,buyer,0.8,False,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-10,T4,buyer,0.5,False,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-11,T4,merchant,1.0,True,1
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-12,T4,merchant,1.0,True,1
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-13,T4,merchant,1.0,True,1
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-14,T4,merchant,1.0,True,1
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-15,T4,merchant,1.0,True,1
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-16,T4,merchant,1.0,True,1
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-17,T4,merchant,0.7,False,1
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-18,T4,merchant,1.0,True,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-19,T4,merchant,0.733333,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T04-20,T4,merchant,1.0,True,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-01,T5,buyer,1.0,True,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-02,T5,buyer,1.0,True,5
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-03,T5,buyer,1.0,True,7
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-04,T5,buyer,1.0,True,10
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-05,T5,buyer,1.0,True,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-06,T5,buyer,1.0,True,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-07,T5,buyer,1.0,True,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-08,T5,buyer,1.0,True,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-09,T5,buyer,1.0,True,8
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-10,T5,buyer,1.0,True,12
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-11,T5,buyer,1.0,True,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-12,T5,buyer,1.0,True,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-13,T5,buyer,1.0,True,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-14,T5,buyer,1.0,True,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-15,T5,merchant,0.8,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-16,T5,merchant,0.8,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-17,T5,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-18,T5,merchant,0.8,False,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-19,T5,merchant,0.8,False,6
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T05-20,T5,merchant,0.8,False,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-01,T6,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-02,T6,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-03,T6,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-04,T6,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-05,T6,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-06,T6,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-07,T6,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-08,T6,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-09,T6,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-10,T6,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-11,T6,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-12,T6,merchant,0.3,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-13,T6,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-14,T6,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-15,T6,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-16,T6,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-17,T6,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-18,T6,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-19,T6,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T06-20,T6,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-01,T7,buyer,1.0,True,1
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-02,T7,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-03,T7,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-04,T7,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-05,T7,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-06,T7,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-07,T7,buyer,1.0,True,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-08,T7,buyer,0.883333,False,6
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-09,T7,merchant,1.0,True,1
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-10,T7,merchant,1.0,True,1
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-11,T7,merchant,1.0,True,1
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-12,T7,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-13,T7,merchant,0.3,False,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-14,T7,merchant,0.3,False,5
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-15,T7,merchant,0.175,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-16,T7,merchant,0.0,False,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-17,T7,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-18,T7,merchant,0.996,False,7
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-19,T7,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T07-20,T7,merchant,1.0,True,5
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-01,T8,buyer,1.0,True,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-02,T8,buyer,1.0,True,5
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-03,T8,buyer,1.0,True,6
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-04,T8,buyer,0.0,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-05,T8,buyer,1.0,True,6
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-06,T8,buyer,0.428571,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-07,T8,buyer,0.714286,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-08,T8,buyer,0.818182,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-09,T8,buyer,0.8,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-10,T8,buyer,0.8,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-11,T8,merchant,1.0,True,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-12,T8,merchant,1.0,True,5
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-13,T8,merchant,1.0,True,1
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-14,T8,merchant,1.0,True,1
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-15,T8,merchant,1.0,True,1
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-16,T8,merchant,1.0,True,1
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-17,T8,merchant,1.0,True,1
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-18,T8,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-19,T8,merchant,1.0,True,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T08-20,T8,merchant,1.0,True,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-01,T9,buyer,1.0,True,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-02,T9,buyer,1.0,True,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-03,T9,buyer,0.65,False,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-04,T9,buyer,1.0,True,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-05,T9,buyer,0.65,False,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-06,T9,buyer,1.0,True,5
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-07,T9,buyer,0.65,False,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-08,T9,buyer,0.65,False,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-09,T9,buyer,0.65,False,5
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-10,T9,buyer,1.0,True,8
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-11,T9,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-12,T9,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-13,T9,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-14,T9,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-15,T9,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-16,T9,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-17,T9,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-18,T9,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-19,T9,merchant,1.0,True,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T09-20,T9,merchant,1.0,True,8
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-01,T10,buyer,0.3,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-02,T10,buyer,0.15,False,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-03,T10,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-04,T10,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-05,T10,buyer,0.0,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-06,T10,buyer,0.15,False,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-07,T10,buyer,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-08,T10,buyer,1.0,True,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-09,T10,merchant,0.3,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-10,T10,merchant,0.2,False,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-11,T10,merchant,0.12,False,5
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-12,T10,merchant,0.3,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-13,T10,merchant,0.2,False,3
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-14,T10,merchant,0.12,False,5
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-15,T10,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-16,T10,merchant,1.0,True,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-17,T10,merchant,0.3,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-18,T10,merchant,0.15,False,4
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-19,T10,merchant,0.3,False,2
+GPT-5.6 Terra,openai/gpt-5.6-terra,CWV2-T10-20,T10,merchant,1.0,True,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-01,T1,buyer,0.884615,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-02,T1,buyer,0.884615,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-03,T1,buyer,0.884615,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-04,T1,buyer,0.884615,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-05,T1,buyer,0.0,False,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-06,T1,buyer,0.0,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-07,T1,buyer,0.0,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-08,T1,buyer,0.0,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-09,T1,buyer,0.0,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-10,T1,buyer,0.0,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-11,T1,buyer,0.0,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-12,T1,buyer,0.0,False,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-13,T1,buyer,0.384615,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-14,T1,buyer,0.384615,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-15,T1,buyer,0.384615,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-16,T1,buyer,0.384615,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-17,T1,buyer,0.142857,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-18,T1,buyer,0.166667,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-19,T1,buyer,0.125,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T01-20,T1,buyer,0.5,False,5
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-01,T2,buyer,0.647059,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-02,T2,buyer,0.647059,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-03,T2,buyer,0.647059,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-04,T2,buyer,0.647059,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-05,T2,buyer,0.588235,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-06,T2,buyer,0.647059,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-07,T2,buyer,0.647059,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-08,T2,buyer,0.647059,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-09,T2,merchant,1.0,True,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-10,T2,merchant,1.0,True,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-11,T2,merchant,1.0,True,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-12,T2,merchant,1.0,True,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-13,T2,merchant,1.0,True,7
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-14,T2,merchant,0.764706,False,10
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-15,T2,merchant,0.764706,False,15
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-16,T2,merchant,0.235294,False,8
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-17,T2,merchant,0.588235,False,12
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-18,T2,merchant,0.0,False,18
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-19,T2,merchant,1.0,True,8
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T02-20,T2,merchant,0.764706,False,10
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-01,T3,buyer,0.0,False,6
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-02,T3,buyer,1.0,True,8
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-03,T3,buyer,1.0,True,10
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-04,T3,buyer,0.0,False,10
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-05,T3,buyer,1.0,True,6
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-06,T3,buyer,1.0,True,7
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-07,T3,buyer,1.0,True,8
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-08,T3,buyer,0.0,False,8
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-09,T3,buyer,0.2,False,7
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-10,T3,buyer,1.0,True,10
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-11,T3,buyer,1.0,True,11
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-12,T3,buyer,0.6,False,14
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-13,T3,buyer,1.0,True,11
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-14,T3,buyer,1.0,True,12
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-15,T3,buyer,1.0,True,14
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-16,T3,buyer,1.0,True,10
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-17,T3,buyer,0.133333,False,10
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-18,T3,buyer,0.4,False,13
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-19,T3,buyer,1.0,True,10
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T03-20,T3,buyer,0.4,False,13
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-01,T4,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-02,T4,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-03,T4,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-04,T4,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-05,T4,buyer,0.133333,False,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-06,T4,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-07,T4,buyer,0.0,False,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-08,T4,buyer,1.0,True,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-09,T4,buyer,0.5,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-10,T4,buyer,0.5,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-11,T4,merchant,1.0,True,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-12,T4,merchant,1.0,True,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-13,T4,merchant,1.0,True,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-14,T4,merchant,1.0,True,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-15,T4,merchant,1.0,True,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-16,T4,merchant,1.0,True,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-17,T4,merchant,0.7,False,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-18,T4,merchant,0.4,False,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-19,T4,merchant,0.733333,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T04-20,T4,merchant,0.666667,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-01,T5,buyer,0.0,False,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-02,T5,buyer,1.0,True,5
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-03,T5,buyer,0.0,False,7
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-04,T5,buyer,1.0,True,11
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-05,T5,buyer,1.0,True,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-06,T5,buyer,1.0,True,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-07,T5,buyer,1.0,True,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-08,T5,buyer,0.0,False,6
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-09,T5,buyer,0.0,False,8
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-10,T5,buyer,0.0,False,9
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-11,T5,buyer,0.5,False,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-12,T5,buyer,0.5,False,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-13,T5,buyer,1.0,True,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-14,T5,buyer,1.0,True,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-15,T5,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-16,T5,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-17,T5,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-18,T5,merchant,0.1,False,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-19,T5,merchant,0.24,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T05-20,T5,merchant,0.8,False,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-01,T6,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-02,T6,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-03,T6,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-04,T6,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-05,T6,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-06,T6,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-07,T6,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-08,T6,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-09,T6,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-10,T6,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-11,T6,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-12,T6,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-13,T6,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-14,T6,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-15,T6,merchant,0.3,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-16,T6,merchant,0.3,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-17,T6,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-18,T6,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-19,T6,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T06-20,T6,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-01,T7,buyer,1.0,True,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-02,T7,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-03,T7,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-04,T7,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-05,T7,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-06,T7,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-07,T7,buyer,0.766667,False,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-08,T7,buyer,0.883333,False,6
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-09,T7,merchant,1.0,True,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-10,T7,merchant,1.0,True,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-11,T7,merchant,1.0,True,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-12,T7,merchant,0.0,False,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-13,T7,merchant,1.0,True,5
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-14,T7,merchant,0.531083,False,7
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-15,T7,merchant,1.0,True,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-16,T7,merchant,0.0,False,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-17,T7,merchant,0.65,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-18,T7,merchant,0.0,False,5
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-19,T7,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T07-20,T7,merchant,1.0,True,5
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-01,T8,buyer,0.0,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-02,T8,buyer,0.0,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-03,T8,buyer,1.0,True,6
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-04,T8,buyer,0.0,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-05,T8,buyer,0.0,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-06,T8,buyer,0.714286,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-07,T8,buyer,0.714286,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-08,T8,buyer,0.818182,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-09,T8,buyer,0.8,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-10,T8,buyer,0.8,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-11,T8,merchant,1.0,True,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-12,T8,merchant,1.0,True,5
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-13,T8,merchant,1.0,True,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-14,T8,merchant,1.0,True,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-15,T8,merchant,1.0,True,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-16,T8,merchant,1.0,True,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-17,T8,merchant,1.0,True,1
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-18,T8,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-19,T8,merchant,1.0,True,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T08-20,T8,merchant,1.0,True,5
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-01,T9,buyer,0.65,False,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-02,T9,buyer,1.0,True,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-03,T9,buyer,0.65,False,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-04,T9,buyer,0.65,False,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-05,T9,buyer,0.0,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-06,T9,buyer,0.0,False,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-07,T9,buyer,0.0,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-08,T9,buyer,0.65,False,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-09,T9,buyer,0.0,False,5
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-10,T9,buyer,0.65,False,7
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-11,T9,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-12,T9,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-13,T9,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-14,T9,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-15,T9,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-16,T9,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-17,T9,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-18,T9,merchant,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-19,T9,merchant,1.0,True,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T09-20,T9,merchant,1.0,True,8
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-01,T10,buyer,0.3,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-02,T10,buyer,0.15,False,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-03,T10,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-04,T10,buyer,1.0,True,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-05,T10,buyer,0.3,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-06,T10,buyer,0.15,False,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-07,T10,buyer,0.3,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-08,T10,buyer,0.45,False,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-09,T10,merchant,0.3,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-10,T10,merchant,0.2,False,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-11,T10,merchant,0.12,False,5
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-12,T10,merchant,0.3,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-13,T10,merchant,0.2,False,3
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-14,T10,merchant,0.12,False,5
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-15,T10,merchant,0.3,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-16,T10,merchant,0.3,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-17,T10,merchant,0.3,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-18,T10,merchant,0.15,False,4
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-19,T10,merchant,0.3,False,2
+GPT-5.6 Luna,gpt-5.6-luna,CWV2-T10-20,T10,merchant,0.3,False,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-01,T1,buyer,0.884615,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-02,T1,buyer,0.884615,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-03,T1,buyer,0.884615,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-04,T1,buyer,0.884615,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-05,T1,buyer,1.0,True,3
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-06,T1,buyer,1.0,True,3
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-07,T1,buyer,0.884615,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-08,T1,buyer,1.0,True,7
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-09,T1,buyer,1.0,True,10
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-10,T1,buyer,1.0,True,12
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-11,T1,buyer,1.0,True,15
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-12,T1,buyer,1.0,True,21
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-13,T1,buyer,0.384615,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-14,T1,buyer,0.384615,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-15,T1,buyer,0.384615,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-16,T1,buyer,0.384615,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-17,T1,buyer,1.0,True,5
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-18,T1,buyer,1.0,True,6
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-19,T1,buyer,1.0,True,7
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T01-20,T1,buyer,1.0,True,8
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-01,T2,buyer,0.602941,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-02,T2,buyer,0.647059,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-03,T2,buyer,0.647059,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-04,T2,buyer,0.647059,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-05,T2,buyer,0.647059,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-06,T2,buyer,0.647059,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-07,T2,buyer,0.647059,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-08,T2,buyer,0.647059,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-09,T2,merchant,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-10,T2,merchant,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-11,T2,merchant,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-12,T2,merchant,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-13,T2,merchant,1.0,True,7
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-14,T2,merchant,0.764706,False,10
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-15,T2,merchant,0.764706,False,14
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-16,T2,merchant,0.882353,False,8
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-17,T2,merchant,1.0,True,17
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-18,T2,merchant,0.588235,False,15
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-19,T2,merchant,1.0,True,7
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T02-20,T2,merchant,0.764706,False,9
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-01,T3,buyer,1.0,True,8
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-02,T3,buyer,1.0,True,9
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-03,T3,buyer,1.0,True,9
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-04,T3,buyer,1.0,True,12
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-05,T3,buyer,0.0,False,6
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-06,T3,buyer,0.0,False,6
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-07,T3,buyer,1.0,True,8
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-08,T3,buyer,0.733333,False,9
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-09,T3,buyer,1.0,True,8
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-10,T3,buyer,1.0,True,9
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-11,T3,buyer,1.0,True,10
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-12,T3,buyer,1.0,True,12
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-13,T3,buyer,1.0,True,10
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-14,T3,buyer,1.0,True,11
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-15,T3,buyer,1.0,True,13
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-16,T3,buyer,1.0,True,9
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-17,T3,buyer,1.0,True,10
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-18,T3,buyer,1.0,True,11
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-19,T3,buyer,1.0,True,9
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T03-20,T3,buyer,1.0,True,11
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-01,T4,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-02,T4,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-03,T4,buyer,0.5,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-04,T4,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-05,T4,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-06,T4,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-07,T4,buyer,0.72,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-08,T4,buyer,0.5,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-09,T4,buyer,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-10,T4,buyer,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-11,T4,merchant,1.0,True,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-12,T4,merchant,1.0,True,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-13,T4,merchant,1.0,True,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-14,T4,merchant,1.0,True,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-15,T4,merchant,1.0,True,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-16,T4,merchant,1.0,True,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-17,T4,merchant,0.7,False,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-18,T4,merchant,0.666667,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-19,T4,merchant,0.666667,False,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T04-20,T4,merchant,1.0,True,3
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-01,T5,buyer,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-02,T5,buyer,1.0,True,5
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-03,T5,buyer,1.0,True,7
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-04,T5,buyer,1.0,True,10
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-05,T5,buyer,1.0,True,3
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-06,T5,buyer,1.0,True,3
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-07,T5,buyer,1.0,True,3
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-08,T5,buyer,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-09,T5,buyer,1.0,True,8
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-10,T5,buyer,1.0,True,12
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-11,T5,buyer,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-12,T5,buyer,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-13,T5,buyer,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-14,T5,buyer,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-15,T5,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-16,T5,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-17,T5,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-18,T5,merchant,0.6,False,3
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-19,T5,merchant,0.8,False,6
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T05-20,T5,merchant,0.8,False,3
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-01,T6,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-02,T6,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-03,T6,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-04,T6,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-05,T6,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-06,T6,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-07,T6,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-08,T6,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-09,T6,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-10,T6,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-11,T6,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-12,T6,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-13,T6,merchant,1.0,True,3
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-14,T6,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-15,T6,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-16,T6,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-17,T6,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-18,T6,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-19,T6,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T06-20,T6,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-01,T7,buyer,1.0,True,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-02,T7,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-03,T7,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-04,T7,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-05,T7,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-06,T7,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-07,T7,buyer,0.766667,False,3
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-08,T7,buyer,0.883333,False,6
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-09,T7,merchant,1.0,True,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-10,T7,merchant,1.0,True,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-11,T7,merchant,1.0,True,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-12,T7,merchant,0.0,False,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-13,T7,merchant,0.3,False,3
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-14,T7,merchant,0.29775,False,6
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-15,T7,merchant,1.0,True,6
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-16,T7,merchant,0.0,False,3
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-17,T7,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-18,T7,merchant,0.996,False,7
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-19,T7,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T07-20,T7,merchant,1.0,True,5
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-01,T8,buyer,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-02,T8,buyer,1.0,True,5
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-03,T8,buyer,1.0,True,6
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-04,T8,buyer,1.0,True,5
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-05,T8,buyer,1.0,True,6
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-06,T8,buyer,0.714286,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-07,T8,buyer,0.714286,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-08,T8,buyer,0.818182,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-09,T8,buyer,0.8,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-10,T8,buyer,0.8,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-11,T8,merchant,1.0,True,3
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-12,T8,merchant,1.0,True,5
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-13,T8,merchant,1.0,True,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-14,T8,merchant,1.0,True,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-15,T8,merchant,1.0,True,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-16,T8,merchant,1.0,True,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-17,T8,merchant,1.0,True,1
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-18,T8,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-19,T8,merchant,1.0,True,3
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T08-20,T8,merchant,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-01,T9,buyer,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-02,T9,buyer,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-03,T9,buyer,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-04,T9,buyer,0.65,False,3
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-05,T9,buyer,0.65,False,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-06,T9,buyer,0.65,False,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-07,T9,buyer,0.65,False,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-08,T9,buyer,1.0,True,5
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-09,T9,buyer,1.0,True,6
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-10,T9,buyer,0.65,False,6
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-11,T9,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-12,T9,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-13,T9,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-14,T9,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-15,T9,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-16,T9,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-17,T9,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-18,T9,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-19,T9,merchant,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T09-20,T9,merchant,1.0,True,8
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-01,T10,buyer,0.3,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-02,T10,buyer,0.15,False,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-03,T10,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-04,T10,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-05,T10,buyer,0.0,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-06,T10,buyer,0.15,False,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-07,T10,buyer,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-08,T10,buyer,1.0,True,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-09,T10,merchant,0.3,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-10,T10,merchant,0.2,False,3
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-11,T10,merchant,0.12,False,5
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-12,T10,merchant,0.3,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-13,T10,merchant,0.2,False,3
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-14,T10,merchant,0.12,False,5
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-15,T10,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-16,T10,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-17,T10,merchant,0.3,False,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-18,T10,merchant,0.15,False,4
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-19,T10,merchant,1.0,True,2
+GPT-5.6 Sol,openai/gpt-5.6-sol,CWV2-T10-20,T10,merchant,1.0,True,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-01,T1,buyer,0.884615,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-02,T1,buyer,0.884615,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-03,T1,buyer,0.884615,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-04,T1,buyer,0.884615,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-05,T1,buyer,0.884615,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-06,T1,buyer,0.884615,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-07,T1,buyer,0.884615,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-08,T1,buyer,1.0,True,7
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-09,T1,buyer,1.0,True,7
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-10,T1,buyer,1.0,True,12
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-11,T1,buyer,0.615385,False,5
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-12,T1,buyer,0.884615,False,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-13,T1,buyer,0.384615,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-14,T1,buyer,0.384615,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-15,T1,buyer,0.384615,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-16,T1,buyer,0.384615,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-17,T1,buyer,1.0,True,5
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-18,T1,buyer,1.0,True,6
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-19,T1,buyer,1.0,True,7
+Kimi K3,moonshotai/kimi-k3,CWV2-T01-20,T1,buyer,1.0,True,8
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-01,T2,buyer,0.647059,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-02,T2,buyer,0.647059,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-03,T2,buyer,0.647059,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-04,T2,buyer,0.647059,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-05,T2,buyer,0.588235,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-06,T2,buyer,0.647059,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-07,T2,buyer,0.647059,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-08,T2,buyer,0.647059,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-09,T2,merchant,1.0,True,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-10,T2,merchant,1.0,True,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-11,T2,merchant,1.0,True,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-12,T2,merchant,1.0,True,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-13,T2,merchant,1.0,True,6
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-14,T2,merchant,0.0,False,11
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-15,T2,merchant,0.764706,False,14
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-16,T2,merchant,1.0,True,8
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-17,T2,merchant,1.0,True,16
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-18,T2,merchant,0.823529,False,26
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-19,T2,merchant,1.0,True,7
+Kimi K3,moonshotai/kimi-k3,CWV2-T02-20,T2,merchant,0.764706,False,12
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-01,T3,buyer,1.0,True,7
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-02,T3,buyer,1.0,True,9
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-03,T3,buyer,1.0,True,9
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-04,T3,buyer,1.0,True,11
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-05,T3,buyer,0.733333,False,6
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-06,T3,buyer,0.733333,False,7
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-07,T3,buyer,0.733333,False,8
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-08,T3,buyer,1.0,True,9
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-09,T3,buyer,1.0,True,8
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-10,T3,buyer,1.0,True,9
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-11,T3,buyer,1.0,True,10
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-12,T3,buyer,1.0,True,12
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-13,T3,buyer,1.0,True,10
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-14,T3,buyer,1.0,True,12
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-15,T3,buyer,1.0,True,13
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-16,T3,buyer,1.0,True,9
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-17,T3,buyer,1.0,True,10
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-18,T3,buyer,1.0,True,11
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-19,T3,buyer,1.0,True,9
+Kimi K3,moonshotai/kimi-k3,CWV2-T03-20,T3,buyer,1.0,True,11
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-01,T4,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-02,T4,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-03,T4,buyer,0.5,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-04,T4,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-05,T4,buyer,0.133333,False,1
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-06,T4,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-07,T4,buyer,0.746667,False,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-08,T4,buyer,0.5,False,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-09,T4,buyer,1.0,True,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-10,T4,buyer,0.5,False,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-11,T4,merchant,1.0,True,1
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-12,T4,merchant,1.0,True,1
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-13,T4,merchant,1.0,True,1
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-14,T4,merchant,0.666667,False,1
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-15,T4,merchant,1.0,True,1
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-16,T4,merchant,1.0,True,1
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-17,T4,merchant,0.766667,False,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-18,T4,merchant,1.0,True,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-19,T4,merchant,1.0,True,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T04-20,T4,merchant,0.666667,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-01,T5,buyer,1.0,True,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-02,T5,buyer,0.0,False,6
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-03,T5,buyer,1.0,True,7
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-04,T5,buyer,0.0,False,7
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-05,T5,buyer,1.0,True,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-06,T5,buyer,1.0,True,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-07,T5,buyer,1.0,True,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-08,T5,buyer,1.0,True,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-09,T5,buyer,0.0,False,9
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-10,T5,buyer,0.0,False,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-11,T5,buyer,1.0,True,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-12,T5,buyer,1.0,True,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-13,T5,buyer,1.0,True,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-14,T5,buyer,1.0,True,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-15,T5,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-16,T5,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-17,T5,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-18,T5,merchant,0.6,False,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-19,T5,merchant,0.04,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T05-20,T5,merchant,0.1,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-01,T6,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-02,T6,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-03,T6,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-04,T6,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-05,T6,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-06,T6,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-07,T6,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-08,T6,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-09,T6,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-10,T6,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-11,T6,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-12,T6,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-13,T6,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-14,T6,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-15,T6,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-16,T6,merchant,1.0,True,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-17,T6,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-18,T6,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-19,T6,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T06-20,T6,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-01,T7,buyer,1.0,True,1
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-02,T7,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-03,T7,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-04,T7,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-05,T7,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-06,T7,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-07,T7,buyer,0.766667,False,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-08,T7,buyer,0.883333,False,6
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-09,T7,merchant,1.0,True,1
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-10,T7,merchant,1.0,True,1
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-11,T7,merchant,1.0,True,1
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-12,T7,merchant,1.0,True,1
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-13,T7,merchant,0.3,False,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-14,T7,merchant,1.0,True,7
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-15,T7,merchant,1.0,True,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-16,T7,merchant,1.0,True,6
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-17,T7,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-18,T7,merchant,0.996,False,7
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-19,T7,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T07-20,T7,merchant,1.0,True,5
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-01,T8,buyer,1.0,True,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-02,T8,buyer,1.0,True,5
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-03,T8,buyer,1.0,True,6
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-04,T8,buyer,1.0,True,5
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-05,T8,buyer,1.0,True,6
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-06,T8,buyer,0.714286,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-07,T8,buyer,0.714286,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-08,T8,buyer,0.818182,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-09,T8,buyer,0.8,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-10,T8,buyer,0.8,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-11,T8,merchant,1.0,True,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-12,T8,merchant,1.0,True,5
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-13,T8,merchant,1.0,True,1
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-14,T8,merchant,1.0,True,1
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-15,T8,merchant,1.0,True,1
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-16,T8,merchant,1.0,True,1
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-17,T8,merchant,1.0,True,1
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-18,T8,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-19,T8,merchant,1.0,True,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T08-20,T8,merchant,1.0,True,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-01,T9,buyer,0.65,False,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-02,T9,buyer,0.65,False,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-03,T9,buyer,0.65,False,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-04,T9,buyer,0.65,False,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-05,T9,buyer,0.65,False,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-06,T9,buyer,0.65,False,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-07,T9,buyer,0.65,False,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-08,T9,buyer,0.65,False,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-09,T9,buyer,0.65,False,5
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-10,T9,buyer,0.65,False,7
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-11,T9,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-12,T9,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-13,T9,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-14,T9,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-15,T9,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-16,T9,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-17,T9,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-18,T9,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-19,T9,merchant,1.0,True,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T09-20,T9,merchant,1.0,True,8
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-01,T10,buyer,0.3,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-02,T10,buyer,0.15,False,5
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-03,T10,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-04,T10,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-05,T10,buyer,0.3,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-06,T10,buyer,0.15,False,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-07,T10,buyer,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-08,T10,buyer,1.0,True,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-09,T10,merchant,0.3,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-10,T10,merchant,0.2,False,4
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-11,T10,merchant,0.12,False,5
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-12,T10,merchant,0.3,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-13,T10,merchant,0.2,False,3
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-14,T10,merchant,0.12,False,5
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-15,T10,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-16,T10,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-17,T10,merchant,0.3,False,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-18,T10,merchant,0.15,False,5
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-19,T10,merchant,1.0,True,2
+Kimi K3,moonshotai/kimi-k3,CWV2-T10-20,T10,merchant,1.0,True,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-01,T1,buyer,0.884615,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-02,T1,buyer,0.884615,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-03,T1,buyer,0.884615,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-04,T1,buyer,0.884615,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-05,T1,buyer,0.884615,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-06,T1,buyer,0.884615,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-07,T1,buyer,0.884615,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-08,T1,buyer,0.115385,False,5
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-09,T1,buyer,0.615385,False,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-10,T1,buyer,0.615385,False,6
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-11,T1,buyer,0.615385,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-12,T1,buyer,0.115385,False,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-13,T1,buyer,0.384615,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-14,T1,buyer,0.384615,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-15,T1,buyer,0.384615,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-16,T1,buyer,0.384615,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-17,T1,buyer,0.571429,False,6
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-18,T1,buyer,0.714286,False,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-19,T1,buyer,0.714286,False,5
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T01-20,T1,buyer,0.542857,False,15
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-01,T2,buyer,0.647059,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-02,T2,buyer,0.647059,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-03,T2,buyer,0.647059,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-04,T2,buyer,0.647059,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-05,T2,buyer,0.588235,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-06,T2,buyer,0.647059,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-07,T2,buyer,0.647059,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-08,T2,buyer,0.647059,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-09,T2,merchant,1.0,True,5
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-10,T2,merchant,1.0,True,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-11,T2,merchant,0.647059,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-12,T2,merchant,0.647059,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-13,T2,merchant,0.0,False,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-14,T2,merchant,0.0,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-15,T2,merchant,0.0,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-16,T2,merchant,0.0,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-17,T2,merchant,0.0,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-18,T2,merchant,0.0,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-19,T2,merchant,0.647059,False,5
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T02-20,T2,merchant,0.264706,False,12
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-01,T3,buyer,0.0,False,7
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-02,T3,buyer,0.6,False,8
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-03,T3,buyer,1.0,True,10
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-04,T3,buyer,0.6,False,12
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-05,T3,buyer,0.8,False,11
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-06,T3,buyer,0.533333,False,10
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-07,T3,buyer,0.0,False,8
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-08,T3,buyer,0.533333,False,10
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-09,T3,buyer,0.733333,False,8
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-10,T3,buyer,0.466667,False,9
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-11,T3,buyer,1.0,True,10
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-12,T3,buyer,0.733333,False,15
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-13,T3,buyer,1.0,True,14
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-14,T3,buyer,0.2,False,14
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-15,T3,buyer,0.2,False,14
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-16,T3,buyer,0.866667,False,9
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-17,T3,buyer,0.866667,False,10
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-18,T3,buyer,0.866667,False,13
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-19,T3,buyer,0.8,False,9
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T03-20,T3,buyer,0.533333,False,11
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-01,T4,buyer,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-02,T4,buyer,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-03,T4,buyer,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-04,T4,buyer,0.0,False,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-05,T4,buyer,0.133333,False,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-06,T4,buyer,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-07,T4,buyer,0.72,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-08,T4,buyer,1.0,True,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-09,T4,buyer,0.8,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-10,T4,buyer,0.5,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-11,T4,merchant,1.0,True,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-12,T4,merchant,1.0,True,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-13,T4,merchant,1.0,True,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-14,T4,merchant,1.0,True,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-15,T4,merchant,1.0,True,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-16,T4,merchant,1.0,True,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-17,T4,merchant,0.7,False,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-18,T4,merchant,1.0,True,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-19,T4,merchant,0.733333,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T04-20,T4,merchant,0.666667,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-01,T5,buyer,1.0,True,5
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-02,T5,buyer,1.0,True,8
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-03,T5,buyer,1.0,True,12
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-04,T5,buyer,0.0,False,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-05,T5,buyer,1.0,True,5
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-06,T5,buyer,1.0,True,5
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-07,T5,buyer,1.0,True,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-08,T5,buyer,0.5,False,6
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-09,T5,buyer,0.5,False,13
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-10,T5,buyer,0.0,False,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-11,T5,buyer,0.5,False,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-12,T5,buyer,0.5,False,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-13,T5,buyer,1.0,True,6
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-14,T5,buyer,1.0,True,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-15,T5,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-16,T5,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-17,T5,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-18,T5,merchant,0.1,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-19,T5,merchant,0.04,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T05-20,T5,merchant,0.1,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-01,T6,buyer,0.4,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-02,T6,buyer,0.35,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-03,T6,buyer,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-04,T6,buyer,0.4,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-05,T6,buyer,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-06,T6,buyer,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-07,T6,buyer,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-08,T6,buyer,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-09,T6,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-10,T6,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-11,T6,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-12,T6,merchant,0.3,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-13,T6,merchant,0.3,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-14,T6,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-15,T6,merchant,0.3,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-16,T6,merchant,0.3,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-17,T6,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-18,T6,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-19,T6,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T06-20,T6,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-01,T7,buyer,1.0,True,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-02,T7,buyer,1.0,True,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-03,T7,buyer,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-04,T7,buyer,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-05,T7,buyer,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-06,T7,buyer,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-07,T7,buyer,1.0,True,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-08,T7,buyer,1.0,True,6
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-09,T7,merchant,1.0,True,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-10,T7,merchant,1.0,True,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-11,T7,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-12,T7,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-13,T7,merchant,0.85,False,6
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-14,T7,merchant,0.99775,False,8
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-15,T7,merchant,1.0,True,6
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-16,T7,merchant,1.0,True,6
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-17,T7,merchant,1.0,True,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-18,T7,merchant,1.0,True,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-19,T7,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T07-20,T7,merchant,0.2,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-01,T8,buyer,1.0,True,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-02,T8,buyer,1.0,True,5
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-03,T8,buyer,1.0,True,6
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-04,T8,buyer,0.454545,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-05,T8,buyer,0.454545,False,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-06,T8,buyer,0.428571,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-07,T8,buyer,0.714286,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-08,T8,buyer,0.818182,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-09,T8,buyer,0.8,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-10,T8,buyer,0.8,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-11,T8,merchant,1.0,True,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-12,T8,merchant,1.0,True,5
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-13,T8,merchant,1.0,True,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-14,T8,merchant,1.0,True,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-15,T8,merchant,0.0,False,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-16,T8,merchant,1.0,True,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-17,T8,merchant,1.0,True,1
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-18,T8,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-19,T8,merchant,1.0,True,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T08-20,T8,merchant,1.0,True,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-01,T9,buyer,0.65,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-02,T9,buyer,0.65,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-03,T9,buyer,0.65,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-04,T9,buyer,0.65,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-05,T9,buyer,0.65,False,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-06,T9,buyer,0.65,False,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-07,T9,buyer,0.65,False,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-08,T9,buyer,0.65,False,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-09,T9,buyer,0.65,False,5
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-10,T9,buyer,0.65,False,6
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-11,T9,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-12,T9,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-13,T9,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-14,T9,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-15,T9,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-16,T9,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-17,T9,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-18,T9,merchant,1.0,True,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-19,T9,merchant,1.0,True,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T09-20,T9,merchant,1.0,True,8
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-01,T10,buyer,0.3,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-02,T10,buyer,0.15,False,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-03,T10,buyer,0.3,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-04,T10,buyer,0.3,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-05,T10,buyer,0.3,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-06,T10,buyer,0.15,False,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-07,T10,buyer,0.3,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-08,T10,buyer,0.15,False,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-09,T10,merchant,0.3,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-10,T10,merchant,0.2,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-11,T10,merchant,0.12,False,5
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-12,T10,merchant,0.3,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-13,T10,merchant,0.2,False,3
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-14,T10,merchant,0.12,False,5
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-15,T10,merchant,0.3,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-16,T10,merchant,0.3,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-17,T10,merchant,0.3,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-18,T10,merchant,0.15,False,4
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-19,T10,merchant,0.3,False,2
+Mistral Medium 3.5,mistralai/mistral-medium-3-5,CWV2-T10-20,T10,merchant,0.15,False,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-01,T1,buyer,0.884615,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-02,T1,buyer,0.884615,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-03,T1,buyer,0.884615,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-04,T1,buyer,0.884615,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-05,T1,buyer,0.884615,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-06,T1,buyer,0.884615,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-07,T1,buyer,0.884615,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-08,T1,buyer,1.0,True,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-09,T1,buyer,0.5,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-10,T1,buyer,0.615385,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-11,T1,buyer,0.5,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-12,T1,buyer,0.5,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-13,T1,buyer,0.384615,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-14,T1,buyer,0.384615,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-15,T1,buyer,0.384615,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-16,T1,buyer,0.384615,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-17,T1,buyer,0.321429,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-18,T1,buyer,0.452381,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-19,T1,buyer,0.392857,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T01-20,T1,buyer,0.714286,False,6
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-01,T2,buyer,0.647059,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-02,T2,buyer,0.647059,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-03,T2,buyer,0.647059,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-04,T2,buyer,0.647059,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-05,T2,buyer,0.647059,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-06,T2,buyer,0.647059,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-07,T2,buyer,0.647059,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-08,T2,buyer,0.647059,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-09,T2,merchant,0.647059,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-10,T2,merchant,1.0,True,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-11,T2,merchant,1.0,True,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-12,T2,merchant,1.0,True,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-13,T2,merchant,1.0,True,6
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-14,T2,merchant,0.764706,False,11
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-15,T2,merchant,0.764706,False,14
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-16,T2,merchant,1.0,True,8
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-17,T2,merchant,0.823529,False,15
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-18,T2,merchant,0.494118,False,7
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-19,T2,merchant,1.0,True,7
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T02-20,T2,merchant,0.22549,False,12
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-01,T3,buyer,1.0,True,8
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-02,T3,buyer,1.0,True,9
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-03,T3,buyer,1.0,True,9
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-04,T3,buyer,1.0,True,11
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-05,T3,buyer,1.0,True,6
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-06,T3,buyer,1.0,True,7
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-07,T3,buyer,1.0,True,8
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-08,T3,buyer,1.0,True,9
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-09,T3,buyer,1.0,True,8
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-10,T3,buyer,1.0,True,9
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-11,T3,buyer,1.0,True,10
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-12,T3,buyer,1.0,True,12
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-13,T3,buyer,1.0,True,10
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-14,T3,buyer,1.0,True,11
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-15,T3,buyer,1.0,True,13
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-16,T3,buyer,1.0,True,9
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-17,T3,buyer,1.0,True,10
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-18,T3,buyer,1.0,True,11
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-19,T3,buyer,1.0,True,9
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T03-20,T3,buyer,0.533333,False,11
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-01,T4,buyer,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-02,T4,buyer,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-03,T4,buyer,1.0,True,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-04,T4,buyer,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-05,T4,buyer,0.133333,False,1
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-06,T4,buyer,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-07,T4,buyer,0.72,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-08,T4,buyer,0.75,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-09,T4,buyer,0.5,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-10,T4,buyer,0.5,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-11,T4,merchant,1.0,True,1
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-12,T4,merchant,1.0,True,1
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-13,T4,merchant,1.0,True,1
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-14,T4,merchant,1.0,True,1
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-15,T4,merchant,1.0,True,1
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-16,T4,merchant,1.0,True,1
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-17,T4,merchant,0.766667,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-18,T4,merchant,0.666667,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-19,T4,merchant,0.666667,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T04-20,T4,merchant,0.666667,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-01,T5,buyer,0.0,False,6
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-02,T5,buyer,0.0,False,5
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-03,T5,buyer,0.0,False,6
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-04,T5,buyer,0.0,False,7
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-05,T5,buyer,1.0,True,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-06,T5,buyer,1.0,True,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-07,T5,buyer,1.0,True,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-08,T5,buyer,1.0,True,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-09,T5,buyer,0.0,False,5
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-10,T5,buyer,0.0,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-11,T5,buyer,1.0,True,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-12,T5,buyer,0.0,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-13,T5,buyer,0.0,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-14,T5,buyer,1.0,True,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-15,T5,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-16,T5,merchant,0.8,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-17,T5,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-18,T5,merchant,0.1,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-19,T5,merchant,0.24,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T05-20,T5,merchant,0.1,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-01,T6,buyer,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-02,T6,buyer,0.35,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-03,T6,buyer,1.0,True,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-04,T6,buyer,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-05,T6,buyer,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-06,T6,buyer,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-07,T6,buyer,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-08,T6,buyer,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-09,T6,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-10,T6,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-11,T6,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-12,T6,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-13,T6,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-14,T6,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-15,T6,merchant,0.3,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-16,T6,merchant,0.3,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-17,T6,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-18,T6,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-19,T6,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T06-20,T6,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-01,T7,buyer,1.0,True,1
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-02,T7,buyer,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-03,T7,buyer,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-04,T7,buyer,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-05,T7,buyer,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-06,T7,buyer,1.0,True,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-07,T7,buyer,1.0,True,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-08,T7,buyer,0.883333,False,6
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-09,T7,merchant,1.0,True,1
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-10,T7,merchant,1.0,True,1
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-11,T7,merchant,1.0,True,1
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-12,T7,merchant,1.0,True,1
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-13,T7,merchant,1.0,True,5
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-14,T7,merchant,1.0,True,8
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-15,T7,merchant,0.175,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-16,T7,merchant,0.175,False,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-17,T7,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-18,T7,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-19,T7,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T07-20,T7,merchant,1.0,True,5
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-01,T8,buyer,0.466667,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-02,T8,buyer,1.0,True,5
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-03,T8,buyer,0.466667,False,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-04,T8,buyer,0.454545,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-05,T8,buyer,0.454545,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-06,T8,buyer,0.714286,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-07,T8,buyer,0.714286,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-08,T8,buyer,0.818182,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-09,T8,buyer,0.8,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-10,T8,buyer,0.8,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-11,T8,merchant,1.0,True,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-12,T8,merchant,1.0,True,5
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-13,T8,merchant,1.0,True,1
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-14,T8,merchant,1.0,True,1
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-15,T8,merchant,1.0,True,1
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-16,T8,merchant,1.0,True,1
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-17,T8,merchant,1.0,True,1
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-18,T8,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-19,T8,merchant,1.0,True,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T08-20,T8,merchant,1.0,True,5
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-01,T9,buyer,0.65,False,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-02,T9,buyer,0.0,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-03,T9,buyer,0.0,False,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-04,T9,buyer,0.65,False,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-05,T9,buyer,1.0,True,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-06,T9,buyer,0.65,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-07,T9,buyer,1.0,True,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-08,T9,buyer,0.65,False,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-09,T9,buyer,0.65,False,5
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-10,T9,buyer,0.65,False,6
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-11,T9,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-12,T9,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-13,T9,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-14,T9,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-15,T9,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-16,T9,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-17,T9,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-18,T9,merchant,1.0,True,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-19,T9,merchant,1.0,True,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T09-20,T9,merchant,1.0,True,8
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-01,T10,buyer,0.3,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-02,T10,buyer,0.15,False,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-03,T10,buyer,0.3,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-04,T10,buyer,0.3,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-05,T10,buyer,0.3,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-06,T10,buyer,0.15,False,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-07,T10,buyer,0.3,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-08,T10,buyer,0.0,False,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-09,T10,merchant,0.3,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-10,T10,merchant,0.2,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-11,T10,merchant,0.12,False,5
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-12,T10,merchant,0.3,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-13,T10,merchant,0.2,False,3
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-14,T10,merchant,0.12,False,6
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-15,T10,merchant,0.3,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-16,T10,merchant,0.3,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-17,T10,merchant,0.3,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-18,T10,merchant,0.15,False,4
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-19,T10,merchant,0.3,False,2
+Qwen3.5 Plus,qwen/qwen3.5-plus-20260420,CWV2-T10-20,T10,merchant,0.15,False,4
