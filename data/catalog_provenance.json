@@ -4,12 +4,12 @@
   "data_label": "merchant_catalog_snapshots",
   "description": "Provenance metadata for six merchant catalog snapshots. Raw source records are not included in this release.",
   "governance": {
-    "collector": "Springbrand",
+    "collector": "Spring Brand",
     "acquisition_method": "public product-page crawl",
     "crawler_policy": "configured to honor applicable robots.txt directives and conservative request rates at collection time",
-    "acquired_at": "not recorded in the release metadata",
-    "source_content_license": "not established",
-    "redistribution_permission": "not established",
+    "acquired_at": "2026-05-21",
+    "provider_authorization": "Spring Brand authorized research use of the supplied catalog and publication of the adapted benchmark data.",
+    "redistribution_permission": "Spring Brand permits publication of the adapted benchmark data, subject to restrictions on further redistribution.",
     "release_status": "metadata_only"
   },
   "canonicalization": {
