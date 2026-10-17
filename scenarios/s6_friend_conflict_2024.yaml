@@ -1,0 +1,68 @@
+scenario_id: s6_friend_conflict_2024
+seed: 2024
+initial_state:
+  catalog:
+    - sku_id: SKU_0002
+      list_price: 47
+      floor_price: 30
+      inventory: 6
+      attributes: { noise_cancellation: true, wireless: true, shipping_days: 1 }
+    - sku_id: SKU_0001
+      list_price: 47
+      floor_price: 30
+      inventory: 6
+      attributes: { noise_cancellation: true, wireless: true, shipping_days: 1 }
+  friendships:
+    - buyer_id: buyer
+      friends: [buyer:friend-alice, buyer:friend-bob]
+  reviews:
+    - review_id: s6-2024-rv1
+      reviewer_id: buyer:friend-alice
+      sku_id: SKU_0001
+      merchant_id: merchant:m1
+      rating: 4
+    - review_id: s6-2024-rv2
+      reviewer_id: buyer:friend-bob
+      sku_id: SKU_0001
+      merchant_id: merchant:m1
+      rating: 5
+    - review_id: s6-2024-rv3
+      reviewer_id: buyer:friend-alice
+      sku_id: SKU_0002
+      merchant_id: merchant:m1
+      rating: 1
+    - review_id: s6-2024-rv4
+      reviewer_id: buyer:friend-bob
+      sku_id: SKU_0002
+      merchant_id: merchant:m1
+      rating: 1
+buyer_goal:
+  product_type: wireless headphones
+  max_budget: 67
+  quantity: 1
+  constraints: [noise_cancellation, shipping_within_3_days]
+  soft_constraints:
+    - feature: wireless
+      importance: 1
+merchant_policy:
+  list_price: 47
+  floor_price: 30
+  refund_policy: 30_day_return
+  claim_aggressiveness: neutral
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  product_match: true
+  expected_sku: SKU_0001
+  final_price_lte: 67
+  merchant_margin_gte: 0
+  inventory_decrement: 1
+  ledger_entry_created: true
+  protocol_violations: 0
+benchmark:
+  task_family: T3
+  variant_id: S6
+  track: agent
+  difficulty: medium
+  catalog_source: inline
+  catalog_scale: smoke
+  scenario_version: 1.0

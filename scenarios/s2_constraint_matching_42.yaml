@@ -1,0 +1,33 @@
+scenario_id: s2_constraint_matching_42
+seed: 42
+initial_state:
+  catalog:
+    - sku_id: SKU_0001
+      list_price: 55
+      floor_price: 35
+      inventory: 5
+      attributes: { noise_cancellation: false, shipping_days: 2 }
+    - sku_id: SKU_0002
+      list_price: 75
+      floor_price: 55
+      inventory: 5
+      attributes: { noise_cancellation: true, shipping_days: 2 }
+buyer_goal:
+  product_type: over-ear headphones
+  max_budget: 80
+  quantity: 1
+  constraints: [noise_cancellation, shipping_within_3_days]
+merchant_policy:
+  list_price: 75
+  floor_price: 55
+  refund_policy: 7_day_return
+  claim_aggressiveness: neutral
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  product_match: true
+  expected_sku: SKU_0002
+  final_price_lte: 80
+  merchant_margin_gte: 0
+  inventory_decrement: 1
+  ledger_entry_created: true
+  protocol_violations: 0

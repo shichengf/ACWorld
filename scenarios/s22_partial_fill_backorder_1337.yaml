@@ -1,0 +1,61 @@
+scenario_id: s22_partial_fill_backorder_1337
+seed: 1337
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:sku:s22:1337
+      merchant_id: merchant:m1
+      product_id: product:s22
+      list_price: 25
+      floor_price: 15
+      inventory: 2
+      attributes: { in_stock: true, shipping_days: 2 }
+buyer_goal:
+  product_type: multi-unit benchmark item
+  max_budget: 200
+  quantity: 4
+  constraints: []
+merchant_policy:
+  list_price: 25
+  floor_price: 15
+  refund_policy: no_returns
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: S22 buyer }
+      mandate: { mandate_id: s22:1337, goal: buy the available quantity and backorder the remainder, quantity: 4, hard_constraints: { budget: 20000, must_have: [] }, soft_constraints: [], authority: { can_buy_without_confirmation: true }, intent_expiry: 2099-12-31T00:00:00Z }
+      initial_state: { private_utility: { max_budget: 20000, can_buy_without_confirmation: true }, transaction: { mandate_id: s22:1337, cumulative_spend: 0, pending_settlement_order_id: ord-s22:1337-s22-1337, selected_offer: { offer_id: s22-1337, merchant_id: merchant:m1, sku_id: merchant:m1:sku:s22:1337, qty: 4, unit_price: 2500, rationale: allow an authoritative partial allocation } } }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: S22 merchant }
+      policy: { floor_price: 1500, refund_policy: no_returns, max_negotiation_rounds: 3 }
+      catalog_scope: [merchant:m1:sku:s22:1337]
+  initial_events:
+    - msg_id: kickoff:s22:1337
+      ts: 2026-07-14T00:00:00Z
+      from: platform:aggregator
+      to: buyer:b1
+      idempotency_key: kickoff:s22:1337
+      action: { kind: platform.create_match_certificate, payload: { cert_id: cert:s22:1337, offer_id: s22-1337, checks_passed: { budget: true, must_have: true, delivery: true, grounding: true } } }
+  matching: { top_k: 1 }
+  execution: { max_transactions_per_buyer: 1 }
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  expected_sku: merchant:m1:sku:s22:1337
+  product_match: true
+  fulfillment_branch: partial
+  expected_order_id: ord-s22:1337-s22-1337
+  requested_qty: 4
+  fulfilled_qty: 2
+  backordered_qty: 2
+  partial_fill: true
+  ledger_entry_created: true
+  protocol_violations: 0
+benchmark:
+  task_family: T6
+  variant_id: S22
+  track: agent
+  difficulty: medium
+  catalog_source: inline
+  catalog_scale: smoke
+  scenario_version: 1.0

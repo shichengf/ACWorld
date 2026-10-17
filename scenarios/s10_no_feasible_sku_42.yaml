@@ -1,0 +1,41 @@
+scenario_id: s10_no_feasible_sku_42
+seed: 42
+initial_state:
+  catalog:
+    - sku_id: SKU_FEATURE_FAIL
+      list_price: 60
+      floor_price: 50
+      inventory: 5
+      attributes: { waterproof: false, shipping_days: 2 }
+    - sku_id: SKU_LATE
+      list_price: 70
+      floor_price: 50
+      inventory: 5
+      attributes: { waterproof: true, shipping_days: 5 }
+    - sku_id: SKU_OOS
+      list_price: 75
+      floor_price: 50
+      inventory: 0
+      attributes: { waterproof: true, shipping_days: 2 }
+    - sku_id: SKU_OVER_BUDGET
+      list_price: 81
+      floor_price: 50
+      inventory: 5
+      attributes: { waterproof: true, shipping_days: 2 }
+buyer_goal:
+  product_type: outdoor speaker
+  max_budget: 80
+  quantity: 1
+  constraints: [waterproof, shipping_within_3_days]
+merchant_policy:
+  list_price: 81
+  floor_price: 50
+  refund_policy: 30_day_return
+  claim_aggressiveness: neutral
+allowed_actions: [search, get_sku, accept_offer, reject_offer, create_order, settle, dispatch, send_message]
+success_oracle:
+  purchase_expected: false
+  no_purchase_reason: no_feasible_sku
+  inventory_decrement: 0
+  ledger_entry_created: false
+  protocol_violations: 0

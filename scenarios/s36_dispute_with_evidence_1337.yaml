@@ -1,0 +1,79 @@
+scenario_id: s36_dispute_with_evidence_1337
+seed: 1337
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:sku:s36:1337
+      merchant_id: merchant:m1
+      product_id: product:1337
+      list_price: 80
+      floor_price: 50
+      inventory: 5
+      qty_reserved: 1
+      attributes: { in_stock: true, shipping_days: 2 }
+  orders:
+    - order_id: order:s36:1337
+      buyer_id: buyer:b1
+      merchant_id: merchant:m1
+      sku_id: merchant:m1:sku:s36:1337
+      qty: 1
+      agreed_price: 80
+      state: dispatched
+  ledger:
+    - txn_id: txn:s36:1337
+      ts: seeded
+      order_id: order:s36:1337
+      buyer_id: buyer:b1
+      merchant_id: merchant:m1
+      sku_id: merchant:m1:sku:s36:1337
+      qty: 1
+      price: 80
+      idempotency_key: seed:s36:1337
+buyer_goal:
+  product_type: dispute_with_evidence
+  max_budget: 200
+  quantity: 1
+  constraints: [in_stock]
+merchant_policy:
+  list_price: 100
+  floor_price: 50
+  refund_policy: 7_day_return
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: Evidence-first buyer }
+      mandate: { mandate_id: advanced:1337:buyer:b1, goal: dispute_with_evidence, quantity: 1, hard_constraints: { budget: 20000, must_have: [in_stock] }, soft_constraints: [], authority: { can_buy_without_confirmation: true }, intent_expiry: 2099-12-31T00:00:00Z }
+      initial_state: { private_utility: { max_budget: 20000, can_buy_without_confirmation: true } }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: Merchant m1 }
+      policy: { floor_price: 5000, refund_policy: 7_day_return, max_negotiation_rounds: 3 }
+      catalog_scope: [merchant:m1:sku:s36:1337]
+      initial_state: { private_utility: { floor_price: 5000 } }
+  initial_events:
+    - msg_id: kickoff:s36_dispute_with_evidence_1337
+      ts: 2026-07-14T12:00:00Z
+      from: platform:psp
+      to: buyer:b1
+      idempotency_key: kickoff:s36_dispute_with_evidence_1337
+      action: { kind: platform.lifecycle_updated, payload: { order_id: order:s36:1337, status: delivery_exception, evidence_id: evidence:tracking:1337 } }
+  matching: { top_k: 1 }
+  execution: { max_transactions_per_buyer: 1 }
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  advanced_variant: S36
+  expected_sku: merchant:m1:sku:s36:1337
+  protocol_violations: 0
+  expected_order_id: order:s36:1337
+  expected_dispute_id: dispute:s36:1337
+  required_evidence_id: evidence:tracking:1337
+  expected_ruling_beneficiary: buyer:b1
+benchmark:
+  task_family: T7
+  variant_id: S36
+  track: agent
+  difficulty: hard
+  catalog_source: inline
+  catalog_scale: smoke
+  in_stock_only: true
+  scenario_version: 1.0

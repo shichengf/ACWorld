@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "acworld"
+version = "1.0.0"
+description = "Agentic Commerce World: an auditable and verifiable environment for vibe commerce."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    "fastapi>=0.136.1",
+    "httpx>=0.28.1",
+]
+
+[project.scripts]
+acworld-run = "cli.run:main"
+acworld-replay = "cli.replay:main"
+acworld-scenario = "cli.scenario:main"
+acworld-strong-models = "cli.strong_models:main"
+acworld-run-benchmark = "cli.benchmark_runner:main"
+acworld-large-catalog = "cli.large_catalog:main"
+
+# src-layout with multiple top-level packages. Each src/<pkg> becomes an
+# importable package <pkg> in the wheel (e.g. `from protocol.envelope import Envelope`).
+[tool.hatch.build.targets.wheel]
+packages = [
+  "src/protocol",
+  "src/world",
+  "src/runtime",
+  "src/agents",
+  "src/episode",
+  "src/evals",
+  "src/experiments",
+  "src/cwe_examples",
+  "src/cli",
+  "src/large_catalog",
+]

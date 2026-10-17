@@ -1,0 +1,27 @@
+scenario_id: s1_direct_purchase_42
+seed: 42
+initial_state:
+  catalog:
+    - sku_id: SKU_0001
+      list_price: 70
+      floor_price: 45
+      inventory: 4
+      attributes: { in_stock: true, shipping_days: 2 }
+buyer_goal:
+  product_type: wireless earbuds
+  max_budget: 90
+  quantity: 1
+  constraints: [in_stock, shipping_within_3_days]
+merchant_policy:
+  list_price: 70
+  floor_price: 45
+  refund_policy: 7_day_return
+  claim_aggressiveness: neutral
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  product_match: true
+  final_price_lte: 90
+  merchant_margin_gte: 0
+  inventory_decrement: 1
+  ledger_entry_created: true
+  protocol_violations: 0

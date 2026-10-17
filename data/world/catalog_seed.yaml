@@ -1,0 +1,5 @@
+# Empty catalog seed for consumers that need an explicit catalog file.
+# Executable scenarios supply their own initial catalog through
+# initial_state.catalog or a configured catalog source (see
+# src/episode/scenario.py). This file does not contain the task-suite catalog.
+[]

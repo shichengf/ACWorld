@@ -1,0 +1,63 @@
+scenario_id: s23_pre_dispatch_cancel_1337
+seed: 1337
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:sku:s23-1337
+      merchant_id: merchant:m1
+      product_id: product:s23-lamp
+      list_price: 45
+      floor_price: 30
+      inventory: 2
+      attributes: { dimmable: true, shipping_days: 4 }
+  orders:
+    - order_id: order:s23:1337
+      buyer_id: buyer:b1
+      merchant_id: merchant:m1
+      sku_id: merchant:m1:sku:s23-1337
+      qty: 1
+      agreed_price: 45
+      state: accepted
+buyer_goal:
+  product_type: existing unpaid order cancellation
+  max_budget: 60
+  quantity: 1
+  constraints: []
+merchant_policy:
+  list_price: 45.0
+  floor_price: 30.0
+  refund_policy: 30_day_return
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: s23_pre_dispatch_cancel_1337 buyer }
+      mandate: { mandate_id: s23_pre_dispatch_cancel_1337, goal: cancel the unpaid order before dispatch, quantity: 1, hard_constraints: { budget: 6000, must_have: [] }, soft_constraints: [], soft_preferences: { style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: s23_pre_dispatch_cancel_1337 merchant:m1 }
+      policy: { floor_price: 3000, refund_policy: 30_day_return, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m1:sku:s23-1337]
+  initial_events:
+    - msg_id: kickoff:s23_pre_dispatch_cancel_1337
+      ts: 2026-07-14T00:00:00Z
+      from: consumer:principal
+      to: buyer:b1
+      idempotency_key: kickoff:s23_pre_dispatch_cancel_1337
+      action: { kind: delegate.reject_purchase, payload: { order_id: order:s23:1337, reason: cancel_before_dispatch } }
+  matching: { top_k: 1 }
+  execution: { max_transactions_per_buyer: 1 }
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  expected_order_id: order:s23:1337
+  expected_order_state: cancelled
+  ledger_delta: 0
+  inventory_reserved_delta: 0
+  protocol_violations: 0
+benchmark:
+  task_family: T7
+  variant_id: S23
+  track: agent
+  difficulty: hard
+  catalog_source: inline
+  catalog_scale: smoke
+  scenario_version: 1.0

@@ -1,0 +1,6 @@
+cff-version: 1.2.0
+message: "Please cite the accompanying paper when using ACWorld."
+title: "ACWorld"
+type: software
+authors:
+  - name: "Anonymous ACWorld Contributors"

@@ -1,0 +1,89 @@
+scenario_id: s14_return_window_1337
+seed: 1337
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:sku:return-window:1337
+      product_id: product:return-window
+      list_price: 70
+      floor_price: 50
+      inventory: 4
+      qty_reserved: 1
+      attributes: { in_stock: true, shipping_days: 2, return_window_ticks: 3 }
+  orders:
+    - order_id: order:s14:1337
+      buyer_id: buyer:b1
+      merchant_id: merchant:m1
+      sku_id: merchant:m1:sku:return-window:1337
+      qty: 1
+      agreed_price: 70
+      state: dispatched
+  ledger:
+    - txn_id: settle:s14:1337
+      ts: seed-evidence-not-time-authority
+      order_id: order:s14:1337
+      buyer_id: buyer:b1
+      merchant_id: merchant:m1
+      sku_id: merchant:m1:sku:return-window:1337
+      qty: 1
+      price: 70
+      idempotency_key: seed:settle:s14:1337
+  order_timelines:
+    - order_id: order:s14:1337
+      buyer_id: buyer:b1
+      merchant_id: merchant:m1
+      settled_at_tick: 1
+      dispatched_at_tick: 2
+      return_window_ticks: 3
+  logical_time: 4
+buyer_goal:
+  product_type: return-window test item
+  max_budget: 80
+  quantity: 1
+  constraints: []
+  return_after_purchase: true
+merchant_policy:
+  list_price: 70
+  floor_price: 50
+  refund_policy: 7_day_return
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: Return-window buyer }
+      mandate: { mandate_id: s14:1337, goal: request the authorized return for the existing order, quantity: 1, return_after_purchase: true, hard_constraints: { budget: 8000, must_have: [] }, soft_constraints: [], authority: { can_buy_without_confirmation: true }, intent_expiry: 2099-12-31T00:00:00Z }
+      initial_state: { transaction: { return_after_purchase: true, pending_settlement_order_id: order:s14:1337 } }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: Return-window merchant }
+      policy: { floor_price: 5000, refund_policy: 7_day_return, max_negotiation_rounds: 3 }
+      catalog_scope: [merchant:m1:sku:return-window:1337]
+  initial_events:
+    - msg_id: kickoff:s14:1337
+      ts: 1970-01-01T00:00:00Z
+      from: platform:psp
+      to: buyer:b1
+      idempotency_key: kickoff:s14:1337
+      action: { kind: platform.settlement_receipt, payload: { order_id: order:s14:1337, txn_id: settle:s14:1337, status: settled } }
+  matching: { top_k: 1 }
+  execution: { max_transactions_per_buyer: 1 }
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  expected_sku: merchant:m1:sku:return-window:1337
+  product_match: true
+  final_price_lte: 80
+  merchant_margin_gte: 0
+  inventory_decrement: 1
+  return_requested: true
+  refund_issued: true
+  ledger_entry_created: true
+  return_window_branch: authorized
+  expected_order_id: order:s14:1337
+  protocol_violations: 0
+benchmark:
+  task_family: T7
+  variant_id: S14
+  track: agent
+  difficulty: medium
+  catalog_source: inline
+  catalog_scale: smoke
+  scenario_version: 1.0

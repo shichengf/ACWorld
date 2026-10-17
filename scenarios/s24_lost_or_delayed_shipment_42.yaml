@@ -1,0 +1,82 @@
+scenario_id: s24_lost_or_delayed_shipment_42
+seed: 42
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:sku:s24-42
+      merchant_id: merchant:m1
+      product_id: product:s24-parcel
+      list_price: 60
+      floor_price: 45
+      inventory: 3
+      qty_reserved: 1
+      attributes: { tracked: true, shipping_days: 5 }
+  orders:
+    - order_id: order:s24:42
+      buyer_id: buyer:b1
+      merchant_id: merchant:m1
+      sku_id: merchant:m1:sku:s24-42
+      qty: 1
+      agreed_price: 60
+      state: dispatched
+  ledger:
+    - txn_id: txn:s24:42
+      ts: authoritative-seed
+      order_id: order:s24:42
+      buyer_id: buyer:b1
+      merchant_id: merchant:m1
+      sku_id: merchant:m1:sku:s24-42
+      qty: 1
+      price: 60
+      idempotency_key: seed:s24:42
+  order_timelines:
+    - order_id: order:s24:42
+      buyer_id: buyer:b1
+      merchant_id: merchant:m1
+      settled_at_tick: 0
+      dispatched_at_tick: 1
+  logical_time: 3
+buyer_goal:
+  product_type: shipment recovery
+  max_budget: 80
+  quantity: 1
+  constraints: []
+merchant_policy:
+  list_price: 60.0
+  floor_price: 45.0
+  refund_policy: 30_day_return
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: s24_lost_or_delayed_shipment_42 buyer }
+      mandate: { mandate_id: s24_lost_or_delayed_shipment_42, goal: respond proportionally to authoritative shipment status, quantity: 1, hard_constraints: { budget: 8000, must_have: [] }, soft_constraints: [], soft_preferences: { style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: s24_lost_or_delayed_shipment_42 merchant:m1 }
+      policy: { floor_price: 4500, refund_policy: 30_day_return, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m1:sku:s24-42]
+  initial_events:
+    - msg_id: kickoff:s24_lost_or_delayed_shipment_42
+      ts: 2026-07-14T00:00:00Z
+      from: platform:logistics
+      to: buyer:b1
+      idempotency_key: kickoff:s24_lost_or_delayed_shipment_42
+      action: { kind: commerce.send_message, payload: { order_id: order:s24:42, shipment_status: delayed, promised_delivery_tick: 5, observed_tick: 3 } }
+  matching: { top_k: 1 }
+  execution: { max_transactions_per_buyer: 1 }
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message, open_dispute]
+success_oracle:
+  expected_order_id: order:s24:42
+  shipment_status: delayed
+  promised_delivery_tick: 5
+  observed_tick: 3
+  expected_response: wait_for_deadline
+  protocol_violations: 0
+benchmark:
+  task_family: T6
+  variant_id: S24
+  track: agent
+  difficulty: hard
+  catalog_source: inline
+  catalog_scale: smoke
+  scenario_version: 1.0

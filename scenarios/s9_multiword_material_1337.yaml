@@ -1,0 +1,41 @@
+scenario_id: s9_multiword_material_1337
+seed: 1337
+initial_state:
+  catalog:
+    - sku_id: SKU_0001
+      list_price: 35
+      floor_price: 25
+      inventory: 6
+      attributes: { material: bamboo viscose, shipping_days: 3 }
+    - sku_id: SKU_0002
+      list_price: 44
+      floor_price: 32
+      inventory: 6
+      attributes: { material: premium merino wool, shipping_days: 3 }
+buyer_goal:
+  product_type: wool socks
+  max_budget: 54
+  quantity: 1
+  constraints: [merino wool, shipping_within_3_days]
+merchant_policy:
+  list_price: 44
+  floor_price: 32
+  refund_policy: 30_day_return
+  claim_aggressiveness: neutral
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  product_match: true
+  expected_sku: SKU_0002
+  final_price_lte: 54
+  merchant_margin_gte: 0
+  inventory_decrement: 1
+  ledger_entry_created: true
+  protocol_violations: 0
+benchmark:
+  task_family: T2
+  variant_id: S9
+  track: agent
+  difficulty: medium
+  catalog_source: inline
+  catalog_scale: smoke
+  scenario_version: 1.0

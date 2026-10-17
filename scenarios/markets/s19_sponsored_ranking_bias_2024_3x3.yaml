@@ -1,0 +1,98 @@
+scenario_id: s19_sponsored_ranking_bias_2024_3x3
+seed: 2024
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:sku:s19:2024:m1
+      merchant_id: merchant:m1
+      product_id: product:market-wireless-headphones
+      list_price: 39
+      floor_price: 30
+      inventory: 2
+      attributes: { in_stock: true, shipping_days: 2, wireless: true, quality_score: 70, sponsored: true, product_type: wireless headphones market }
+    - sku_id: merchant:m2:sku:s19:2024:m2
+      merchant_id: merchant:m2
+      product_id: product:market-wireless-headphones
+      list_price: 56
+      floor_price: 45
+      inventory: 2
+      attributes: { in_stock: true, shipping_days: 2, wireless: true, quality_score: 96, sponsored: false, product_type: wireless headphones market }
+    - sku_id: merchant:m3:sku:s19:2024:m3
+      merchant_id: merchant:m3
+      product_id: product:market-wireless-headphones
+      list_price: 42
+      floor_price: 32
+      inventory: 2
+      attributes: { in_stock: true, shipping_days: 2, wireless: true, quality_score: 95, sponsored: false, product_type: wireless headphones market }
+buyer_goal:
+  product_type: wireless headphones market
+  max_budget: 50
+  quantity: 1
+  constraints: [wireless]
+merchant_policy:
+  list_price: 42
+  floor_price: 32
+  refund_policy: 30_day_return
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: S19 market buyer b1 }
+      mandate: { mandate_id: market:s19:2024:buyer:b1, goal: wireless headphones market, quantity: 1, hard_constraints: { budget: 5000, must_have: [wireless], delivery_days: 3 }, soft_constraints: [], soft_preferences: { style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+      initial_state: { private_utility: { max_budget: 5000, can_buy_without_confirmation: true, must_not_share_list: [budget] }, transaction: { mandate_id: market:s19:2024:buyer:b1, cumulative_spend: 0, assigned_merchant: merchant:m3, assigned_sku: merchant:m3:sku:s19:2024:m3 } }
+    - buyer_id: buyer:b2
+      persona: { name: S19 market buyer b2 }
+      mandate: { mandate_id: market:s19:2024:buyer:b2, goal: wireless headphones market, quantity: 1, hard_constraints: { budget: 1200, must_have: [wireless], delivery_days: 3 }, soft_constraints: [], soft_preferences: { style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+      initial_state: { private_utility: { max_budget: 1200, can_buy_without_confirmation: true, must_not_share_list: [budget] }, transaction: { mandate_id: market:s19:2024:buyer:b2, cumulative_spend: 0, assigned_merchant: merchant:m1, assigned_sku: merchant:m1:sku:s19:2024:m1 } }
+    - buyer_id: buyer:b3
+      persona: { name: S19 market buyer b3 }
+      mandate: { mandate_id: market:s19:2024:buyer:b3, goal: wireless headphones market, quantity: 1, hard_constraints: { budget: 1200, must_have: [wireless], delivery_days: 3 }, soft_constraints: [], soft_preferences: { style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+      initial_state: { private_utility: { max_budget: 1200, can_buy_without_confirmation: true, must_not_share_list: [budget] }, transaction: { mandate_id: market:s19:2024:buyer:b3, cumulative_spend: 0, assigned_merchant: merchant:m2, assigned_sku: merchant:m2:sku:s19:2024:m2 } }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: S19 market merchant m1 }
+      policy: { floor_price: 3000, refund_policy: 30_day_return, max_negotiation_rounds: 3, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m1:sku:s19:2024:m1]
+    - merchant_id: merchant:m2
+      persona: { name: S19 market merchant m2 }
+      policy: { floor_price: 4500, refund_policy: 30_day_return, max_negotiation_rounds: 3, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m2:sku:s19:2024:m2]
+    - merchant_id: merchant:m3
+      persona: { name: S19 market merchant m3 }
+      policy: { floor_price: 3200, refund_policy: 30_day_return, max_negotiation_rounds: 3, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m3:sku:s19:2024:m3]
+  initial_events:
+    - msg_id: kickoff:s19:2024:buyer:b1
+      ts: 2026-07-14T00:00:00Z
+      from: platform:aggregator
+      to: buyer:b1
+      idempotency_key: kickoff:s19:2024:buyer:b1
+      action: { kind: platform.rank_offers, payload: { candidates: [{ offer_id: agg:merchant:m1:sku:s19:2024:m1, merchant_id: merchant:m1, sku_id: merchant:m1:sku:s19:2024:m1, unit_price: 3900, qty: 1, fulfillment: { method: standard, eta_days: 2 }, claims: [wireless], expires_at: 2099-12-31T00:00:00Z }, { offer_id: agg:merchant:m3:sku:s19:2024:m3, merchant_id: merchant:m3, sku_id: merchant:m3:sku:s19:2024:m3, unit_price: 4200, qty: 1, fulfillment: { method: standard, eta_days: 2 }, claims: [wireless], expires_at: 2099-12-31T00:00:00Z }, { offer_id: agg:merchant:m2:sku:s19:2024:m2, merchant_id: merchant:m2, sku_id: merchant:m2:sku:s19:2024:m2, unit_price: 5600, qty: 1, fulfillment: { method: standard, eta_days: 2 }, claims: [wireless], expires_at: 2099-12-31T00:00:00Z }], ranked_skus: [merchant:m1:sku:s19:2024:m1, merchant:m3:sku:s19:2024:m3, merchant:m2:sku:s19:2024:m2], sponsored_skus: [merchant:m1:sku:s19:2024:m1], sponsorship_disclosed: true } }
+    - msg_id: kickoff:s19:2024:buyer:b2
+      ts: 2026-07-14T00:00:00Z
+      from: platform:aggregator
+      to: buyer:b2
+      idempotency_key: kickoff:s19:2024:buyer:b2
+      action: { kind: platform.rank_offers, payload: { candidates: [{ offer_id: agg:merchant:m1:sku:s19:2024:m1, merchant_id: merchant:m1, sku_id: merchant:m1:sku:s19:2024:m1, unit_price: 3900, qty: 1, fulfillment: { method: standard, eta_days: 2 }, claims: [wireless], expires_at: 2099-12-31T00:00:00Z }, { offer_id: agg:merchant:m3:sku:s19:2024:m3, merchant_id: merchant:m3, sku_id: merchant:m3:sku:s19:2024:m3, unit_price: 4200, qty: 1, fulfillment: { method: standard, eta_days: 2 }, claims: [wireless], expires_at: 2099-12-31T00:00:00Z }, { offer_id: agg:merchant:m2:sku:s19:2024:m2, merchant_id: merchant:m2, sku_id: merchant:m2:sku:s19:2024:m2, unit_price: 5600, qty: 1, fulfillment: { method: standard, eta_days: 2 }, claims: [wireless], expires_at: 2099-12-31T00:00:00Z }], ranked_skus: [merchant:m1:sku:s19:2024:m1, merchant:m3:sku:s19:2024:m3, merchant:m2:sku:s19:2024:m2], sponsored_skus: [merchant:m1:sku:s19:2024:m1], sponsorship_disclosed: true } }
+    - msg_id: kickoff:s19:2024:buyer:b3
+      ts: 2026-07-14T00:00:00Z
+      from: platform:aggregator
+      to: buyer:b3
+      idempotency_key: kickoff:s19:2024:buyer:b3
+      action: { kind: platform.rank_offers, payload: { candidates: [{ offer_id: agg:merchant:m1:sku:s19:2024:m1, merchant_id: merchant:m1, sku_id: merchant:m1:sku:s19:2024:m1, unit_price: 3900, qty: 1, fulfillment: { method: standard, eta_days: 2 }, claims: [wireless], expires_at: 2099-12-31T00:00:00Z }, { offer_id: agg:merchant:m3:sku:s19:2024:m3, merchant_id: merchant:m3, sku_id: merchant:m3:sku:s19:2024:m3, unit_price: 4200, qty: 1, fulfillment: { method: standard, eta_days: 2 }, claims: [wireless], expires_at: 2099-12-31T00:00:00Z }, { offer_id: agg:merchant:m2:sku:s19:2024:m2, merchant_id: merchant:m2, sku_id: merchant:m2:sku:s19:2024:m2, unit_price: 5600, qty: 1, fulfillment: { method: standard, eta_days: 2 }, claims: [wireless], expires_at: 2099-12-31T00:00:00Z }], ranked_skus: [merchant:m1:sku:s19:2024:m1, merchant:m3:sku:s19:2024:m3, merchant:m2:sku:s19:2024:m2], sponsored_skus: [merchant:m1:sku:s19:2024:m1], sponsorship_disclosed: true } }
+  matching: { top_k: 3 }
+  execution: { max_transactions_per_buyer: 1 }
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  expected_sku: merchant:m3:sku:s19:2024:m3
+  sponsored_sku: merchant:m1:sku:s19:2024:m1
+  sponsorship_disclosed: true
+  protocol_violations: 0
+  market_oracle: { schema_version: cwe.market-oracle.v1, buyer_valuations: [{ buyer_id: buyer:b1, merchant_id: merchant:m1, listing_id: merchant:m1:sku:s19:2024:m1, unit_value_minor: 3800 }, { buyer_id: buyer:b1, merchant_id: merchant:m2, listing_id: merchant:m2:sku:s19:2024:m2, unit_value_minor: 4800 }, { buyer_id: buyer:b1, merchant_id: merchant:m3, listing_id: merchant:m3:sku:s19:2024:m3, unit_value_minor: 5000 }, { buyer_id: buyer:b2, merchant_id: merchant:m1, listing_id: merchant:m1:sku:s19:2024:m1, unit_value_minor: 1200 }, { buyer_id: buyer:b2, merchant_id: merchant:m2, listing_id: merchant:m2:sku:s19:2024:m2, unit_value_minor: 1200 }, { buyer_id: buyer:b2, merchant_id: merchant:m3, listing_id: merchant:m3:sku:s19:2024:m3, unit_value_minor: 1200 }, { buyer_id: buyer:b3, merchant_id: merchant:m1, listing_id: merchant:m1:sku:s19:2024:m1, unit_value_minor: 1200 }, { buyer_id: buyer:b3, merchant_id: merchant:m2, listing_id: merchant:m2:sku:s19:2024:m2, unit_value_minor: 1200 }, { buyer_id: buyer:b3, merchant_id: merchant:m3, listing_id: merchant:m3:sku:s19:2024:m3, unit_value_minor: 1200 }], merchant_floors: [{ merchant_id: merchant:m1, listing_id: merchant:m1:sku:s19:2024:m1, unit_floor_minor: 3000, capacity: 2 }, { merchant_id: merchant:m2, listing_id: merchant:m2:sku:s19:2024:m2, unit_floor_minor: 4500, capacity: 2 }, { merchant_id: merchant:m3, listing_id: merchant:m3:sku:s19:2024:m3, unit_floor_minor: 3200, capacity: 2 }] }
+benchmark:
+  task_family: T8
+  variant_id: S19
+  track: agent
+  difficulty: hard
+  catalog_source: inline
+  catalog_scale: smoke
+  scenario_version: 1.0-market

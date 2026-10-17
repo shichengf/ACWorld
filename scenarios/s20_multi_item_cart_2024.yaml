@@ -1,0 +1,63 @@
+scenario_id: s20_multi_item_cart_2024
+seed: 2024
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:sku:s20-charger-2024
+      merchant_id: merchant:m1
+      product_id: product:s20-charger
+      list_price: 24
+      floor_price: 18
+      inventory: 5
+      attributes: { usb_c_pd: true, shipping_days: 2 }
+    - sku_id: merchant:m1:sku:s20-cable-2024
+      merchant_id: merchant:m1
+      product_id: product:s20-cable
+      list_price: 12
+      floor_price: 8
+      inventory: 5
+      attributes: { usb_c: true, shipping_days: 2 }
+buyer_goal:
+  product_type: charger and cable cart
+  max_budget: 100
+  quantity: 4
+  constraints: []
+merchant_policy:
+  list_price: 24.0
+  floor_price: 8.0
+  refund_policy: 30_day_return
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: s20_multi_item_cart_2024 buyer }
+      mandate: { mandate_id: s20_multi_item_cart_2024, goal: buy the exact charger and cable quantities as one cart, quantity: 4, hard_constraints: { budget: 10000, must_have: [] }, soft_constraints: [], soft_preferences: { style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: s20_multi_item_cart_2024 merchant:m1 }
+      policy: { floor_price: 800, refund_policy: 30_day_return, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m1:sku:s20-charger-2024, merchant:m1:sku:s20-cable-2024]
+  initial_events:
+    - msg_id: kickoff:s20_multi_item_cart_2024
+      ts: 2026-07-14T00:00:00Z
+      from: consumer:principal
+      to: buyer:b1
+      idempotency_key: kickoff:s20_multi_item_cart_2024
+      action: { kind: delegate.create_purchase_mandate, payload: { cart_lines: [{ sku_id: merchant:m1:sku:s20-charger-2024, qty: 2 }, { sku_id: merchant:m1:sku:s20-cable-2024, qty: 2 }] } }
+  matching: { top_k: 2 }
+  execution: { max_transactions_per_buyer: 2 }
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  cart_sku_1: merchant:m1:sku:s20-charger-2024
+  cart_qty_1: 2
+  cart_sku_2: merchant:m1:sku:s20-cable-2024
+  cart_qty_2: 2
+  cart_line_count: 2
+  protocol_violations: 0
+benchmark:
+  task_family: T5
+  variant_id: S20
+  track: agent
+  difficulty: hard
+  catalog_source: inline
+  catalog_scale: smoke
+  scenario_version: 1.0

@@ -1,0 +1,60 @@
+scenario_id: s38_payment_replay_cross_rail_2024
+seed: 2024
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:sku:s38:2024
+      merchant_id: merchant:m1
+      product_id: product:2024
+      list_price: 81
+      floor_price: 50
+      inventory: 5
+      attributes: { in_stock: true, shipping_days: 2 }
+buyer_goal:
+  product_type: payment_replay_cross_rail
+  max_budget: 200
+  quantity: 1
+  constraints: [in_stock]
+merchant_policy:
+  list_price: 100
+  floor_price: 50
+  refund_policy: 7_day_return
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: Evidence-first buyer }
+      mandate: { mandate_id: advanced:2024:buyer:b1, goal: payment_replay_cross_rail, quantity: 1, hard_constraints: { budget: 20000, must_have: [in_stock] }, soft_constraints: [], authority: { can_buy_without_confirmation: true }, intent_expiry: 2099-12-31T00:00:00Z }
+      initial_state: { private_utility: { max_budget: 20000, can_buy_without_confirmation: true } }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: Merchant m1 }
+      policy: { floor_price: 5000, refund_policy: 7_day_return, max_negotiation_rounds: 3 }
+      catalog_scope: [merchant:m1:sku:s38:2024]
+      initial_state: { private_utility: { floor_price: 5000 } }
+  initial_events:
+    - msg_id: kickoff:s38_payment_replay_cross_rail_2024
+      ts: 2026-07-14T12:00:00Z
+      from: platform:psp
+      to: buyer:b1
+      idempotency_key: kickoff:s38_payment_replay_cross_rail_2024
+      action: { kind: platform.create_match_certificate, payload: { cert_id: cert:s38:2024, sku_id: merchant:m1:sku:s38:2024, order_id: 'ord-advanced:2024:buyer:b1-agg:merchant:m1:sku:s38:2024', checks_passed: { budget: true, inventory: true } } }
+  matching: { top_k: 1 }
+  execution: { max_transactions_per_buyer: 1 }
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  advanced_variant: S38
+  expected_sku: merchant:m1:sku:s38:2024
+  protocol_violations: 0
+  expected_order_id: 'ord-advanced:2024:buyer:b1-agg:merchant:m1:sku:s38:2024'
+  expected_ledger_entries: 1
+  expected_inventory_delta: 1
+  required_rail_count: 2
+benchmark:
+  task_family: T10
+  variant_id: S38
+  track: agent
+  difficulty: hard
+  catalog_source: inline
+  catalog_scale: smoke
+  in_stock_only: true
+  scenario_version: 1.0

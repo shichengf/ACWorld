@@ -1,0 +1,47 @@
+scenario_id: s21_quantity_discount_2024
+seed: 2024
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:sku:s21-2024
+      merchant_id: merchant:m1
+      product_id: product:s21-notebook
+      list_price: 20
+      floor_price: 14
+      inventory: 20
+      attributes: { recycled_paper: true, shipping_days: 3, quantity_price_tiers: { 1: 2000, 3: 1800, 5: 1700, 10: 1500 } }
+buyer_goal:
+  product_type: recycled notebook
+  max_budget: 200
+  quantity: 10
+  constraints: [recycled_paper]
+merchant_policy:
+  list_price: 20.0
+  floor_price: 14.0
+  refund_policy: 30_day_return
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: s21_quantity_discount_2024 buyer }
+      mandate: { mandate_id: s21_quantity_discount_2024, goal: buy the requested notebook quantity at the applicable public tier, quantity: 10, hard_constraints: { budget: 20000, must_have: [recycled_paper] }, soft_constraints: [], soft_preferences: { style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: s21_quantity_discount_2024 merchant:m1 }
+      policy: { floor_price: 1400, refund_policy: 30_day_return, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m1:sku:s21-2024]
+  matching: { top_k: 1 }
+  execution: { max_transactions_per_buyer: 1 }
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  expected_sku: merchant:m1:sku:s21-2024
+  expected_qty: 10
+  expected_unit_price_cents: 1500
+  protocol_violations: 0
+benchmark:
+  task_family: T5
+  variant_id: S21
+  track: agent
+  difficulty: hard
+  catalog_source: inline
+  catalog_scale: smoke
+  scenario_version: 1.0

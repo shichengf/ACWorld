@@ -1,0 +1,80 @@
+scenario_id: s3_negotiation_42_3x3
+seed: 42
+initial_state:
+  catalog:
+    - sku_id: merchant:m1:sku:s3:42:m1
+      merchant_id: merchant:m1
+      product_id: product:market-standing-desk
+      list_price: 146
+      floor_price: 100
+      inventory: 2
+      attributes: { in_stock: true, shipping_days: 2, product_type: standing desk market, market_slot: 1 }
+    - sku_id: merchant:m2:sku:s3:42:m2
+      merchant_id: merchant:m2
+      product_id: product:market-standing-desk
+      list_price: 147
+      floor_price: 100
+      inventory: 2
+      attributes: { in_stock: true, shipping_days: 2, product_type: standing desk market, market_slot: 2 }
+    - sku_id: merchant:m3:sku:s3:42:m3
+      merchant_id: merchant:m3
+      product_id: product:market-standing-desk
+      list_price: 148
+      floor_price: 100
+      inventory: 2
+      attributes: { in_stock: true, shipping_days: 2, product_type: standing desk market, market_slot: 3 }
+buyer_goal:
+  product_type: standing desk market
+  max_budget: 140
+  quantity: 1
+  constraints: [in_stock]
+merchant_policy:
+  list_price: 146
+  floor_price: 100
+  refund_policy: 30_day_return
+  claim_aggressiveness: neutral
+population:
+  buyers:
+    - buyer_id: buyer:b1
+      persona: { name: S3 market buyer b1 }
+      mandate: { mandate_id: market:s3:42:buyer:b1, goal: standing desk market, quantity: 1, hard_constraints: { budget: 14000, must_have: [in_stock], delivery_days: 3 }, soft_constraints: [], soft_preferences: { style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+    - buyer_id: buyer:b2
+      persona: { name: S3 market buyer b2 }
+      mandate: { mandate_id: market:s3:42:buyer:b2, goal: standing desk market, quantity: 1, hard_constraints: { budget: 14000, must_have: [in_stock], delivery_days: 3 }, soft_constraints: [], soft_preferences: { style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+    - buyer_id: buyer:b3
+      persona: { name: S3 market buyer b3 }
+      mandate: { mandate_id: market:s3:42:buyer:b3, goal: standing desk market, quantity: 1, hard_constraints: { budget: 14000, must_have: [in_stock], delivery_days: 3 }, soft_constraints: [], soft_preferences: { style: [], avoid: [] }, authority: { can_buy_without_confirmation: true, must_not_share_with_merchant: [budget] }, intent_expiry: 2099-12-31T00:00:00Z }
+  merchants:
+    - merchant_id: merchant:m1
+      persona: { name: S3 market merchant m1 }
+      policy: { floor_price: 10000, refund_policy: 30_day_return, max_negotiation_rounds: 2, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m1:sku:s3:42:m1]
+    - merchant_id: merchant:m2
+      persona: { name: S3 market merchant m2 }
+      policy: { floor_price: 10000, refund_policy: 30_day_return, max_negotiation_rounds: 2, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m2:sku:s3:42:m2]
+    - merchant_id: merchant:m3
+      persona: { name: S3 market merchant m3 }
+      policy: { floor_price: 10000, refund_policy: 30_day_return, max_negotiation_rounds: 2, claim_aggressiveness: neutral }
+      catalog_scope: [merchant:m3:sku:s3:42:m3]
+  matching: { top_k: 3 }
+  execution: { max_transactions_per_buyer: 1 }
+allowed_actions: [search, get_sku, propose_offer, counter_offer, accept_offer, reject_offer, create_order, settle, dispatch, request_return, issue_refund, send_message]
+success_oracle:
+  expected_sku: merchant:m1:sku:s3:42:m1
+  product_match: true
+  final_price_lte: 140
+  final_price_gte: 100
+  merchant_margin_gte: 0
+  inventory_decrement: 1
+  ledger_entry_created: true
+  protocol_violations: 0
+  market_oracle: { schema_version: cwe.market-oracle.v1, buyer_valuations: [{ buyer_id: buyer:b1, merchant_id: merchant:m1, listing_id: merchant:m1:sku:s3:42:m1, unit_value_minor: 14000 }, { buyer_id: buyer:b1, merchant_id: merchant:m2, listing_id: merchant:m2:sku:s3:42:m2, unit_value_minor: 14000 }, { buyer_id: buyer:b1, merchant_id: merchant:m3, listing_id: merchant:m3:sku:s3:42:m3, unit_value_minor: 14000 }, { buyer_id: buyer:b2, merchant_id: merchant:m1, listing_id: merchant:m1:sku:s3:42:m1, unit_value_minor: 14000 }, { buyer_id: buyer:b2, merchant_id: merchant:m2, listing_id: merchant:m2:sku:s3:42:m2, unit_value_minor: 14000 }, { buyer_id: buyer:b2, merchant_id: merchant:m3, listing_id: merchant:m3:sku:s3:42:m3, unit_value_minor: 14000 }, { buyer_id: buyer:b3, merchant_id: merchant:m1, listing_id: merchant:m1:sku:s3:42:m1, unit_value_minor: 14000 }, { buyer_id: buyer:b3, merchant_id: merchant:m2, listing_id: merchant:m2:sku:s3:42:m2, unit_value_minor: 14000 }, { buyer_id: buyer:b3, merchant_id: merchant:m3, listing_id: merchant:m3:sku:s3:42:m3, unit_value_minor: 14000 }], merchant_floors: [{ merchant_id: merchant:m1, listing_id: merchant:m1:sku:s3:42:m1, unit_floor_minor: 10000, capacity: 2 }, { merchant_id: merchant:m2, listing_id: merchant:m2:sku:s3:42:m2, unit_floor_minor: 10000, capacity: 2 }, { merchant_id: merchant:m3, listing_id: merchant:m3:sku:s3:42:m3, unit_floor_minor: 10000, capacity: 2 }] }
+benchmark:
+  task_family: T4
+  variant_id: S3
+  track: agent
+  difficulty: hard
+  catalog_source: inline
+  catalog_scale: smoke
+  scenario_version: 1.0-market
