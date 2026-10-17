@@ -408,9 +408,10 @@ Negotiation is the single most-iterated piece of buyer behavior in
 real deployments. Pulling it out of `discovery-search` and
 `purchase-confirmation` keeps three things honest:
 
-1. **Ablation surface.** Swap in `negotiation-walk-away` (the trivial
-   skill that always emits `no_reply`) and the buyer reverts to the
-   take-it-or-leave-it behavior; A/B on the value of bargaining.
+1. **Extension point.** A researcher could implement a walk-away variant
+   that declines negotiation, then compare it with the bargaining policy.
+   This repository supplies the bargaining skill; that ablation variant
+   is not included.
 2. **Privacy clarity.** All max-budget-comparison logic lives in one
    file; reviewers don't have to chase the leak surface across three
    skills.

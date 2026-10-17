@@ -1,4 +1,4 @@
-"""Resumable OpenRouter runner for the ACWorld benchmark.
+"""Resumable OpenRouter runner for ACWorld's capability-coverage tasks.
 
 It reuses the current 200 tasks, normal Agent path, ACWorld runtime, and scorer.
 Resume is the ordinary ``ResultStoreV2`` behavior: completed task results are
@@ -25,7 +25,6 @@ from experiments.openrouter_runtime import (
 )
 from experiments.benchmark_plan import (
     SUPPORTED_BENCHMARK_MODELS_V2,
-    STRONG_MODELS_V2,
     ExperimentPlanV2,
     RunSpecV2,
     build_local_reference_smoke_benchmark_plan,
@@ -43,7 +42,6 @@ from experiments.benchmark_results import (
 
 OPENROUTER_MODELS_ENDPOINT = "https://openrouter.ai/api/v1/models"
 DEFAULT_OUTPUT_ROOT = Path("output/benchmark")
-DEFAULT_MULTI_ITEM_OUTPUT_ROOT = Path("output/multi-item-rerun")
 # What a run uses unless asked otherwise, and the ceiling it may be raised to.
 # Tasks are scored in isolation, so the worker count does not change any task's
 # score; the ceiling exists because a higher rate of provider calls is more
@@ -51,11 +49,6 @@ DEFAULT_MULTI_ITEM_OUTPUT_ROOT = Path("output/multi-item-rerun")
 DEFAULT_MAX_WORKERS = 2
 MAX_WORKERS_V2 = MAX_SUPPORTED_WORKERS
 LIVE_SMOKE_TASK_ID = "CWV2-T01-07"
-MULTI_ITEM_TASK_IDS = tuple(f"CWV2-T05-{index:02d}" for index in range(1, 21))
-MULTI_ITEM_RERUN_MODELS = (
-    "openai/gpt-5.6-sol",
-    "openai/gpt-5.6-luna",
-)
 
 
 class StrongModelRunError(RuntimeError):
@@ -377,59 +370,6 @@ def run_openrouter_smoke(
     return write_result_summary(plan, model_root)
 
 
-def run_openrouter_multi_item(
-    model_id: str,
-    *,
-    api_key: str,
-    output_root: str | Path = DEFAULT_MULTI_ITEM_OUTPUT_ROOT,
-    max_workers: int = DEFAULT_MAX_WORKERS,
-    one_task_smoke: bool = False,
-) -> tuple[dict[str, Any], str]:
-    """Run only the corrected T5 family and emit a copy-paste result line."""
-
-    if model_id not in MULTI_ITEM_RERUN_MODELS:
-        raise StrongModelRunError(
-            "the corrected T5-only rerun is limited to Sol and Luna; "
-            "Opus 4.8 requires its existing full 200-task run"
-        )
-    if not api_key:
-        raise StrongModelRunError("OpenRouter API key is required")
-    if not 1 <= max_workers <= MAX_WORKERS_V2:
-        raise StrongModelRunError(
-            f"strong-model concurrency must be a whole number from 1 to {MAX_WORKERS_V2}"
-        )
-
-    full_plan = build_strong_model_benchmark_plan((model_id,))
-    task_ids = MULTI_ITEM_TASK_IDS[:1] if one_task_smoke else MULTI_ITEM_TASK_IDS
-    plan = select_plan_tasks(full_plan, task_ids)
-    model_root = Path(output_root) / safe_model_slug(model_id)
-
-    factory = openrouter_channel_factory(
-        api_key=api_key,
-        allowed_model_ids=STRONG_MODELS_V2,
-    )
-    base_executor = BenchmarkExecutor(model_channels=factory)
-    readiness = base_executor.readiness(plan)
-    if not readiness.ready:
-        raise StrongModelRunError(
-            f"benchmark readiness failed for {len(readiness.issues)} task(s)"
-        )
-    executor = require_business_decision_executor(base_executor)
-    fatal = _run_phase_with_one_retry(
-        plan,
-        result_root=model_root,
-        executor=executor,
-        max_workers=max_workers,
-    )
-    store = ResultStoreV2(model_root)
-    state = _plan_state(plan, store)
-    if fatal or state["failed"] or state["missing"]:
-        raise StrongModelRunError(
-            _incomplete_message("Multi-item rerun", plan, store)
-        )
-    return write_multi_item_report(plan, model_root)
-
-
 def _run_phase_with_one_retry(
     plan: ExperimentPlanV2,
     *,
@@ -553,68 +493,6 @@ def write_result_summary(
     return report
 
 
-def write_multi_item_report(
-    plan: ExperimentPlanV2,
-    result_root: str | Path,
-) -> tuple[dict[str, Any], str]:
-    """Write the compact statistics needed to transfer one T5 rerun."""
-
-    if not plan.runs or any(run.task_family != "T5" for run in plan.runs):
-        raise StrongModelRunError("Multi-item report requires only T5 tasks")
-    root = Path(result_root)
-    summary = write_result_summary(plan, root)
-    store = ResultStoreV2(root)
-    role_scores: dict[str, list[float]] = {"buyer": [], "merchant": []}
-    task_scores: dict[str, float] = {}
-    for run in plan.runs:
-        result = store.read(run)
-        if result is None:
-            continue
-        value = result.metrics.get("capability_score")
-        if not isinstance(value, (int, float)) or isinstance(value, bool):
-            continue
-        score = float(value)
-        role_scores[run.evaluated_role].append(score)
-        task_scores[run.task_id] = score
-
-    def mean_pct(values: list[float]) -> float | None:
-        return round(100.0 * sum(values) / len(values), 4) if values else None
-
-    payload = {
-        "schema": "ACWORLD_T5_RERUN_V1",
-        "model_id": summary["model_id"],
-        "completed": summary["succeeded"],
-        "failed": summary["failed"],
-        "missing": summary["missing"],
-        "mean_pct": (
-            round(100.0 * float(summary["mean_capability_score"]), 4)
-            if summary["mean_capability_score"] is not None
-            else None
-        ),
-        "buyer_mean_pct": mean_pct(role_scores["buyer"]),
-        "merchant_mean_pct": mean_pct(role_scores["merchant"]),
-        "full_partial_zero": [
-            summary["full"],
-            summary["partial"],
-            summary["zero"],
-        ],
-        "protocol_errors": summary["protocol_errors"],
-        "model_calls": summary["model_calls"],
-        "task_scores": {
-            task_id: task_scores[task_id]
-            for task_id in sorted(task_scores)
-        },
-    }
-    line = "ACWORLD_T5_RERUN_V1 " + json.dumps(
-        payload,
-        ensure_ascii=False,
-        separators=(",", ":"),
-    )
-    _write_json(root / "multi-item-report.json", payload)
-    (root / "multi-item-report.txt").write_text(line + "\n", encoding="utf-8")
-    return payload, line
-
-
 def _plan_state(
     plan: ExperimentPlanV2,
     store: ResultStoreV2,
@@ -718,10 +596,7 @@ def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
 __all__ = [
     "DEFAULT_MAX_WORKERS",
     "MAX_WORKERS_V2",
-    "DEFAULT_MULTI_ITEM_OUTPUT_ROOT",
     "DEFAULT_OUTPUT_ROOT",
-    "MULTI_ITEM_RERUN_MODELS",
-    "MULTI_ITEM_TASK_IDS",
     "OPENROUTER_MODELS_ENDPOINT",
     "STRONG_MODEL_CANDIDATES",
     "StrongModelCandidate",
@@ -732,10 +607,8 @@ __all__ = [
     "read_api_key",
     "run_openrouter_model",
     "run_openrouter_smoke",
-    "run_openrouter_multi_item",
     "run_reference_smoke",
     "safe_model_slug",
     "select_plan_tasks",
-    "write_multi_item_report",
     "write_result_summary",
 ]

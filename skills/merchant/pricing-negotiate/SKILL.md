@@ -26,7 +26,7 @@ or finish safely if the offer is stale or outside authority.
 ## Detailed workflow
 
 Decide the next move on a buyer offer. All money is **integer minor units**
-(VCP_SPEC.md §3) — never float, never rounded decimals.
+— never floats or rounded decimals.
 
 ## Read first (memory only — never the wire)
 

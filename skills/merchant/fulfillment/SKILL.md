@@ -28,8 +28,8 @@ authoritative continuation instead of assuming state changed.
 
 ## Detailed workflow
 
-The post-deal half of the sell-side journey (VIBE_COMMERCE.md §4.2:
-settle → dispatch → optional return).
+The post-deal half of the sell-side journey: settlement, dispatch, and
+any subsequent return.
 
 ## On a settled order
 

@@ -34,7 +34,7 @@ Answer buyer discovery with a concrete, **truthful** offer.
 
 1. Resolve the requested `sku_id` / query against the catalog with
    `world.read_catalog` (and `world.read_inventory` for availability).
-2. Build a `GroundedOffer` (VCP_SPEC.md §4.3): `offer_id`, `sku_id`, `qty`,
+2. Build a `GroundedOffer`: `offer_id`, `sku_id`, `qty`,
    `unit_price` (**integer minor units**), `fulfillment`, `claims`,
    `expires_at`, `idempotency_key`.
 3. `claims` MUST be a subset of `OfferMandate.truthfulness.permitted_claims`

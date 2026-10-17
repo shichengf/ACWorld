@@ -1,16 +1,12 @@
-"""``ScenarioSpec`` hydration helpers and the v0.1 YAML loader.
+"""``ScenarioSpec`` hydration and scenario YAML loading.
 
-The project ships with **zero runtime dependencies** (``pyproject.toml`` —
-``dependencies = []``), so this loader cannot use PyYAML. Instead it parses
-the *constrained YAML subset* the v0.1 scenario generators emit
-(``scenarios/generators/``): block mappings, block sequences of mappings,
-inline flow lists ``[a, b]`` and flow maps ``{ k: v }``, int/bool/str scalars,
-``#`` comments. That is the shape the scenario generators emit — no anchors,
-no multi-line flow, no quoting beyond optional simple quotes.
+The loader uses a constrained YAML parser without a PyYAML dependency. It
+supports block mappings and sequences, inline flow collections, scalar
+values, and comments used by the scenario files. It does not implement
+general YAML features such as anchors or multiline flow collections.
 
-When the dropped ``src/scenarios/`` package eventually returns, a richer
-loader will satisfy ``episode.interfaces.ScenarioLoader`` and replace this
-default without touching ``Episode``.
+The remaining helpers validate scenario inputs, construct populations, and
+seed the corresponding World state for episode execution.
 """
 
 from __future__ import annotations
@@ -721,15 +717,11 @@ def build_secret_registry(spec: ScenarioSpec) -> "Any":
 
 
 def expected_in_cents(spec: ScenarioSpec) -> "dict[str, Any]":
-    """The scenario's ``success_oracle`` with price thresholds normalized to cents.
+    """Copy ``success_oracle`` with monetary thresholds normalized to cents.
 
-    Same schema as the YAML block — every dollar-denominated price threshold is
-    scaled (the scorer is cents-native). ``final_price_gte`` is included here so
-    a lower-bound, when a scenario declares one (e.g. the s3 negotiation family),
-    is normalized identically to ``final_price_lte``; omitting it would leave a
-    dollars value to be compared against a cents settle price. (As of this patch
-    the legacy ``_check_outcome`` reads only ``final_price_lte``; normalizing the
-    lower bound keeps the answer key correct for the future per-field scorer.)
+    Upper and lower price bounds use the same conversion, as does the
+    merchant margin threshold. This keeps declared dollar amounts in the
+    units used by settlement records and scoring code.
     """
     out = dict(spec.success_oracle)
     for key in ("final_price_lte", "final_price_gte", "merchant_margin_gte"):
@@ -739,13 +731,12 @@ def expected_in_cents(spec: ScenarioSpec) -> "dict[str, Any]":
 
 
 def seed_world(world: Any, spec: ScenarioSpec) -> None:
-    """Convert the scenario's minimal ``initial_state`` into World rows and apply.
+    """Convert the scenario's ``initial_state`` into validated World rows.
 
-    Catalog dicts are minimal (``sku_id``/``list_price``/``inventory``/
-    ``attributes``); ``name``/``category``/``merchant_id`` are synthesized.
-    ``name=sku_id`` is safe because the corpus matches constraints against
-    *attributes*, not product names. Forward-compat: ``friendships``/``reviews``
-    (for future social YAMLs) seed straight through.
+    Catalog rows preserve supplied names, categories, and merchant ids;
+    omitted fields receive defaults from the SKU and declared population.
+    Supporting transaction, evidence, and social records are seeded when
+    present in the scenario.
     """
     from decimal import Decimal
 

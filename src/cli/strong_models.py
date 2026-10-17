@@ -1,4 +1,4 @@
-"""One-entry OpenRouter runner for the ACWorld benchmark."""
+"""OpenRouter runner for ACWorld's executable capability-coverage tasks."""
 
 from __future__ import annotations
 
@@ -17,21 +17,15 @@ from experiments.benchmark_plan import (
 from experiments.strong_model_runner import (
     DEFAULT_MAX_WORKERS,
     MAX_WORKERS_V2,
-    DEFAULT_MULTI_ITEM_OUTPUT_ROOT,
     DEFAULT_OUTPUT_ROOT,
-    MULTI_ITEM_RERUN_MODELS,
-    MULTI_ITEM_TASK_IDS,
     STRONG_MODEL_CANDIDATES,
     StrongModelRunError,
     check_openrouter_catalog,
     read_api_key,
     run_openrouter_model,
     run_openrouter_smoke,
-    run_openrouter_multi_item,
     run_reference_smoke,
     safe_model_slug,
-    select_plan_tasks,
-    write_multi_item_report,
     write_result_summary,
 )
 from experiments.strong_model_report import (
@@ -68,7 +62,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     run = commands.add_parser(
         "run",
-        help="run or resume selected models on all 200 benchmark tasks",
+        help="run or resume selected models on all 200 capability-coverage tasks",
     )
     _add_model_selection(run, SUPPORTED_BENCHMARK_MODELS_V2)
     run.add_argument("--api-key-file", type=Path, required=True)
@@ -88,7 +82,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     live_smoke = commands.add_parser(
         "live-smoke",
-        help="run one real OpenRouter task through the full benchmark path",
+        help="run one real OpenRouter task through the full execution path",
     )
     _add_model_selection(live_smoke, SUPPORTED_BENCHMARK_MODELS_V2)
     live_smoke.add_argument("--api-key-file", type=Path, required=True)
@@ -101,35 +95,6 @@ def build_parser() -> argparse.ArgumentParser:
         "--skip-local-smoke",
         action="store_true",
         help="skip the automatic no-cost Buyer/Merchant reference smoke",
-    )
-
-    multi_item = commands.add_parser(
-        "rerun-multi-item",
-        help="run only the 20 corrected Multi-item tasks",
-    )
-    _add_model_selection(multi_item, MULTI_ITEM_RERUN_MODELS)
-    multi_item.add_argument("--api-key-file", type=Path, required=True)
-    multi_item.add_argument(
-        "--output-root",
-        type=Path,
-        default=DEFAULT_MULTI_ITEM_OUTPUT_ROOT,
-    )
-    multi_item.add_argument(
-        "--workers",
-        type=int,
-        choices=range(1, MAX_WORKERS_V2 + 1),
-        metavar=f"{{1..{MAX_WORKERS_V2}}}",
-        default=DEFAULT_MAX_WORKERS,
-    )
-    multi_item.add_argument(
-        "--skip-local-smoke",
-        action="store_true",
-        help="skip the automatic no-cost Buyer/Merchant reference smoke",
-    )
-    multi_item.add_argument(
-        "--one-task-smoke",
-        action="store_true",
-        help="submit only CWV2-T05-01 to verify the live path; not a final rerun",
     )
 
     status = commands.add_parser(
@@ -149,11 +114,6 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         default=DEFAULT_OUTPUT_ROOT,
     )
-    paper_report.add_argument(
-        "--t5-output-root",
-        type=Path,
-        help="optional corrected T5 root to overlay on the existing 200 runs",
-    )
 
     paper_analysis = commands.add_parser(
         "paper-analysis",
@@ -165,22 +125,7 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         default=DEFAULT_OUTPUT_ROOT,
     )
-    paper_analysis.add_argument(
-        "--t5-output-root",
-        type=Path,
-        help="optional corrected T5 root to overlay on the existing 200 runs",
-    )
 
-    multi_item_report = commands.add_parser(
-        "multi-item-report",
-        help="rebuild the copy-paste report for an existing T5 rerun",
-    )
-    _add_model_selection(multi_item_report, MULTI_ITEM_RERUN_MODELS)
-    multi_item_report.add_argument(
-        "--output-root",
-        type=Path,
-        default=DEFAULT_MULTI_ITEM_OUTPUT_ROOT,
-    )
     return parser
 
 
@@ -245,20 +190,10 @@ def run_command(args: argparse.Namespace) -> int:
         )
         return 0
 
-    allowed_models = (
-        MULTI_ITEM_RERUN_MODELS
-        if args.command in {"rerun-multi-item", "multi-item-report"}
-        else SUPPORTED_BENCHMARK_MODELS_V2
-    )
-    all_models = (
-        MULTI_ITEM_RERUN_MODELS
-        if args.command in {"rerun-multi-item", "multi-item-report"}
-        else PAPER_MODELS_V2
-    )
     models = _selected_models(
         args.model,
-        allowed_models=allowed_models,
-        all_models=all_models,
+        allowed_models=SUPPORTED_BENCHMARK_MODELS_V2,
+        all_models=PAPER_MODELS_V2,
     )
     if args.command == "check":
         checked = check_openrouter_catalog(models)
@@ -277,16 +212,9 @@ def run_command(args: argparse.Namespace) -> int:
     if args.command == "paper-report":
         for model_id in models:
             root = args.output_root / safe_model_slug(model_id)
-            override_root = (
-                args.t5_output_root / safe_model_slug(model_id)
-                if args.t5_output_root is not None
-                else None
-            )
-            destination = override_root if override_root is not None else root
             _report, line = write_paper_report(
                 root,
-                override_result_root=override_root,
-                output_root=destination,
+                output_root=root,
                 expected_model_id=model_id,
             )
             print(line)
@@ -295,31 +223,15 @@ def run_command(args: argparse.Namespace) -> int:
     if args.command == "paper-analysis":
         for model_id in models:
             root = args.output_root / safe_model_slug(model_id)
-            override_root = (
-                args.t5_output_root / safe_model_slug(model_id)
-                if args.t5_output_root is not None
-                else None
-            )
-            destination = override_root if override_root is not None else root
             _analysis, line = write_paper_analysis(
                 root,
-                override_result_root=override_root,
-                output_root=destination,
+                output_root=root,
                 expected_model_id=model_id,
             )
             print(line)
         return 0
 
-    if args.command == "multi-item-report":
-        for model_id in models:
-            full_plan = build_strong_model_benchmark_plan((model_id,))
-            plan = select_plan_tasks(full_plan, MULTI_ITEM_TASK_IDS)
-            root = args.output_root / safe_model_slug(model_id)
-            _report, line = write_multi_item_report(plan, root)
-            print(line)
-        return 0
-
-    if args.command not in {"run", "live-smoke", "rerun-multi-item"}:
+    if args.command not in {"run", "live-smoke"}:
         raise StrongModelRunError(f"unsupported command: {args.command!r}")
 
     # All no-cost validation happens before the API key is read.
@@ -337,16 +249,6 @@ def run_command(args: argparse.Namespace) -> int:
                 api_key=api_key,
                 output_root=args.output_root,
             )
-        elif args.command == "rerun-multi-item":
-            report, line = run_openrouter_multi_item(
-                model_id,
-                api_key=api_key,
-                output_root=args.output_root,
-                max_workers=args.workers,
-                one_task_smoke=args.one_task_smoke,
-            )
-            reports[model_id] = report
-            print(line)
         else:
             reports[model_id] = run_openrouter_model(
                 model_id,

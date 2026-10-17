@@ -1,7 +1,8 @@
-"""Passive data types for the world package.
+"""Identifiers and passive data records for World state.
 
-Per the architecture skill: no methods beyond ``__post_init__`` placeholders.
-Behavior lives in ``state.py`` / ``tools.py``.
+These types describe catalog entries, transactions, and persisted state.
+World operations and validation live in ``world.state`` and the supporting
+World modules; agent-facing access is exposed through ``world.tools``.
 """
 
 from __future__ import annotations

@@ -1,11 +1,10 @@
-"""Agents package — the AGENT_CLASSES.md primitives + per-side concrete agents.
+"""Public agent primitives, side-specific factories, and platform interfaces.
 
-Public surface (per AGENT_CLASSES.md §1, §10):
-    Primitives:    Agent, SkillLoader, Memory, AgentInputs
-    Skill bundles: SkillManifest, SkillDocument
-    Enums:         SkillGroup, MemoryType
-    Loaders:       FilesystemSkillLoader, EmptySkillLoader, InMemoryStore
-    Per-side:      make_buyer_agent / make_merchant_agent / make_platform_agent
+Buyer and Merchant factories compose agents from skill bundles. Their shared
+interfaces include skill loaders, memory stores, and inference channels.
+``PlatformService`` is a separate runtime service. The legacy platform-agent
+factory and unsupported skill interfaces remain exported for compatibility;
+their docstrings identify the supported service replacements.
 """
 
 from __future__ import annotations

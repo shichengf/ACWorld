@@ -103,22 +103,16 @@ class GroundingRequired(AgentError):
 
 
 class DecisionRecordIncomplete(AgentError):
-    """The buyer tried to commit a purchase (``commerce.accept_offer``) without
-    recording a usable authority-bound structured decision.
+    """A buyer's purchase acceptance lacks a usable, consistently bound decision.
 
-    Emitting an accept requires the decision artifacts to be PRESENT in memory:
-    ``TRANSACTION.budget_audit`` with ``is_eligible`` on every candidate (and
-    ``rejected_at_stage`` + ``reject_reason`` on any ineligible one) when such an
-    audit exists, plus a structured ``TRANSACTION.selected_offer`` whose
-    ``offer_id`` is bound to the emitted action.  Free-text rationale is
-    optional and may remain ``None`` in Tracker because it is neither needed
-    for authority closure nor scored by the benchmark.
+    ``TRANSACTION.selected_offer`` must identify the emitted offer. When a
+    ``TRANSACTION.budget_audit`` exists, its candidate entries must record
+    eligibility and a rejection stage and reason for any ineligible item.
+    Optional choice fields must agree between the record and emitted action
+    when both provide them. Free-text rationale is optional.
 
-    This guard checks PRESENCE and exact offer binding only; the CORRECTNESS of
-    the commercial selection and any recorded eligibility is the oracle's job.
-    Mirrors the budget-gate / reconcile pattern: enforce before the envelope
-    reaches the bus. NOTE: the friend *signal* is
-    deliberately NOT required here — calling ``get_friend_reviews`` is a
-    prose-scripted v1 step so the benchmark measures *weighing* the signal,
-    not *remembering to fetch* it (a model-strength axis, not judgment).
+    These guards check record presence and consistency before the action
+    reaches the bus. Task scoring checks the commercial choice and recorded
+    eligibility. Social evidence is task-dependent; fetching friend reviews
+    is not a universal requirement of this guard.
     """

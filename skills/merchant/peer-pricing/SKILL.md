@@ -47,7 +47,7 @@ if your recommended price violates them the emit will be rejected.
   reason about how far above it you are on the wire.
 * `new_list_price <= target_band[1]` — at or below the **mandate ceiling**
   (the authorized contract with the merchant's owner).
-* `new_list_price` is an integer in **minor units** (VCP_SPEC.md §3).
+* `new_list_price` is an integer in **minor units**.
   $19.99 is 1999. No floats, no rounded decimals.
 * You **may not emit** if `memory[PREFERENCE].last_peer_alignment[sku_id]`
   is within `policy.peer_pricing_cooldown_days` — that's idempotent

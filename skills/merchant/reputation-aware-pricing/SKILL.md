@@ -1,7 +1,7 @@
 ---
 name: reputation-aware-pricing
 description: A pre-step for pricing-negotiate on an offer turn. Reads the merchant's own platform reputation (world.read_reputation) and writes a pricing_bias into memory that shifts the effective target_band per reputation band — high reputation pushes the counter toward target_band[1] (established sellers defending premium pricing); low reputation collapses the band toward target_band[0] (the seller competes more aggressively). Emits no envelope of its own; pricing-negotiate consumes the bias next.
-when_to_use: Use when the inbound is propose_offer / counter_offer AND no scarcity bias has already been written this turn (stockout-aware-pricing wins over reputation when both apply — scarcity is a time-bound regime, reputation is a steady-state one). Do NOT use during a non-offer turn (markdown / markup own those). Do NOT use to write reputation (that is a platform monopoly per VCP_SPEC §6).
+when_to_use: Use when the inbound is propose_offer / counter_offer AND no scarcity bias has already been written this turn (stockout-aware-pricing wins over reputation when both apply — scarcity is a time-bound regime, reputation is a steady-state one). Do NOT use during a non-offer turn (markdown / markup own those). Do NOT use to write reputation (that is a platform-only operation).
 group: trust
 user_invocable: false
 disable_model_invocation: false
@@ -38,7 +38,7 @@ The shape mirrors ``stockout-aware-pricing``: read state, write a
 returned ``effective_band`` for its midpoint.
 
 The merchant **never** writes its own reputation. ``world.update_reputation``
-is a platform monopoly (VCP_SPEC.md §6.1). This skill only reads.
+is a platform-only operation. This skill only reads.
 
 ## Procedure
 

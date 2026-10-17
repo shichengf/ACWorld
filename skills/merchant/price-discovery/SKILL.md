@@ -27,7 +27,7 @@ inventing market comparisons.
 
 ## Detailed workflow
 
-The supply-side analogue of taste grounding (VIBE_COMMERCE.md §4.2): the peer
+The supply-side analogue of taste grounding: the peer
 seller arrives with `pricing_intent` ("fair price", recent comparables,
 depreciation) but **no number**. Convert that into a defensible target band
 the negotiation skill can defend.
@@ -51,7 +51,7 @@ the negotiation skill can defend.
    - `memory.write(PREFERENCE, "target_band", [low, high])`
    - `memory.write(PREFERENCE, "auto_accept_threshold", <from authority>)`
    - `memory.write(PRIVATE_UTILITY, "min_acceptable_price", <floor>)`
-4. All prices are **integer minor units** (VCP_SPEC.md §3) — never floats.
+4. All prices are **integer minor units** — never floats.
 
 ## Output
 

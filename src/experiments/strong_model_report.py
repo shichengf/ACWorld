@@ -261,18 +261,6 @@ def _load_records(result_root: Path) -> list[dict[str, Any]]:
     return records
 
 
-def _merge_task_records(
-    base: list[dict[str, Any]],
-    override: list[dict[str, Any]] | None,
-) -> list[dict[str, Any]]:
-    merged = {str(record["task_id"]): record for record in base}
-    if len(merged) != len(base):
-        raise StrongModelReportError("base results contain duplicate task IDs")
-    for record in override or ():
-        merged[str(record["task_id"])] = record
-    return list(merged.values())
-
-
 def _process_reward_summary(records: list[dict[str, Any]]) -> dict[str, Any]:
     outcome_rows: dict[str, list[tuple[int, int, float]]] = defaultdict(list)
     non_full = 0
@@ -327,19 +315,13 @@ def _process_reward_summary(records: list[dict[str, Any]]) -> dict[str, Any]:
 def build_paper_report(
     result_root: str | Path,
     *,
-    override_result_root: str | Path | None = None,
     expected_model_id: str | None = None,
     bootstrap_replicates: int = BOOTSTRAP_REPLICATES,
 ) -> dict[str, Any]:
     """Calculate every per-model value currently used by the paper."""
 
     root = Path(result_root)
-    override = (
-        _load_records(Path(override_result_root))
-        if override_result_root is not None
-        else None
-    )
-    records = _merge_task_records(_load_records(root), override)
+    records = _load_records(root)
     if len(records) != 200:
         raise StrongModelReportError(
             f"paper report requires 200 successful tasks; found {len(records)}"
@@ -504,7 +486,6 @@ def transfer_line(report: Mapping[str, Any]) -> str:
 def write_paper_report(
     result_root: str | Path,
     *,
-    override_result_root: str | Path | None = None,
     output_root: str | Path | None = None,
     expected_model_id: str | None = None,
 ) -> tuple[dict[str, Any], str]:
@@ -515,7 +496,6 @@ def write_paper_report(
     destination.mkdir(parents=True, exist_ok=True)
     report = build_paper_report(
         root,
-        override_result_root=override_result_root,
         expected_model_id=expected_model_id,
     )
     line = transfer_line(report)
@@ -666,20 +646,11 @@ def _load_analysis_records(result_root: Path) -> list[dict[str, Any]]:
 def build_paper_analysis(
     result_root: str | Path,
     *,
-    override_result_root: str | Path | None = None,
     expected_model_id: str | None = None,
 ) -> dict[str, Any]:
     """Export the per-task evidence needed to recompute every paper analysis."""
 
-    override = (
-        _load_analysis_records(Path(override_result_root))
-        if override_result_root is not None
-        else None
-    )
-    records = _merge_task_records(
-        _load_analysis_records(Path(result_root)),
-        override,
-    )
+    records = _load_analysis_records(Path(result_root))
     if len(records) != 200:
         raise StrongModelReportError(
             f"paper analysis requires 200 successful tasks; found {len(records)}"
@@ -759,7 +730,6 @@ def decode_analysis_transfer_line(line: str) -> dict[str, Any]:
 def write_paper_analysis(
     result_root: str | Path,
     *,
-    override_result_root: str | Path | None = None,
     output_root: str | Path | None = None,
     expected_model_id: str | None = None,
 ) -> tuple[dict[str, Any], str]:
@@ -770,7 +740,6 @@ def write_paper_analysis(
     destination.mkdir(parents=True, exist_ok=True)
     analysis = build_paper_analysis(
         root,
-        override_result_root=override_result_root,
         expected_model_id=expected_model_id,
     )
     line = analysis_transfer_line(analysis)

@@ -1,8 +1,10 @@
-# Benchmark and reproduction guide
+# Task-suite execution and reproduction guide
 
 [Back to ACWorld](../README.md)
 
-ACWorld provides 200 capability tasks and a separate 60-task large-catalog benchmark.
+ACWorld's executable task suite contains 200 capability-coverage tasks and a
+separate 60-task large-catalog track. The tasks produce interaction trajectories
+with programmatic feedback on intermediate decisions and overall task fulfillment.
 
 Run the commands below from the repository root on Linux with Bash.
 
@@ -20,7 +22,7 @@ The [Harbor adapter](../hidden-evaluation/README.md) runs submitted Agents again
 
 ## Changes in 1.1.0
 
-Revises the 200-task capability benchmark. The 60-task large-catalog benchmark
+Revises the 200-task capability-coverage track. The 60-task large-catalog track
 is unchanged.
 
 - Task requests read like real Buyer and Merchant messages rather than
@@ -72,7 +74,7 @@ the locked dependencies, and resumes from completed task files.
 The prepared catalog is distributed with the
 [`large-catalog-data-v1`](https://github.com/shichengf/ACWorld/releases/tag/large-catalog-data-v1)
 release. It contains the complete normalized SQLite database required by the
-60-task benchmark. The first run with `--tasks 60` or `--tasks 260` downloads
+60-task track. The first run with `--tasks 60` or `--tasks 260` downloads
 and assembles its 65 release parts automatically.
 
 To download and check it before running a model:
@@ -86,7 +88,9 @@ The files are installed under `output/large-catalog/`. Validation checks the
 SQLite database and confirms 791,431 source records, 785,022 searchable
 listings, and 60 task definitions.
 
-## Choose the benchmark
+<a id="choose-the-benchmark"></a>
+
+## Choose the task track
 
 Run the 200 capability tasks:
 
@@ -147,7 +151,7 @@ part of the paper panel or the 60-task suite.
 
 ## Validation and smoke tests
 
-Run the no-cost Buyer and Merchant smoke for the 200-task benchmark:
+Run the no-cost Buyer and Merchant smoke for the 200-task track:
 
 ```bash
 ./run_benchmark.sh smoke
@@ -250,7 +254,7 @@ output/
     summary.json
 ```
 
-For the 200-task benchmark:
+For the 200-task track:
 
 ```bash
 ./run_benchmark.sh status --model google/gemini-3.6-flash
@@ -258,7 +262,7 @@ For the 200-task benchmark:
 ./run_benchmark.sh paper-analysis --model google/gemini-3.6-flash
 ```
 
-For the 60-task benchmark, each model directory retains the task-level score,
+For the 60-task track, each model directory retains the task-level score,
 process rewards, terminal state, model calls, and latency. The combined
 `output/large-catalog/summary.json` contains model, role, capability, and stage
 means together with full, partial, zero, and protocol-error counts.

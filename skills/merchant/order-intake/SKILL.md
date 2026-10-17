@@ -87,8 +87,8 @@ against, without needing a `world.read_order` round-trip per turn.
   skill is the merchant's *local mirror*, not the world write.
 - A retried `commerce.create_order` for the same `order_id` is idempotent
   by design — the same ack is emitted and no second TRANSACTION write
-  happens. The runtime layers an additional idempotency check via the
-  `idempotency_cache` table (see `WORLD_DATABASE_DESIGN.md` §3.3).
+  happens. World transaction methods separately enforce idempotency for
+  governed writes.
 
 ## Output
 

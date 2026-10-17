@@ -552,11 +552,10 @@ Keeping it small means three things:
 1. **Auditability.** When an episode ends with the wrong order settled,
    the audit trail points at one skill — not at a tangled blob with
    discovery and negotiation also wired in.
-2. **Ablation.** Swap this skill for the deterministic baseline
-   `purchase-confirmation-hard-constraints-only` (a one-page bundle
-   that only checks budget + must_have, skipping subjective hints) and
-   you get a clean A/B on how much LLM-mediated authorization is
-   worth.
+2. **Extension point.** A researcher could implement a deterministic
+   confirmation variant that checks the budget and hard constraints
+   without considering subjective hints, while retaining authorization
+   requirements. Such an ablation variant is not included in this repository.
 3. **Trust boundary.** The check that emits the money-moving envelope
    sits in one prompt context, so the user (and the reviewer) can
    inspect exactly what the LLM has to consult before authorizing.

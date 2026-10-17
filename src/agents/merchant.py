@@ -1,14 +1,12 @@
 """Merchant-side agent factory.
 
-Per AGENT_CLASSES.md §2 / §8, the merchant is a single ``Agent("merchant")``
-(or ``Agent("merchant:<n>")`` for multi-merchant populations) whose behavior
-is composed from a set of enabled SKILL.md bundles loaded via ``SkillLoader``.
-No ``MerchantMainSkill`` Python class — skills are bundles on disk, not
-subclasses.
+Each merchant is an ``Agent`` whose behavior is composed from enabled
+``SKILL.md`` bundles loaded through ``SkillLoader``. Populations distinguish
+merchants by actor ids such as ``merchant:<n>``.
 
-The skill bundles live under ``skills/merchant/<name>/SKILL.md``; the factory
-just decides **which** bundles are enabled and lets the loader handle the
-rest.
+The bundles live under ``skills/merchant/<name>/SKILL.md``. The factory
+selects enabled bundles and declares the agent's action interfaces; the
+loader provides their manifests and loads full instructions on demand.
 """
 
 from __future__ import annotations
@@ -29,10 +27,9 @@ if TYPE_CHECKING:
 
 # --- Default enabled skill set ---------------------------------------
 #
-# Names match ``skills/merchant/<name>/SKILL.md`` directory names. This is the
-# merchant lane's hook (AGENT_CLASSES.md §8): the factory just decides which
-# bundles are enabled; the loader exposes manifests at spawn and loads full
-# SKILL.md bodies on demand. Order is spawn / scan order.
+# Names match ``skills/merchant/<name>/SKILL.md`` directory names. The
+# factory selects enabled bundles; the loader exposes their manifests at
+# spawn and loads full SKILL.md bodies on demand. Order is spawn / scan order.
 #
 #   price-discovery         INTERPRETATION  — "fair price" -> defensible band
 #   catalog-serve           DISCOVERY       — truthful GroundedOffer to buyers
@@ -91,10 +88,8 @@ if TYPE_CHECKING:
 #   restock-signal          OPERATIONS      — internal note when stock low
 #   private-utility-guard   SAFETY          — floor / urgency never on the wire
 DEFAULT_MERCHANT_SKILLS: tuple[str, ...] = (
-    # Phase 4's omnibus ``pricing`` skill was removed in B4 commit 2 —
-    # ``pricing-negotiate`` + the stockout / reputation pre-steps cover
-    # its surface, and the selector's defer rule would have dropped it
-    # on every offer turn anyway.
+    # Pricing behavior is composed from negotiation and the dedicated
+    # stockout/reputation pre-steps; no omnibus pricing bundle is enabled.
     "price-discovery",
     "catalog-serve",
     "listing-publish",
@@ -125,17 +120,13 @@ DEFAULT_MERCHANT_SKILLS: tuple[str, ...] = (
 
 # --- Side partition --------------------------------------------------
 #
-# The single P0 ``Agent("merchant")`` covers the merchant-side roles of the
-# VCP_SPEC.md §6 matrix (catalog / retrieval / pricing / fulfillment /
-# support). Values come from the ``ActionKind`` enum (not bare strings) so the
-# eventual VCP namespace migration (commerce.* / world.*) propagates
-# mechanically. The runtime's allow-table is authoritative; these are the
-# agent's declared kinds.
+# Each merchant agent declares its accepted and emitted action kinds.
+# Values come from ``ActionKind`` so these declarations share the protocol
+# vocabulary. The runtime's allow-table remains authoritative.
 MERCHANT_INBOUND: frozenset[str] = frozenset({
-    # Phase 4: buyer search goes through ``platform:aggregator``, not direct
-    # to merchant — SEARCH / GET_SKU receivers are platform-only in the
-    # partition table. Don't declare them inbound on the merchant or the
-    # router rejects the merchant at register time.
+    # Buyer search goes through ``platform:aggregator``. SEARCH / GET_SKU
+    # receivers are platform-only in the partition table and must not be
+    # declared inbound on a merchant agent.
     ActionKind.PROPOSE_OFFER.value,
     ActionKind.COUNTER_OFFER.value,
     ActionKind.ACCEPT_OFFER.value,
@@ -240,7 +231,7 @@ MERCHANT_OUTBOUND: frozenset[str] = frozenset({
     ActionKind.COMMERCE_ACCEPT_REMEDIATION_PLAN.value,
     ActionKind.COMMERCE_COMPLETE_REMEDIATION_STEP.value,
     ActionKind.COMMERCE_READ_GOVERNANCE_HISTORY.value,
-    # World reads — public / scoped-by-caller per WORLD_DESIGN §7. The
+    # World reads are public or scoped to the authenticated caller. The
     # merchant only reads world; every write goes through platform.
     ActionKind.WORLD_READ_CATALOG.value,
     ActionKind.WORLD_READ_INVENTORY.value,

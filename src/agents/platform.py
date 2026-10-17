@@ -1,27 +1,15 @@
-"""Commerce Intelligence Layer — Platform Service (provisional location).
+"""Commerce Intelligence Platform service and deterministic policy handlers.
 
-In the ACWorld architecture, the Platform Service is **not** an
-``Agent`` — it is the Commerce Intelligence Layer hosted by the runtime,
-between the buyer and merchant agents. It is addressable on the bus as
-``platform`` but never registered via ``Runtime.register(agent)``.
+``PlatformService`` is the runtime service between agents and World. It
+validates commercial requests and accesses World through ``WorldClient``;
+it is not registered as an ``Agent``. The episode runner constructs this
+service directly.
 
-This file is **provisional**: it survives under ``src/agents/`` only
-because the import surface and tests still expect a ``make_platform_agent``
-factory and three policy-module classes. The intended layout (per
-``WORLD_CLASSES.md`` §8) is a sibling ``platform/`` package whose modules
-are not built from agent primitives. That refactor is tracked separately;
-this module compiles under the new ``Agent`` shape in the meantime.
-
-Policy modules retained here for reference until they move to ``platform/``:
-
-    * ``ForwardSearchSkill`` — aggregator pass-through against a single
-      merchant. Multi-merchant ranking + sponsored-slot policy layer on later.
-    * ``AtomicSettleSkill``  — PSP: only call site that writes
-      ``ledger`` + ``inventory`` atomically via
-      ``World.write(by_action='settle')``.
-    * ``RejectDisputeSkill`` — adjudicator stub: every dispute rejected;
-      richer rulings (lenient / strict / evidence-weighted / LLM-backed)
-      are alternative configurations of the same Layer.
+Search ranks World-backed listings across merchants. Transaction and
+after-sales handlers validate requests before committing permitted effects.
+The legacy ``make_platform_agent``, ``ForwardSearchSkill``, and
+``RejectDisputeSkill`` interfaces remain importable but are unsupported and
+raise ``NotImplementedError`` when called. They are not the runtime handlers.
 """
 
 from __future__ import annotations
@@ -845,19 +833,17 @@ def _actor_state_authority_rejection(
 
 
 class PlatformService:
-    """Minimal in-process Platform Service.
+    """In-process Commerce Intelligence Platform service.
 
-    This is the current bridge between the RFD service shape and the existing
-    scaffold. It owns marketplace decisions and commits allowed facts to
-    ``World`` through action-gated writes.
+    It dispatches commercial requests to deterministic policy handlers and
+    commits permitted effects through action-gated ``WorldClient`` calls.
 
-    ``audit`` is optional but recommended. When supplied, ``PSPPolicy.settle``
-    uses it to enforce the **merchant-consent invariant**: a settle at a
-    price below the listing's list_price requires the audit log to contain
-    a ``commerce.accept_offer`` or ``commerce.counter_offer`` envelope FROM
-    the named merchant at the same sku + price. Constructing PlatformService
-    without ``audit`` puts PSP in lenient mode (no consent check) — useful
-    for unit tests that don't care, but unsafe for any agent-driven run.
+    Episode construction supplies ``audit``. With an audit source, legacy
+    settlement without a negotiation agreement requires the listing owner's
+    published price. A negotiated price instead requires a valid World-backed
+    agreement; historical offer messages alone do not authorize settlement.
+    Omitting ``audit`` bypasses this legacy published-price check for isolated
+    unit tests and is unsuitable for agent-driven runs.
     """
 
     def __init__(
@@ -3742,24 +3728,17 @@ class _AggregatorPolicyError(Exception):
 
 
 class AggregatorPolicy:
-    """Commerce Intelligence Layer aggregator (minimal).
+    """Rank World-backed listings and bind search results to their requester.
 
-    Handles ``commerce.search`` envelopes addressed to ``platform:aggregator``.
-    Reads the catalog directly from ``World`` (this is the documented escape
-    hatch for platform-internal components — see module docstring) and packages
-    matching listings as a ``platform.rank_offers`` reply.
+    ``commerce.search`` queries the shared catalog through ``WorldClient``
+    and returns matching listings in a ``platform.rank_offers`` reply.
+    Listings can belong to multiple merchants; search does not send a
+    separate request to each merchant. Published list prices provide the
+    initial offers, while negotiation uses separate commerce actions.
 
-    Why not ``WorldTools(caller_id="platform:aggregator")``? ``WorldTools`` is
-    the *agent-facing* read view that enforces caller scoping; the platform
-    legitimately needs cross-agent visibility to rank offers, and the partition
-    table already grants platform read-all. Reusing ``WorldTools`` here would
-    add no security and would force it to special-case the platform caller.
-
-    Stub status: no merchant fan-out (single-source: World). A future
-    multi-merchant ranking policy would query each merchant for an actual
-    bid; for the minimal Phase 4 demo, ``list_price`` is treated as the
-    initial offer and any negotiation runs through the buyer's
-    ``negotiation`` skill against the merchant directly.
+    The default ranking is deterministic. An optional ranking policy can
+    reorder candidates, subject to configured governance checks. Persisted
+    search sessions support validation when the buyer accepts an offer.
     """
 
     def __init__(
@@ -4886,8 +4865,8 @@ class CatalogPolicy:
 
     The merchant lane has **no direct-to-world write privilege** for the
     catalog / inventory tables (PARTITION_ALLOW enforces this at the
-    router; ``WorldService`` enforces it again at the world boundary
-    per WORLD_DESIGN.md §6). The merchant emits the commerce intent —
+    router; ``WorldService`` enforces it again at the World boundary).
+    The merchant emits the commerce intent —
     ``commerce.adjust_price`` / ``commerce.update_listing`` /
     ``commerce.receive_shipment`` — to ``platform:catalog``; this
     policy authenticates the original actor from ``Envelope.from_`` and passes
@@ -5390,14 +5369,13 @@ class ReputationPolicy:
             },
         )
 
-# --- Skills (deterministic baseline) ----------------------------------
+# --- Legacy skill interfaces and settlement wrapper -----------------
 
 class ForwardSearchSkill:
-    """Forward ``search`` to the merchant and pass hits back to the buyer.
+    """Unsupported legacy search interface retained for import compatibility.
 
-    Baseline: single merchant, no ranking, no merging. Replaced by an
-    aggregator skill that ranks across N merchants in the multi-merchant
-    variant.
+    Runtime search is handled by ``AggregatorPolicy`` within
+    ``PlatformService``. This class does not implement merchant forwarding.
     """
 
     name: str = "forward_search"
@@ -5406,17 +5384,17 @@ class ForwardSearchSkill:
     HANDLES: frozenset[str] = frozenset({"search", "get_sku"})
 
     def run(self, msg: "Envelope", ctx: "AgentContext") -> "Envelope | None":
-        """Forward to the single registered merchant; return hits unchanged."""
+        """Raise for the unsupported legacy search interface."""
         raise NotImplementedError(
-            "build envelope to merchant with same payload; "
-            "(multi-merchant: round-robin / rank across merchants)"
+            "ForwardSearchSkill is unsupported; use PlatformService search handling."
         )
 
 
 class AtomicSettleSkill:
-    """Wrap ``settle`` in one atomic transaction across ledger + inventory.
+    """Compatibility wrapper around ``PSPPolicy.settle``.
 
-    The only code path that calls ``World.write(by_action='settle')``.
+    Settlement delegates to the same policy used by ``PlatformService``;
+    World applies the permitted transaction effects atomically.
     """
 
     name: str = "atomic_settle"
@@ -5437,7 +5415,11 @@ class AtomicSettleSkill:
 
 
 class RejectDisputeSkill:
-    """Stub skill: reject dispute with the canned error."""
+    """Unsupported legacy dispute interface retained for import compatibility.
+
+    Runtime dispute handling uses ``AdjudicatorPolicy`` within
+    ``PlatformService``. This class does not implement a dispute decision.
+    """
 
     name: str = "reject_dispute"
     group: SkillGroup = SkillGroup.OPERATIONS
@@ -5445,14 +5427,13 @@ class RejectDisputeSkill:
     HANDLES: frozenset[str] = frozenset({"open_dispute"})
 
     def run(self, msg: "Envelope", ctx: "AgentContext") -> "Envelope | None":
-        """Return error envelope with ``action.kind='dispute_rejected'``."""
+        """Raise for the unsupported legacy dispute interface."""
         raise NotImplementedError(
-            "build reply envelope to msg.from_ with action.kind='dispute_rejected', "
-            "payload={'error': 'dispute_not_supported'}"
+            "RejectDisputeSkill is unsupported; use PlatformService dispute handling."
         )
 
 
-# --- Factory ----------------------------------------------------------
+# --- Unsupported legacy factory --------------------------------------
 
 def make_platform_agent(
     *,
@@ -5462,21 +5443,15 @@ def make_platform_agent(
     memory: "Memory | None" = None,
     agent_id: str = "platform",
 ) -> "Agent":
-    """Provisional factory; **the Platform Service is not an Agent** per
-    DESIGN.md §5.4. Kept here only so existing imports / tests continue to
-    work until the ``platform/`` package lands.
+    """Unsupported legacy factory retained for import compatibility.
 
-    The real construction path will be ``Runtime.platform = PlatformService(...)``
-    at runtime startup, with policy modules ablated independently of any
-    ``Agent`` shape.
+    The platform is a service, not an ``Agent``. Construct ``PlatformService``
+    and pass it to ``Runtime`` as the ``platform`` argument, as the episode
+    runner does. This factory always raises ``NotImplementedError``.
     """
     raise NotImplementedError(
-        "memory = memory or InMemoryStore(); "
-        "skill_loader = skill_loader or EmptySkillLoader(); "
-        "return Agent(id=agent_id, skill_loader=skill_loader, "
-        "enabled_skills=skill_loader.manifests(), memory=memory, inputs=inputs, "
-        "inbound_action_kinds=PLATFORM_INBOUND, outbound_action_kinds=PLATFORM_OUTBOUND); "
-        "# TODO: replace with PlatformService construction once platform/ lands"
+        "make_platform_agent is unsupported; pass a PlatformService instance "
+        "to Runtime(platform=...)."
     )
 
 
@@ -6217,18 +6192,13 @@ def _to_cents_half_up(amount: Decimal) -> int:
 
 
 def _fulfillment_eta_days(listing: "Any") -> "int | None":
-    """Resolve the offer's fulfillment ETA — the SEAM the rank_offers contract
-    defines as a *merchant-provided fulfillment attribute*, not a hardwired
-    listing field (4b–4d item B).
+    """Read the published delivery ETA for the offer's fulfillment record.
 
-    v1 sources it from the catalog's ``shipping_days`` attribute; a future
-    merchant fulfillment-policy override plugs in HERE, so it can change without
-    touching the rank_offers schema (``fulfillment.eta_days`` stays the contract
-    surface). Returns ``None`` when the merchant publishes no ETA — the offer then
-    carries ``eta_days: null`` and the buyer/scorer treat delivery as
-    UNVERIFIABLE rather than fabricate one (the old hardcoded ``4`` was exactly
-    that fabrication, and it made every ``shipping_within_N`` mandate reject all
-    offers at the delivery gate)."""
+    The source is the listing's ``shipping_days`` attribute. Missing values
+    or values that cannot be converted to an integer return ``None``, leaving
+    ``fulfillment.eta_days`` null so checks can distinguish absent evidence
+    from a stated ETA.
+    """
     raw = (getattr(listing, "attributes", {}) or {}).get("shipping_days")
     if raw is None:
         return None

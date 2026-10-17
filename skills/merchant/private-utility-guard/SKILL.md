@@ -24,7 +24,7 @@ or finish safely.
 
 ## Detailed workflow
 
-The one non-negotiable invariant (AGENT_CLASSES.md §6, VCP_SPEC.md §6.5):
+The non-negotiable privacy invariant:
 values written under `MemoryType.PRIVATE_UTILITY` **must never appear inside
 an outbound `Envelope.payload`** — or in `commerce.send_message` /
 `commerce.respond_inquiry` free text.

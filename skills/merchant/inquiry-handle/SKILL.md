@@ -34,8 +34,7 @@ structured `commerce.respond_inquiry` envelope that carries only public
 information, with the integer count, floor, and urgency stripped at the
 boundary.
 
-This skill is the `merchant:retrieval` role's primary surface
-(VCP_SPEC.md §6). It is the only inquiry path that is *not* offer-bearing
+This skill is the `merchant:retrieval` role's primary surface. It is the only inquiry path that is *not* offer-bearing
 — offer-bearing inquiry (`commerce.request_offer`, `commerce.get_sku`) is
 `catalog-serve`'s job.
 

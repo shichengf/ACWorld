@@ -2,7 +2,7 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-2608.02441-b31b1b.svg)](https://arxiv.org/abs/2608.02441)
 [![Project Page](https://img.shields.io/badge/Project-Page-12a594.svg)](https://shichengf.github.io/ACWorld/)
-[![Benchmark](https://img.shields.io/badge/Benchmark-260_tasks-6d5bd0.svg)](docs/benchmark.md#choose-the-benchmark)
+[![Task Suite](https://img.shields.io/badge/Task_Suite-260_tasks-6d5bd0.svg)](docs/benchmark.md#choose-the-task-track)
 [![License](https://img.shields.io/badge/License-MIT-1677b8.svg)](LICENSE)
 
 **Agentic Commerce World: An Auditable and Verifiable Environment for Vibe Commerce**
@@ -61,19 +61,21 @@ Keep modules importable and load policies or events with
 The existing example modules work the same way. Buyer and Merchant capabilities
 are organized in [`skills/`](skills/).
 
-## Benchmark and research artifacts
+## Executable task suite and research artifacts
 
-The benchmark is a reference application: 200 capability tasks and a separate
-60-task large-catalog workload. See the [evaluation guide](docs/benchmark.md)
-for commands, code versions, model settings, and published result downloads,
-or the [Harbor adapter](hidden-evaluation/README.md) for hidden evaluation.
+The task suite instantiates commercial scenarios within ACWorld: 200
+capability-coverage tasks and a separate 60-task large-catalog track. These
+tasks support collecting interaction trajectories with step-level checks and
+task scores. See the [execution and reproduction guide](docs/benchmark.md)
+for running the tasks and reproducing published results, or the
+[Harbor adapter](hidden-evaluation/README.md) for hidden evaluation.
 
 ## Data and license
 
 The prepared catalog is available from the
 [large-catalog data release](https://github.com/shichengf/ACWorld/releases/tag/large-catalog-data-v1);
 [download instructions](docs/benchmark.md#download-the-large-catalog) cover installation and validation.
-Springbrand provided the source catalog for the 200-task benchmark and authorized
+Springbrand provided the source catalog for the 200 capability-coverage tasks and authorized
 research use and publication of the adapted data; see [provenance](artifacts/catalog-provenance/README.md).
 
 Code and documentation use the [MIT License](LICENSE). Catalog data are separate:

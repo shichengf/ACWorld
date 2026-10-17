@@ -32,7 +32,7 @@ ones the merchant is *permitted* to make but whose attribute backing
 the listing does not actually have.
 
 The distinction matters for the platform's claim-verification path
-(``platform.verify_claims`` per VCP_SPEC §6). The merchant can be
+(``platform.verify_claims``). The merchant can be
 penalized for unsupported claims even if those claims are inside its
 permitted set. The legal envelope is one bound; truth is the other.
 

@@ -26,7 +26,7 @@ response decision, then rely on Platform and World for the resulting state.
 
 ## Detailed workflow
 
-The merchant's `support` role for the return path (VCP_SPEC.md §6).
+The merchant's `support` role for the return path.
 A buyer asks for a return; the merchant decides per policy, emits
 exactly one envelope, and writes the decision into TRANSACTION memory
 so a follow-up dispute can be defended with the original adjudication.
@@ -95,7 +95,7 @@ contract; the reason is the modifier.
 - One envelope per turn. A buyer asking "and can I also exchange?"
   is a second turn, not a second envelope.
 - Partial refunds round **down** to integer minor units — never round
-  up at the buyer's expense. The integer-money invariant (VCP_SPEC §3)
+  up at the buyer's expense. The integer-money invariant
   is non-negotiable.
 - Decline reasons are drawn from a fixed public set; never invent a
   decline reason that quotes a private value or accuses the buyer

@@ -27,10 +27,11 @@ the selected offer deterministically.
 Once the mandate is parsed (see `mandate-parsing`), the buyer has a goal
 in `PREFERENCE.goal` plus optional style/avoid hints. To get concrete
 offers, it has to ask the marketplace. Search is mediated by the
-Commerce Intelligence Layer: a `commerce.search` envelope goes to
-`platform:aggregator`, which fans out across merchants, ranks the
-results, and (eventually) replies with a `platform.rank_offers`
-envelope carrying a candidate list.
+Commerce Intelligence Platform: a `commerce.search` envelope goes to
+`platform:aggregator`, which queries listings in World and returns a
+`platform.rank_offers` envelope carrying ranked candidates. The listings
+can belong to multiple merchants; search does not send a request to each
+merchant. Direct negotiation uses the merchant interaction path.
 
 This skill owns the **entire discovery phase**: query formulation, then
 candidate selection from the platform's ranked reply. The platform decides
@@ -256,22 +257,19 @@ Drop any candidate that returns `false`. This is the buyer's mitigation
 for the platform's PSP raising `OutOfStock` at settle time; cheap pre-flight
 prevents a wasted match-certificate round trip.
 
-#### Stage 5 — friend signal (social proof) — MANDATORY
+#### Stage 5 — social evidence when required
 
-Buyers trust their friends. Before ranking, you **MUST** consult your social
-graph for first-hand experience with the surviving candidates. This is not
-optional: a buyer who skips it is not doing the job.
-
-> **v1 design choice (recorded deliberately):** friend *consultation* is
-> scripted — you are required to call the tools every run. The benchmark is
-> therefore measuring how you **weigh** the friend signal (do you heed a strong
-> pan? do you overpay for a friend favourite?), **not** whether you remember to
-> fetch it. Skipping the call is a process failure the scorer will flag.
+When the public task goal requires social evidence, read the authoritative
+review evidence for every candidate listing before selection. An advisor
+trust record does not replace the underlying review. For a friend-review
+task, use the caller-scoped reads below. Otherwise, consult social records
+when they are needed to resolve the mandate; do not infer that a buyer has
+no friends or reviews merely because those records have not been read.
 
 1. Read your friends once: `{"tool": "world.get_friends", "args": {}}`.
    If — and only if — the result is empty do you have no friends; record
    `friend_review_count: 0` on every candidate and move on.
-2. For the surviving SKUs, batch a friend-review lookup:
+2. For each candidate SKU required by the task, batch a friend-review lookup:
 
    ```
    {"step": "tool_call",
@@ -287,8 +285,9 @@ optional: a buyer who skips it is not doing the job.
    ratings, or `null` if your friends reviewed nothing) and
    `friend_review_count`.
 
-Record the signal next to the budget arithmetic so the decision is
-auditable — add a `signals` object to each `budget_audit` entry:
+When social evidence is consulted, record the signal next to the budget
+arithmetic so the decision is auditable — add a `signals` object to each
+`budget_audit` entry:
 
 ```
 TRANSACTION.budget_audit = [
@@ -304,7 +303,7 @@ any outbound payload.
 
 #### Variant grouping
 
-The new catalog stores each variant (size / color / shade) as its own
+The catalog stores each variant (size / color / shade) as its own
 Listing row, so a single product family typically returns multiple
 candidates. Group survivors using this rule:
 
@@ -351,16 +350,16 @@ Now split candidates into buckets:
 
 **Record the decision — this is a gate, not a note.** You **may not emit
 `commerce.accept_offer` until** every `budget_audit` entry carries, alongside
-the budget fields and the Stage-5 `signals`: `is_eligible` (the candidate
-passed the rigid stages 1–4), and — for any candidate a rigid stage dropped —
+the budget fields and any applicable Stage-5 `signals`: `is_eligible`
+(the candidate passed the rigid stages 1–4), and — for any candidate a rigid
+stage dropped —
 `rejected_at_stage` ∈ {`budget`, `delivery`, `must_have`, `stock`} with a
 one-line `reject_reason`; **and** the committed `TRANSACTION.selected_offer`
-carries a non-empty `rationale` (what was relaxed + the deciding factor). A
-pre-emit code guard (`DecisionRecordIncomplete`) **refuses the accept** if any
-of these is missing — the runtime will not let an unrecorded purchase reach the
-bus. This is what lets the benchmark check *why* each candidate was kept or
-dropped and which compromisable needs were relaxed; an empty slot means you
-skipped the work, so do the work and write it down.
+is bound to the accepted `offer_id`. The pre-emit guard
+(`DecisionRecordIncomplete`) checks the required structured artifacts.
+Free-text `rationale` is optional; when supplied, use it to explain what was
+relaxed and the deciding factor. Task scoring checks the correctness of the
+choice and its evidence separately from this record-presence guard.
 
 **Grounding is part of the record (item 3 teeth).** For any feature `must_have`,
 the chosen sku must have been GROUNDED — a `world.get_listing` read of it in
@@ -373,8 +372,9 @@ the grounded evidence actually satisfies each `must_have`, so a recorded-but-
 fabricated grounding (claiming a feature the fetched attributes don't show) is
 caught and scored as a judgment failure — never fabricate. **This applies on the
 simple / direct-buy path too:** even a sole in-budget offer must be grounded and
-must carry a `rationale` ("met all hard constraints; cheapest in-stock") — never
-skip the record just because the choice felt obvious (the seed-42 s1/s4/s5 hole).
+must retain its structured decision record. A rationale can explain
+"met all hard constraints; cheapest in-stock," but cannot substitute for
+the required evidence.
 
 The comparison result decides the branch you take next:
 
@@ -421,12 +421,11 @@ The comparison result decides the branch you take next:
    o-cozy — 2 friends avg 4.5 vs o-plain unrated"`. Continue to step 2.
 
 2. **If `affordable` is empty but at least one `over_budget`
-   candidate has `is_negotiable = true`** (i.e. a single 10 % discount
-   would close the gap to `max_budget`):
+   candidate has `is_negotiable = true`** under the Step 0 gate:
 
-   This case is COMMON when the catalog price exceeds budget by less
-   than 10 %. Do NOT write `no_candidate_found` and emit `no_reply` —
-   that wastes the negotiation opportunity. The correct move is:
+   Do not write `no_candidate_found` while that negotiation opportunity
+   remains. The candidate must still satisfy the non-price requirements.
+   The handoff is:
 
    ```
    memory_update:
@@ -509,9 +508,11 @@ this skill. Cart creation + cumulative-spend update belong to
 
 ## What goes in the payload (and what doesn't)
 
-The payload becomes a public artifact: it crosses the platform, is
-fanned out to merchants, and lands in the audit log. Anything you put
-in is something every merchant sees.
+The search payload crosses the platform boundary and is retained in the
+interaction record. Include only shareable information; the current
+aggregator searches World listings without broadcasting the query to
+merchants. Later merchant-facing messages must respect the same privacy
+constraints.
 
 | Goes in (always)                                | Goes in (when present)                       | Does NOT go in                              |
 | ----------------------------------------------- | -------------------------------------------- | ------------------------------------------- |
@@ -715,7 +716,7 @@ TRANSACTION.last_discovery_outcome = "picked"
 
 ```yaml
 from: buyer            # (runtime fills from; LLM does not set it)
-to: merchant:allbirds
+to: platform:aggregator
 in_reply_to: <the rank_offers msg_id>
 action:
   kind: commerce.accept_offer
@@ -762,7 +763,7 @@ analysis endpoint, continue with the ordinary commerce flow.
   If you can't produce a clean query, emit nothing.
 - **A previous `commerce.search` is still pending** (`TRANSACTION.last_search_id`
   is set and `last_discovery_outcome` is unset or "pending"). Don't
-  fan out a second search; emit nothing and wait. Two searches in
+  issue a second search; emit nothing and wait. Two searches in
   flight bloat the audit log without buying anything.
 
 ### Path B (inbound rank_offers)
